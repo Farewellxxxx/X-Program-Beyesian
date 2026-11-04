@@ -13,15 +13,22 @@ Run:
 from __future__ import annotations
 
 from pathlib import Path
+import argparse
 
 from run_uncertain_input_bo_extended import BASE_SEED, Config, run_configurations
 
 
-OUTPUT_DIR = Path(__file__).resolve().parent / "outputs_continuous_poc"
+OUTPUT_DIR = Path(__file__).resolve().parent / "outputs_bayesian_poc"
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--surrogate", choices=["monotone_bayes", "legacy_kernel"], default="monotone_bayes")
+    parser.add_argument("--output-dir", type=Path)
+    args = parser.parse_args()
+    output_dir = args.output_dir or (OUTPUT_DIR if args.surrogate == "monotone_bayes" else OUTPUT_DIR.parent / "outputs_continuous_poc")
     scenario = Config(
+        surrogate_kind=args.surrogate,
         n_participants=18,
         n_trials=10,
         execution_noise="low",
@@ -30,10 +37,10 @@ def main() -> None:
         candidate_count=35,
         mc_samples=40,
     )
-    _, _, algorithm = run_configurations([scenario], OUTPUT_DIR)
+    _, _, algorithm = run_configurations([scenario], output_dir)
 
     print("Continuous-target POC simulation complete.")
-    print(f"Output directory: {OUTPUT_DIR}")
+    print(f"Output directory: {output_dir}")
     display_cols = [
         "scenario",
         "algorithm",

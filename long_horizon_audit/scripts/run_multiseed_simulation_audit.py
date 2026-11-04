@@ -40,6 +40,10 @@ def run_one(sim, config) -> pd.DataFrame:
         mean_unacceptable_trials=("unacceptable_trials", "mean"),
         mean_cumulative_discomfort=("cumulative_discomfort", "mean"),
         mean_protocol_deviations=("protocol_deviations", "mean"),
+        mean_predictive_brier_score=("mean_predictive_brier_score", "mean"),
+        mean_boundary_ci95_width=("boundary_ci95_width", "mean"),
+        boundary_ci95_coverage=("boundary_ci95_covers_truth", "mean"),
+        max_posterior_grid_edge_mass=("posterior_grid_edge_mass", "max"),
     )
     safety_summary = safety[
         ["algorithm", "protocol_deviation_rate", "safety_violation_trials"]
@@ -54,6 +58,7 @@ def run_one(sim, config) -> pd.DataFrame:
     output.insert(6, "include_time_effects", config.include_time_effects)
     output["n_participants"] = config.n_participants
     output["n_trials_per_algorithm_participant"] = config.n_trials
+    output["surrogate_kind"] = config.surrogate_kind
     return output
 
 
@@ -86,6 +91,9 @@ def summarize_multiseed(per_run: pd.DataFrame) -> pd.DataFrame:
         "mean_unacceptable_trials",
         "mean_cumulative_discomfort",
         "protocol_deviation_rate",
+        "mean_predictive_brier_score",
+        "mean_boundary_ci95_width",
+        "boundary_ci95_coverage",
     ]
     for (noise, algorithm), group in base.groupby(["execution_noise", "algorithm"]):
         row: dict[str, float | int | str] = {
@@ -93,6 +101,7 @@ def summarize_multiseed(per_run: pd.DataFrame) -> pd.DataFrame:
             "algorithm": str(algorithm),
             "n_seeds": int(group["seed"].nunique()),
             "population_repeated_across_seeds": "yes",
+            "surrogate_kind": str(group["surrogate_kind"].iloc[0]),
         }
         for metric in metrics:
             low, high = t_interval_95(group[metric])
@@ -109,6 +118,7 @@ def main() -> int:
     )
     parser.add_argument("--output-dir", required=True, type=Path)
     parser.add_argument("--seeds", type=int, default=5)
+    parser.add_argument("--surrogate", choices=["monotone_bayes", "legacy_kernel"], default="monotone_bayes")
     args = parser.parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -119,6 +129,7 @@ def main() -> int:
             seed = 20268000 + repeat * 10 + (0 if noise == "low" else 1)
             configs.append(
                 sim.Config(
+                    surrogate_kind=args.surrogate,
                     execution_noise=noise,
                     scenario_name=f"multiseed_{noise}_{repeat + 1}",
                     seed=seed,
@@ -134,7 +145,7 @@ def main() -> int:
         {"include_time_effects": True, "scenario_name": "sensitivity_time_effects_on"},
     ]
     for index, overrides in enumerate(sensitivity_specs):
-        configs.append(sim.Config(seed=20269000 + index, **overrides))
+        configs.append(sim.Config(seed=20269000 + index, surrogate_kind=args.surrogate, **overrides))
 
     rows = []
     for index, config in enumerate(configs, start=1):

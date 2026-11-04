@@ -23,7 +23,9 @@ Outputs:
 from __future__ import annotations
 
 from dataclasses import dataclass
+import argparse
 from pathlib import Path
+import sys
 from typing import Iterable, Protocol
 
 import math
@@ -36,9 +38,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+# Support both direct CLI execution and importlib-loaded audit/test modules.
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+from comfort_boundary_bo_research_package.simulation.monotone_bayes import MonotoneBayesianLogistic, PriorGrid
 
 ROOT = Path(__file__).resolve().parent
-OUTPUT_DIR = ROOT / "outputs_continuous"
+OUTPUT_DIR = ROOT / "outputs_bayesian"
 BASE_SEED = 20260703
 
 ALGORITHM_ORDER = [
@@ -79,6 +86,8 @@ class Config:
     seed: int = BASE_SEED
     candidate_count: int = 35
     mc_samples: int = 35
+    surrogate_kind: str = "monotone_bayes"
+    bayes_grid: PriorGrid = PriorGrid()
 
     jerk_penalty_threshold: float = 2.30
     jerk_penalty_weight: float = 0.10
@@ -87,6 +96,10 @@ class Config:
     safe_peak_accel: float = 2.20
     safe_peak_jerk: float = 4.80
     safe_duration: float = 4.70
+
+    def __post_init__(self):
+        if self.surrogate_kind not in ("monotone_bayes", "legacy_kernel"):
+            raise ValueError("surrogate_kind must be monotone_bayes or legacy_kernel")
 
 
 @dataclass(frozen=True)
@@ -362,7 +375,7 @@ class PassengerFeedbackModel:
 
 
 class KernelAcceptanceSurrogate:
-    """Lightweight Bernoulli surrogate over realized motion intensity."""
+    """Historical kernel heuristic, retained only as an explicit comparison."""
 
     def __init__(self, tau: float):
         self.tau = tau
@@ -414,8 +427,11 @@ class Policy(Protocol):
         ...
 
 
-def fit_surrogate_from_history(config: Config, history: list[dict[str, float | int | bool | str]]) -> KernelAcceptanceSurrogate:
-    return KernelAcceptanceSurrogate(config.tau).fit(
+def fit_surrogate_from_history(config: Config, history: list[dict[str, float | int | bool | str]]) -> KernelAcceptanceSurrogate | MonotoneBayesianLogistic:
+    surrogate = (MonotoneBayesianLogistic(config.tau, grid=config.bayes_grid)
+                 if config.surrogate_kind == "monotone_bayes"
+                 else KernelAcceptanceSurrogate(config.tau))
+    return surrogate.fit(
         [float(row["realized_intensity"]) for row in history],
         [int(bool(row["acceptable"])) for row in history],
     )
@@ -614,10 +630,12 @@ def run_algorithm(
     feedback_model = PassengerFeedbackModel(config, feedback_rng)
     cumulative_discomfort = 0.0
     baseline_boundary = criterion_boundary_tau(passenger, config.tau)
+    surrogate = fit_surrogate_from_history(config, [])
 
     for trial_id in range(1, config.n_trials + 1):
         target_x = policy.choose(history, trial_id)
         motion = execution_model.sample_features(target_x, execution_rng, cumulative_discomfort)
+        predicted_acceptability, probability_sd = surrogate.predict(float(motion["realized_intensity"]))
         feedback = feedback_model.respond(passenger, motion, trial_id, cumulative_discomfort)
         cumulative_discomfort += float(feedback["discomfort"])
 
@@ -627,6 +645,7 @@ def run_algorithm(
             "calibration_bias": config.calibration_bias,
             "participant_id": passenger.participant_id,
             "algorithm": policy.name,
+            "surrogate_kind": config.surrogate_kind,
             "trial_id": trial_id,
             "tau": config.tau,
             "acceptability_midpoint": passenger.acceptability_midpoint,
@@ -639,7 +658,10 @@ def run_algorithm(
             "passenger_risk_tolerance": passenger.risk_tolerance,
             **motion,
             **feedback,
+            "predicted_acceptability_before_trial": predicted_acceptability,
+            "predicted_probability_sd_before_trial": probability_sd,
         }
+        row["predictive_brier_score"] = (predicted_acceptability - int(feedback["acceptable"]))**2
         row["overshoot"] = max(0.0, float(row["realized_intensity"]) - float(row["criterion_boundary_tau"]))
         row["legacy_midpoint_overshoot"] = max(
             0.0, float(row["realized_intensity"]) - passenger.acceptability_midpoint
@@ -649,6 +671,18 @@ def run_algorithm(
         history.append(row)
         surrogate = fit_surrogate_from_history(config, history)
         row["estimated_boundary_so_far"] = surrogate.estimate_boundary()
+        if isinstance(surrogate, MonotoneBayesianLogistic):
+            row.update(surrogate.boundary_summary())
+            row["boundary_ci95_width"] = float(row["boundary_ci95_upper"]) - float(row["boundary_ci95_lower"])
+            row["boundary_ci95_covers_truth"] = float(
+                float(row["boundary_ci95_lower"]) <= float(row["criterion_boundary_tau"]) <= float(row["boundary_ci95_upper"])
+            )
+        else:
+            for field in ("boundary_ci95_lower", "boundary_ci95_upper", "posterior_boundary_sd",
+                          "boundary_mass_below_observed", "boundary_mass_above_observed",
+                          "posterior_grid_edge_mass", "boundary_ci95_width", "boundary_ci95_covers_truth"):
+                row[field] = float("nan")
+            row["boundary_support"] = "legacy_no_posterior"
         row["signed_boundary_error_so_far"] = (
             float(row["estimated_boundary_so_far"]) - float(row["criterion_boundary_tau"])
         )
@@ -689,6 +723,7 @@ def evaluate(trials: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataF
             protocol_deviations=("protocol_deviation", lambda s: int(s.astype(bool).sum())),
             mean_abs_realization_error=("abs_realization_error", "mean"),
             mean_command_tracking_error=("command_tracking_error", "mean"),
+            mean_predictive_brier_score=("predictive_brier_score", "mean"),
         )
         .reset_index()
         .merge(
@@ -705,6 +740,16 @@ def evaluate(trials: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataF
                     "boundary_error_so_far",
                     "signed_boundary_error_so_far",
                     "legacy_midpoint_error_so_far",
+                    "surrogate_kind",
+                    "boundary_ci95_lower",
+                    "boundary_ci95_upper",
+                    "boundary_ci95_width",
+                    "boundary_ci95_covers_truth",
+                    "posterior_boundary_sd",
+                    "posterior_grid_edge_mass",
+                    "boundary_mass_below_observed",
+                    "boundary_mass_above_observed",
+                    "boundary_support",
                 ]
             ],
             on=["scenario", "participant_id", "algorithm"],
@@ -720,6 +765,10 @@ def evaluate(trials: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataF
             sd_boundary_error=("boundary_error_so_far", "std"),
             mean_signed_boundary_error=("signed_boundary_error_so_far", "mean"),
             mean_legacy_midpoint_error=("legacy_midpoint_error_so_far", "mean"),
+            mean_predictive_brier_score=("mean_predictive_brier_score", "mean"),
+            mean_boundary_ci95_width=("boundary_ci95_width", "mean"),
+            boundary_ci95_coverage=("boundary_ci95_covers_truth", "mean"),
+            max_posterior_grid_edge_mass=("posterior_grid_edge_mass", "max"),
             mean_unacceptable_trials=("unacceptable_trials", "mean"),
             mean_cumulative_discomfort=("cumulative_discomfort", "mean"),
             mean_max_discomfort=("max_discomfort", "mean"),
@@ -898,6 +947,9 @@ def save_example_trajectory(trials: pd.DataFrame, output_path: Path) -> None:
         rejected = df[~df["acceptable"].astype(bool)]
 
         ax.plot(df["trial_id"], df["estimated_boundary_so_far"], color="#1f77b4", linewidth=2, label="estimated boundary")
+        if df["boundary_ci95_lower"].notna().any():
+            ax.fill_between(df["trial_id"], df["boundary_ci95_lower"], df["boundary_ci95_upper"],
+                            color="#1f77b4", alpha=.15, label="95% credible interval")
         ax.plot(df["trial_id"], df["criterion_boundary_tau"], color="#d62728", linestyle="--", linewidth=1.5, label="true B(tau, history)")
         ax.scatter(accepted["trial_id"], accepted["realized_intensity"], color="#2ca02c", label="acceptable", zorder=3)
         ax.scatter(rejected["trial_id"], rejected["realized_intensity"], color="#e45756", marker="x", s=55, label="unacceptable", zorder=3)
@@ -966,6 +1018,10 @@ def save_plots(trials: pd.DataFrame, participant: pd.DataFrame, output_dir: Path
 
 
 def run_configurations(scenarios: list[Config], output_dir: Path) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    if not scenarios or len({s.surrogate_kind for s in scenarios}) != 1:
+        raise ValueError("Provide non-empty scenarios for exactly one surrogate per output directory")
+    if len({s.scenario_name for s in scenarios}) != len(scenarios):
+        raise ValueError("Scenario names must be unique within an output directory")
     output_dir.mkdir(parents=True, exist_ok=True)
     passengers = make_passengers(scenarios[0])
 
@@ -988,14 +1044,19 @@ def run_configurations(scenarios: list[Config], output_dir: Path) -> tuple[pd.Da
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--surrogate", choices=["monotone_bayes", "legacy_kernel"], default="monotone_bayes")
+    parser.add_argument("--output-dir", type=Path)
+    args = parser.parse_args()
+    output_dir = args.output_dir or (OUTPUT_DIR if args.surrogate == "monotone_bayes" else ROOT / "outputs_continuous")
     scenarios = [
-        Config(execution_noise="low", scenario_name="continuous_low_noise", seed=BASE_SEED + 1),
-        Config(execution_noise="high", scenario_name="continuous_high_noise", seed=BASE_SEED + 2),
+        Config(execution_noise="low", scenario_name="continuous_low_noise", seed=BASE_SEED + 1, surrogate_kind=args.surrogate),
+        Config(execution_noise="high", scenario_name="continuous_high_noise", seed=BASE_SEED + 2, surrogate_kind=args.surrogate),
     ]
-    _, _, algorithm = run_configurations(scenarios, OUTPUT_DIR)
+    _, _, algorithm = run_configurations(scenarios, output_dir)
 
     print("Continuous-target uncertain-input simulation complete.")
-    print(f"Output directory: {OUTPUT_DIR}")
+    print(f"Output directory: {output_dir}")
     display_cols = [
         "scenario",
         "algorithm",

@@ -1,8 +1,8 @@
 # Continuous-command synthetic simulation
 
-Current revision: **2026-11-04 execution belief separation and independent populations**. Synthetic passengers only. The response model remains Bayesian; the acquisition score remains heuristic.
+Current revision: **2026-11-04 execution misspecification and calibration budget audit**. Synthetic passengers only. The response model remains Bayesian; the acquisition score remains heuristic.
 
-See the [latest results](../../docs/2026-11-04-execution-population-results.md), [Bayesian model report](../../docs/2026-11-04-monotone-bayes-results.md) and [earlier boundary correction](../../docs/2026-11-04-boundary-correction-results.md).
+See the [latest robustness results](../../docs/2026-11-04-execution-robustness-results.md), [execution/population report](../../docs/2026-11-04-execution-population-results.md), [Bayesian model report](../../docs/2026-11-04-monotone-bayes-results.md) and [earlier boundary correction](../../docs/2026-11-04-boundary-correction-results.md).
 
 ## Entry points
 
@@ -17,6 +17,10 @@ See the [latest results](../../docs/2026-11-04-execution-population-results.md),
 Both entry points accept `--surrogate`, `--execution-belief calibrated|nominal|oracle`, `--process-rng-mode independent|legacy`, `--population-seed`, `--calibration-seed`, `--calibration-trials`, `--true-execution-bias`, `--assumed-execution-bias`, `--assumed-execution-noise-scale` and `--output-dir`. Only `oracle` plus `legacy` RNG selects the old Bayesian/kernel output paths; independent-stream runs use new directories. Keep historical directories for their original settings.
 
 ## Execution information and random streams
+
+The separate `execution_misspecification.py` module adds synthetic gain/quadratic mean changes and correlated standardized residuals. `../../long_horizon_audit/scripts/run_execution_robustness_audit.py` runs seven profiles × six belief/budget arms × five population batches × two process repeats (420 scenarios), plus 55 original-schedule replay scenarios. Its full oracle knows the true distortion; nominal/calibrated beliefs keep the original two-parameter family. Existing CLI defaults and archived outputs are unchanged. `run_scenario(..., prepared=None)` permits this explicit audit injection.
+
+Budgets 8/20/40/160 share exact prefixes of a base-2 radical-inverse command sequence in the central 20%-80% range, independent of feedback. Independent holdout diagnostics use namespace `0xD1A6`, command index and calibration root seed, with 4096 draws at each of 21 full-range commands. True/belief draws deliberately share innovations within each diagnostic comparison. This differs from the original sorted linspace calibration schedule; replay and schedule effects are reported separately. Comparison rejects incomplete grids, metadata mismatches, changed prefixes and fixed-policy inconsistencies, and uses population-batch intervals.
 
 `execution_belief.py` contains immutable public settings and execution parameters, plus a weighted bias/common-noise calibration fit that receives only command, acceleration, jerk and duration observations. Calibration uses 40 independent simulated maneuvers per execution condition/seed; it uses no passenger labels. Commands cover the central 20%-80% of the public range. Observations at realized clipping bounds are excluded and counted. The known functional form and clipping approximation are limitations, not learned vehicle dynamics.
 

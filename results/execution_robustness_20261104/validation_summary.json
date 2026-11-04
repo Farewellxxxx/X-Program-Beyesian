@@ -1,0 +1,15 @@
+{
+  "main_scenarios": 420,
+  "main_policy_rows": 2100,
+  "replay_scenarios": 55,
+  "replay_policy_rows": 275,
+  "historical_max_metric_delta": 0.0,
+  "independent_population_batches": 5,
+  "process_repeats": 2,
+  "unique_leaf_streams": 9360,
+  "fixed_policy_cells": 210,
+  "nested_calibrations": 280,
+  "diagnostic_rows": 8820,
+  "max_clipped_calibration_observations": 0,
+  "interval_method": "Average process repeats within population batch; paired t interval over independent batches"
+}

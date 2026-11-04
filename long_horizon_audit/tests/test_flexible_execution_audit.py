@@ -48,6 +48,16 @@ def test_complete_design_keeps_original_configs_and_fixed_settings():
     assert audit.manifest(specs[:1],5,2)['fit_settings']==vars(model.FitSettings())
 
 
+@pytest.mark.parametrize('poc',[False,True])
+def test_flexible_default_paths_keep_legacy_response_outputs_separate(poc):
+    suffix='_poc' if poc else ''
+    bayesian=sim.default_output_dir('monotone_bayes','calibrated',poc=poc,execution_estimator=model.ESTIMATOR)
+    legacy=sim.default_output_dir('legacy_kernel','calibrated',poc=poc,execution_estimator=model.ESTIMATOR)
+    assert bayesian!=legacy
+    assert bayesian.name=='outputs_flexible_execution'+suffix
+    assert legacy.name=='outputs_flexible_execution_legacy_kernel'+suffix
+
+
 def test_bundle_rejects_missing_cells_changed_observations_or_fits():
     audit=module('run_flexible_execution_audit'); compare=module('compare_flexible_execution')
     spec=tiny_spec(); outputs=audit.execute(spec,diagnostic_samples=64)

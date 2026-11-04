@@ -1201,7 +1201,8 @@ def execution_cli_config(args) -> dict:
 def default_output_dir(surrogate: str, belief: str, poc: bool = False, rng_mode: str = 'independent', execution_estimator: str = 'simple') -> Path:
     suffix='_poc' if poc else ''
     if execution_estimator=='quadratic_covariance':
-        return ROOT/('outputs_flexible_execution'+suffix)
+        surrogate_suffix='' if surrogate=='monotone_bayes' else '_'+surrogate
+        return ROOT/('outputs_flexible_execution'+surrogate_suffix+suffix)
     if belief=='oracle' and rng_mode=='legacy':
         return ROOT/('outputs_bayesian'+suffix if surrogate=='monotone_bayes' else 'outputs_continuous'+suffix)
     if belief=='calibrated' and surrogate=='monotone_bayes':

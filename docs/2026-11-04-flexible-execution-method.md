@@ -50,4 +50,4 @@ python long_horizon_audit/scripts/run_flexible_execution_audit.py --workers 8
 python long_horizon_audit/scripts/compare_flexible_execution.py
 ```
 
-新入口要求 `--execution-belief calibrated`（原默认值）。显式选择后写入 `outputs_flexible_execution/` 和 `_poc/`，另导出 `continuous_execution_fit.csv`。直接运行不带新参数的历史入口仍使用 simple；这避免无意覆盖已发布快照，不表示简单模型经过本轮验证仍普遍合适。新审计可用 `--suite flexible|replay` 和 `--profile` 分组运行；全量比较要求全部七组和全部旧版重放完成。完整结果见[结果报告](2026-11-04-flexible-execution-results.md)。
+新入口要求 `--execution-belief calibrated`（原默认值）。显式选择后写入 `outputs_flexible_execution/` 和 `_poc/`，另导出 `continuous_execution_fit.csv`。若同时选择 `--surrogate legacy_kernel`，目录改为 `outputs_flexible_execution_legacy_kernel/` 或其 `_poc/` 版本，避免覆盖 Bayesian 示例。直接运行不带新参数的历史入口仍使用 simple；这避免无意覆盖已发布快照，不表示简单模型经过本轮验证仍普遍合适。新审计可用 `--suite flexible|replay` 和 `--profile` 分组运行；全量比较要求全部七组和全部旧版重放完成。完整结果见[结果报告](2026-11-04-flexible-execution-results.md)。

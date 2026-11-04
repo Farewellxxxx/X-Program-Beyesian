@@ -10,7 +10,7 @@ For d=x-(x_min+x_max)/2, mean acceleration is the existing clipped .05+.94*x plu
 
 ## Estimation fixed before outcomes
 
-Use only command, acceleration, jerk and duration. Exclude/count records exactly at the known realized clipping bounds as before. Require at least eight remaining observations and full rank of the weighted three-column quadratic design; reject nonfinite, out-of-range or rank-deficient inputs. No silent fallback or discarded failed scenarios.
+Use only command, acceleration, jerk and duration. Exclude/count records exactly at the known realized clipping bounds as before. Require at least eight remaining observations and full rank and condition number at most 1e8 for the weighted three-column quadratic design; reject nonfinite, out-of-range or rank-deficient inputs. No silent fallback or discarded failed scenarios.
 
 Let X=[1,d,d^2]/s_a(x) and Y contain standardized acceleration residual against .05+.94*x, jerk residual against .58+1.74*a+.10*x, and duration residual against 3.90-.30*a. Project all three columns onto the same X; R=Y-X*lstsq(X,Y). S=R'R/(n-3) estimates the latent covariance; projecting the known-zero-mean jerk/duration residuals removes nuisance sample projections and gives all cross-products the same degrees of freedom. These projections are used only for covariance estimation, not extra jerk/duration mean fits.
 
@@ -26,9 +26,9 @@ Expose `--execution-estimator simple|quadratic_covariance` in extended/POC runne
 
 ## Paired study and validation
 
-Reuse all seven profiles and budgets 8/20/40/160, five prior population batches, two process repeats, 24 passengers × five algorithms × 12 feedback trials. Run 280 new-estimator scenarios. Replay all 420 prior simple/oracle/nominal scenarios, saving their per-run summaries and manifests (the existing archive already has individual records). Compare the 280 new scenarios against the corresponding old calibrated cells and oracle/nominal references. Total 700 audit scenarios. Regenerate extended/POC examples for the explicit new estimator separately.
+Reuse all seven profiles and budgets 8/20/40/160, five prior population batches, two process repeats, 24 passengers 脳 five algorithms 脳 12 feedback trials. Run 280 new-estimator scenarios. Replay all 420 prior simple/oracle/nominal scenarios, saving their per-run summaries and manifests (the existing archive already has individual records). Compare the 280 new scenarios against the corresponding old calibrated cells and oracle/nominal references. Total 700 audit scenarios. Regenerate extended/POC examples for the explicit new estimator separately.
 
-Use exact same nested calibration observations, with hashes and numeric prefix checks across budgets/models. Keep diagnostic grid/seeds at 21 commands × 4096 draws; no diagnostics enter training. Save coefficients, full covariance, shrinkage, rank/condition, constraint activation, used/clipped counts. Check full actual process leaf-state uniqueness excluding intentional paired reuse; fixed-policy trajectories must remain unchanged across estimators.
+Use exact same nested calibration observations, with hashes and numeric prefix checks across budgets/models. Keep diagnostic grid/seeds at 21 commands 脳 4096 draws; no diagnostics enter training. Save coefficients, full covariance, shrinkage, rank/condition, constraint activation, used/clipped counts. Check full actual process leaf-state uniqueness excluding intentional paired reuse; fixed-policy trajectories must remain unchanged across estimators.
 
 Compute old-to-new paired population-batch intervals for execution mean/SD/Wasserstein errors, predictive interval coverage, boundary error, unacceptable feedback, Brier score and protocol thresholds. Also compare each new budget with 40, with oracle/nominal and UncertainInputBO with Naive. Average repeats within five batches, then t intervals; no equivalence or universal superiority claims. All current structural stress profiles lie inside the expanded model family before regularization/clipping approximation, so improved recovery is not proof against untested higher-order, time-varying, heavy-tailed or conditional-mean misspecification.
 

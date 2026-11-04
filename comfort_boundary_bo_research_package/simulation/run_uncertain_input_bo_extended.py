@@ -1141,9 +1141,9 @@ def run_configurations(scenarios: list[Config], output_dir: Path, execution_esti
         raise ValueError("Provide non-empty scenarios for exactly one surrogate per output directory")
     if len({s.scenario_name for s in scenarios}) != len(scenarios):
         raise ValueError("Scenario names must be unique within an output directory")
-    if execution_estimator not in ('simple','quadratic_covariance'):
+    if execution_estimator not in ('simple','quadratic_covariance','adaptive_posterior'):
         raise ValueError('Unknown execution estimator')
-    if execution_estimator=='quadratic_covariance' and any(s.execution_belief!='calibrated' for s in scenarios):
+    if execution_estimator!='simple' and any(s.execution_belief!='calibrated' for s in scenarios):
         raise ValueError('Quadratic covariance estimator requires calibrated execution belief')
     output_dir.mkdir(parents=True, exist_ok=True)
     all_trials = []
@@ -1155,6 +1155,10 @@ def run_configurations(scenarios: list[Config], output_dir: Path, execution_esti
         if execution_estimator=='quadratic_covariance':
             from comfort_boundary_bo_research_package.simulation.flexible_execution import prepare_flexible_execution
             prepared=prepare_flexible_execution(scenario)
+            fit_rows.append({'scenario':scenario.scenario_name,**prepared.metadata})
+        elif execution_estimator=='adaptive_posterior':
+            from comfort_boundary_bo_research_package.simulation.adaptive_execution import prepare_adaptive_execution
+            prepared=prepare_adaptive_execution(scenario)
             fit_rows.append({'scenario':scenario.scenario_name,**prepared.metadata})
         frame=run_scenario(scenario, make_passengers(scenario),prepared)
         for index,observation in enumerate(frame.attrs['calibration_observations'],start=1):
@@ -1180,7 +1184,7 @@ def run_configurations(scenarios: list[Config], output_dir: Path, execution_esti
 
 
 def add_execution_cli_arguments(parser: argparse.ArgumentParser) -> None:
-    parser.add_argument('--execution-estimator',choices=['simple','quadratic_covariance'],default='simple')
+    parser.add_argument('--execution-estimator',choices=['simple','quadratic_covariance','adaptive_posterior'],default='simple')
     parser.add_argument('--execution-belief',choices=['calibrated','nominal','oracle'],default='calibrated')
     parser.add_argument('--process-rng-mode',choices=['independent','legacy'],default='independent')
     parser.add_argument('--population-seed',type=int,default=BASE_SEED+101)
@@ -1200,6 +1204,9 @@ def execution_cli_config(args) -> dict:
 
 def default_output_dir(surrogate: str, belief: str, poc: bool = False, rng_mode: str = 'independent', execution_estimator: str = 'simple') -> Path:
     suffix='_poc' if poc else ''
+    if execution_estimator=='adaptive_posterior':
+        surrogate_suffix='' if surrogate=='monotone_bayes' else '_'+surrogate
+        return ROOT/('outputs_adaptive_execution'+surrogate_suffix+suffix)
     if execution_estimator=='quadratic_covariance':
         surrogate_suffix='' if surrogate=='monotone_bayes' else '_'+surrogate
         return ROOT/('outputs_flexible_execution'+surrogate_suffix+suffix)

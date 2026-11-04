@@ -127,7 +127,7 @@
 
 ## 输出与核对
 
-280 个新场景的配置、1400 条策略汇总、280 组同源校准与 5880 行独立执行诊断已通过完整性和参数重算核对。旧版 420 场景精确重放仍在运行；最终全量验证结论将在重放完成后更新。
+700 个场景全部完成，运行约 2108 秒；完整比较脚本退出码 0。280 个新场景、1400 条新策略汇总、280 组同源校准和 5880 行独立诊断通过完整性与重算核对。旧版 420 场景的 2100 条汇总全部原字段精确一致，最大数值差 0；210 个固定策略配对单元的真实轨迹不变，9360 个实际过程子流状态无意外重复。没有校准记录因触边排除，18 次拟合激活单调约束。最终比较重建的九份表/图与独立审查版本逐字节一致。
 
 - [全部策略指标](../results/flexible_execution_20261104/population_summary.csv)与[成对差异](../results/flexible_execution_20261104/paired_effects.csv)。
 - [执行预测汇总](../results/flexible_execution_20261104/execution_diagnostics_summary.csv)与[执行预测配对差异](../results/flexible_execution_20261104/execution_paired_effects.csv)。

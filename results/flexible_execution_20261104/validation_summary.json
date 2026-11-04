@@ -1,0 +1,25 @@
+{
+  "new_scenarios": 280,
+  "replay_scenarios": 420,
+  "new_policy_rows": 1400,
+  "replay_policy_rows": 2100,
+  "historical_max_metric_delta": 0.0,
+  "identical_calibration_sets": 280,
+  "diagnostic_rows": 5880,
+  "fixed_policy_cells": 210,
+  "unique_leaf_streams": 9360,
+  "independent_population_batches": 5,
+  "process_repeats": 2,
+  "max_clipped_calibration_observations": 0,
+  "active_constraint_fits": 18,
+  "fit_settings": {
+    "bias_prior_sd": 0.5,
+    "gain_prior_sd": 0.5,
+    "quadratic_prior_sd": 0.75,
+    "covariance_pseudocount": 3.0,
+    "covariance_floor": 1e-08,
+    "max_design_condition": 100000000.0
+  },
+  "fit_settings_fingerprint": "e5c3616330e7fd5cea1c3c2d669afe96add53a900ed70fc76bdc115309638243",
+  "interval_method": "Average process repeats within population batch; paired t interval over five independent batches"
+}

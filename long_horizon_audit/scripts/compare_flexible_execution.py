@@ -116,8 +116,13 @@ def compute_tables(old,new,old_diagnostics,new_diagnostics):
         reference=before[(before.profile==profile)&(before.arm==arm)&(before.region==region)]
         validate_observation_pairs(reference,rows)
         for metric in prior.DIAGNOSTICS:
-            diagnostic_effects.append(dict(profile=profile,arm=arm,region=region,metric=metric,
+            diagnostic_effects.append(dict(contrast='new_vs_old',profile=profile,arm=arm,region=region,metric=metric,
                 **prior.paired_difference(reference,rows,metric)))
+        if arm!='cal40':
+            reference=after[(after.profile==profile)&(after.arm=='cal40')&(after.region==region)]
+            for metric in prior.DIAGNOSTICS:
+                diagnostic_effects.append(dict(contrast='new_vs_new_cal40',profile=profile,arm=arm,region=region,metric=metric,
+                    **prior.paired_difference(reference,rows,metric)))
     return tuple(map(pd.DataFrame,(summaries,effects,diagnostic_summaries,diagnostic_effects)))
 
 

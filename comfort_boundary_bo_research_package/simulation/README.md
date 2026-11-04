@@ -1,8 +1,8 @@
 # Continuous-command synthetic simulation
 
-Current revision: **2026-11-04 execution misspecification and calibration budget audit**. Synthetic passengers only. The response model remains Bayesian; the acquisition score remains heuristic.
+Current revision: **2026-11-04 regularized quadratic execution and full residual covariance**. Synthetic passengers only. The response model remains Bayesian; the acquisition score remains heuristic.
 
-See the [latest robustness results](../../docs/2026-11-04-execution-robustness-results.md), [execution/population report](../../docs/2026-11-04-execution-population-results.md), [Bayesian model report](../../docs/2026-11-04-monotone-bayes-results.md) and [earlier boundary correction](../../docs/2026-11-04-boundary-correction-results.md).
+See the [new estimator results](../../docs/2026-11-04-flexible-execution-results.md), [method and limitations](../../docs/2026-11-04-flexible-execution-method.md), [previous robustness results](../../docs/2026-11-04-execution-robustness-results.md), [execution/population report](../../docs/2026-11-04-execution-population-results.md), [Bayesian model report](../../docs/2026-11-04-monotone-bayes-results.md) and [earlier boundary correction](../../docs/2026-11-04-boundary-correction-results.md).
 
 ## Entry points
 
@@ -14,7 +14,15 @@ See the [latest robustness results](../../docs/2026-11-04-execution-robustness-r
 - `compare_surrogates.py`: reads the committed/rebuilt new and legacy audit paths, runs same-history replay, checks grid resolution and prior sensitivity, and writes `../../results/monotone_bayes_20261104/`.
 - `compare_boundary_results.py`: historical metric-correction comparison, still uses the preserved legacy snapshots.
 
-Both entry points accept `--surrogate`, `--execution-belief calibrated|nominal|oracle`, `--process-rng-mode independent|legacy`, `--population-seed`, `--calibration-seed`, `--calibration-trials`, `--true-execution-bias`, `--assumed-execution-bias`, `--assumed-execution-noise-scale` and `--output-dir`. Only `oracle` plus `legacy` RNG selects the old Bayesian/kernel output paths; independent-stream runs use new directories. Keep historical directories for their original settings.
+Both entry points accept `--execution-estimator simple|quadratic_covariance`, `--surrogate`, `--execution-belief calibrated|nominal|oracle`, `--process-rng-mode independent|legacy`, `--population-seed`, `--calibration-seed`, `--calibration-trials`, `--true-execution-bias`, `--assumed-execution-bias`, `--assumed-execution-noise-scale` and `--output-dir`. Only `oracle` plus `legacy` RNG selects the old Bayesian/kernel output paths; independent-stream runs use new directories. Keep historical directories for their original settings.
+
+## Flexible execution estimator
+
+Use `--execution-estimator quadratic_covariance` with calibrated belief to fit bias, gain, quadratic curvature and full standardized acceleration/conditional-jerk/duration residual covariance. This writes `outputs_flexible_execution/` or `_poc/` plus `continuous_execution_fit.csv`. The historical default remains `simple`; oracle and nominal are not accepted with the new fitting selector. All new summary tables retain estimator identity, fit-settings fingerprint and fitted parameters. `belief_execution_noise_scale` is only a compatibility scalar `sqrt(trace(covariance)/3)` in this mode; use the six `fit_cov_*` entries for the actual distribution.
+
+`flexible_execution.py` implements observation-only fitting, immutable settings/parameters, a globally nondecreasing acceleration mean and Cholesky sampling. Fixed prior SDs are (0.50,0.50,0.75), off-diagonal shrinkage is 3/n and the covariance floor is 1e-8. Require eight uncensored records, full design rank and condition number at most 1e8. These constants were fixed before the audit. Coefficient/covariance uncertainty is not propagated. Conditional jerk/duration means, base heteroscedastic shapes and intensity mapping remain known; this is not arbitrary dynamics identification or a temporal-noise model.
+
+`../../long_horizon_audit/scripts/run_flexible_execution_audit.py --workers 8` adds 280 fitted-model scenarios and replays all 420 old scenarios, with the same nested calibration observations and random roots. Use `--suite flexible|replay` and `--profile` for separate groups. `compare_flexible_execution.py` requires the complete declared grid, exact old replay, matching calibration values/hashes, recomputed fits, fixed-policy trajectories and independent diagnostic grids; it writes `../../results/flexible_execution_20261104/`. The `estimator` column labels the old pipeline as `simple`; its `oracle`/`nominal` arms retain their explicitly distinct information assumptions. See the linked report for error/exposure tradeoffs and small-budget regressions.
 
 ## Execution information and random streams
 

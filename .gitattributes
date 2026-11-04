@@ -1,0 +1,2 @@
+# Preserve exact artifact bytes, including historical CSV checksums.
+* -text

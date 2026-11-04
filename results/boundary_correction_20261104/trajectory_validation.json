@@ -1,0 +1,21 @@
+{
+  "synthetic_only": true,
+  "trajectories": {
+    "extended": {
+      "rows": 2880,
+      "checked_columns": 41,
+      "max_numeric_delta": 0.0,
+      "allowed_absolute_roundoff": 1e-12
+    },
+    "poc": {
+      "rows": 900,
+      "checked_columns": 41,
+      "max_numeric_delta": 0.0,
+      "allowed_absolute_roundoff": 1e-12
+    }
+  },
+  "baseline_sha256": {
+    "comfort_boundary_bo_research_package\\simulation\\outputs_continuous\\continuous_trials.csv": "73f99b016b31281bb524d66f6cd48194eb6fbf084465986c2d445d0804f6944f",
+    "comfort_boundary_bo_research_package\\simulation\\outputs_continuous_poc\\continuous_trials.csv": "a69d7a05d8c10fe81c6a5ab94a3c7cd1122517095ea609cc7ddd8660c1a774ef"
+  }
+}

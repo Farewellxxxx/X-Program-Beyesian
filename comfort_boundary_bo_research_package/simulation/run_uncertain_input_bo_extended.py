@@ -1,0 +1,1012 @@
+"""
+Continuous-target uncertain-input BO-inspired simulation.
+
+Research context:
+- BO proposes a continuous target motion command x.
+- The driver/vehicle executes imperfectly, producing measured features z ~ P(z | x).
+- Passenger feedback depends on realized z, not the nominal target x.
+- The surrogate and boundary estimate update with realized z and feedback y.
+
+This script uses a transparent Monte Carlo acquisition approximation:
+for each candidate command x, it samples possible realized z values from P(z | x)
+and scores expected boundary information, uncertainty, discomfort risk, and
+safety risk. This is an uncertain-input BO-inspired approximation, not exact
+uGP-UCB.
+
+Run:
+    python comfort_boundary_bo_research_package/simulation/run_uncertain_input_bo_extended.py
+
+Outputs:
+    comfort_boundary_bo_research_package/simulation/outputs_continuous/
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Iterable, Protocol
+
+import math
+
+import matplotlib
+
+matplotlib.use("Agg")
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+
+ROOT = Path(__file__).resolve().parent
+OUTPUT_DIR = ROOT / "outputs_continuous"
+BASE_SEED = 20260703
+
+ALGORITHM_ORDER = [
+    "UncertainInputBO",
+    "NaiveContinuousBO",
+    "RandomContinuous",
+    "GridContinuous",
+    "Staircase",
+]
+
+COLORS = {
+    "UncertainInputBO": "#1f77b4",
+    "NaiveContinuousBO": "#ff7f0e",
+    "RandomContinuous": "#2ca02c",
+    "GridContinuous": "#7f7f7f",
+    "Staircase": "#9467bd",
+}
+
+
+@dataclass(frozen=True)
+class Config:
+    """One simulation scenario.
+
+    x is a continuous target motion command. In this version it can be read as
+    target acceleration / deceleration magnitude or target motion intensity.
+    """
+
+    n_participants: int = 24
+    n_trials: int = 12
+    tau: float = 0.70
+    x_min: float = 0.35
+    x_max: float = 1.90
+    execution_noise: str = "low"  # low, medium, high
+    calibration_bias: float = 0.0
+    feedback_noise: float = 0.06
+    include_time_effects: bool = False
+    scenario_name: str = "continuous_low_noise"
+    seed: int = BASE_SEED
+    candidate_count: int = 35
+    mc_samples: int = 35
+
+    jerk_penalty_threshold: float = 2.30
+    jerk_penalty_weight: float = 0.10
+    duration_penalty_threshold: float = 4.10
+    duration_penalty_weight: float = 0.035
+    safe_peak_accel: float = 2.20
+    safe_peak_jerk: float = 4.80
+    safe_duration: float = 4.70
+
+
+@dataclass(frozen=True)
+class Passenger:
+    participant_id: int
+    acceptability_midpoint: float
+    sensitivity: float
+    noisiness: float
+    risk_tolerance: float
+    carryover_sensitivity: float
+
+
+def criterion_boundary_tau(
+    passenger: Passenger, tau: float, carryover_term: float = 0.0
+) -> float:
+    """Invert the simulator's noisy acceptance curve at the requested criterion.
+
+    P(accept | m, history) = clip((1-eta) * sigmoid((midpoint-m-carryover)/s)
+                                + eta/2, 0.02, 0.98).
+    Return a finite crossing on the realized-intensity axis; do not clip truth
+    to the command range or manufacture a crossing for unattainable criteria.
+    """
+    midpoint, slope, eta = (passenger.acceptability_midpoint,
+                            passenger.sensitivity, passenger.noisiness)
+    if not all(math.isfinite(value) for value in (midpoint, slope, eta, tau, carryover_term)):
+        raise ValueError("Boundary inputs must be finite")
+    if slope <= 0.0 or not 0.0 <= eta < 1.0:
+        raise ValueError("Boundary requires positive sensitivity and 0 <= noisiness < 1")
+    if not 0.02 < tau <= 0.98:
+        raise ValueError("Criterion has no finite boundary under the clipped response model")
+    probability = (tau - 0.5 * eta) / (1.0 - eta)
+    if not 0.0 < probability < 1.0:
+        raise ValueError("Criterion has no finite crossing under the feedback-noise mixture")
+    return float(midpoint - carryover_term - slope * math.log(probability / (1.0 - probability)))
+
+
+def sigmoid(x: float | np.ndarray) -> float | np.ndarray:
+    return 1.0 / (1.0 + np.exp(-np.clip(x, -60, 60)))
+
+
+def clip(value: float, lower: float, upper: float) -> float:
+    return float(np.clip(value, lower, upper))
+
+
+def likert(value: float) -> int:
+    return int(np.clip(round(value), 1, 7))
+
+
+def effective_intensity(
+    peak_accel: float,
+    peak_jerk: float,
+    duration_s: float,
+    config: Config,
+    cumulative_discomfort: float = 0.0,
+) -> float:
+    jerk_penalty = config.jerk_penalty_weight * max(0.0, peak_jerk - config.jerk_penalty_threshold)
+    duration_penalty = 0.0
+    if config.include_time_effects:
+        duration_penalty = config.duration_penalty_weight * max(0.0, duration_s - config.duration_penalty_threshold)
+        duration_penalty += 0.004 * cumulative_discomfort
+    return float(peak_accel + jerk_penalty + duration_penalty)
+
+
+def make_passengers(config: Config) -> list[Passenger]:
+    """Use the same synthetic passenger population across scenarios."""
+
+    rng = np.random.default_rng(BASE_SEED + 101)
+    passengers: list[Passenger] = []
+    for pid in range(1, config.n_participants + 1):
+        passengers.append(
+            Passenger(
+                participant_id=pid,
+                acceptability_midpoint=clip(rng.normal(1.22, 0.27), 0.62, 1.88),
+                sensitivity=clip(rng.uniform(0.10, 0.20), 0.08, 0.24),
+                noisiness=clip(rng.uniform(0.03, 0.11) + config.feedback_noise, 0.03, 0.22),
+                risk_tolerance=clip(rng.normal(0.0, 0.55), -1.25, 1.25),
+                carryover_sensitivity=clip(rng.uniform(0.00, 0.05), 0.0, 0.08),
+            )
+        )
+    return passengers
+
+
+class ContinuousExecutionModel:
+    """Continuous target command x -> realized measured motion features z."""
+
+    def __init__(self, config: Config):
+        if config.execution_noise not in ("low", "medium", "high"):
+            raise ValueError("execution_noise must be low, medium, or high")
+        self.config = config
+        self.noise_scale = {"low": 0.65, "medium": 1.0, "high": 1.55}[config.execution_noise]
+
+    def nominal_features(self, target_x: float) -> dict[str, float | bool]:
+        target_x = clip(target_x, self.config.x_min, self.config.x_max)
+        peak_accel = clip(0.05 + 0.94 * target_x + self.config.calibration_bias, 0.20, 2.35)
+        peak_jerk = clip(0.58 + 1.74 * peak_accel + 0.10 * target_x, 0.30, 5.60)
+        duration_s = clip(3.90 - 0.30 * peak_accel, 2.25, 4.65)
+        rms_jerk = clip(0.55 * peak_jerk, 0.10, 3.40)
+        speed_delta = clip(peak_accel * duration_s, 0.30, 8.20)
+        intensity = effective_intensity(peak_accel, peak_jerk, duration_s, self.config)
+        safety_violation = bool(
+            peak_accel > self.config.safe_peak_accel
+            or peak_jerk > self.config.safe_peak_jerk
+            or duration_s > self.config.safe_duration
+        )
+        return {
+            "target_command_x": target_x,
+            "target_nominal_peak_accel": peak_accel,
+            "target_nominal_peak_jerk": peak_jerk,
+            "target_nominal_duration_s": duration_s,
+            "target_nominal_intensity": intensity,
+            "nominal_safety_violation": safety_violation,
+            "nominal_speed_delta": speed_delta,
+            "nominal_rms_jerk": rms_jerk,
+        }
+
+    def sample_features(
+        self,
+        target_x: float,
+        rng: np.random.Generator,
+        cumulative_discomfort: float = 0.0,
+    ) -> dict[str, float | bool]:
+        nominal = self.nominal_features(target_x)
+        level = (target_x - self.config.x_min) / max(self.config.x_max - self.config.x_min, 1e-6)
+        accel_sd = (0.045 + 0.055 * level) * self.noise_scale
+        jerk_sd = (0.18 + 0.24 * level) * self.noise_scale
+        duration_sd = 0.18 * self.noise_scale
+
+        peak_accel = clip(
+            rng.normal(float(nominal["target_nominal_peak_accel"]), accel_sd),
+            0.20,
+            2.40,
+        )
+        peak_jerk = clip(
+            rng.normal(0.58 + 1.74 * peak_accel + 0.10 * target_x, jerk_sd),
+            0.25,
+            5.70,
+        )
+        rms_jerk = clip(rng.normal(0.55 * peak_jerk, 0.08 * self.noise_scale), 0.10, 3.50)
+        duration_s = clip(
+            rng.normal(3.90 - 0.30 * peak_accel, duration_sd),
+            2.20,
+            4.85,
+        )
+        speed_delta = clip(rng.normal(peak_accel * duration_s, 0.22 * self.noise_scale), 0.25, 8.50)
+        intensity = effective_intensity(peak_accel, peak_jerk, duration_s, self.config, cumulative_discomfort)
+        safety_violation = bool(
+            peak_accel > self.config.safe_peak_accel
+            or peak_jerk > self.config.safe_peak_jerk
+            or duration_s > self.config.safe_duration
+        )
+
+        return {
+            **nominal,
+            "peak_accel": peak_accel,
+            "peak_jerk": peak_jerk,
+            "rms_jerk": rms_jerk,
+            "duration_s": duration_s,
+            "speed_delta": speed_delta,
+            "realized_intensity": intensity,
+            "realization_error": intensity - float(nominal["target_nominal_intensity"]),
+            "abs_realization_error": abs(intensity - float(nominal["target_nominal_intensity"])),
+            "command_tracking_error": peak_accel - target_x,
+            "safety_violation": safety_violation,
+            "protocol_deviation": safety_violation,
+        }
+
+    def sample_many(
+        self,
+        target_x: float,
+        rng: np.random.Generator,
+        n_samples: int,
+        cumulative_discomfort: float = 0.0,
+    ) -> tuple[np.ndarray, np.ndarray]:
+        nominal = self.nominal_features(target_x)
+        level = (target_x - self.config.x_min) / max(self.config.x_max - self.config.x_min, 1e-6)
+        accel_sd = (0.045 + 0.055 * level) * self.noise_scale
+        jerk_sd = (0.18 + 0.24 * level) * self.noise_scale
+        duration_sd = 0.18 * self.noise_scale
+
+        peak_accel = np.clip(
+            rng.normal(float(nominal["target_nominal_peak_accel"]), accel_sd, n_samples),
+            0.20,
+            2.40,
+        )
+        peak_jerk = np.clip(
+            rng.normal(0.58 + 1.74 * peak_accel + 0.10 * target_x, jerk_sd),
+            0.25,
+            5.70,
+        )
+        duration_s = np.clip(
+            rng.normal(3.90 - 0.30 * peak_accel, duration_sd),
+            2.20,
+            4.85,
+        )
+        jerk_penalty = self.config.jerk_penalty_weight * np.maximum(
+            0.0,
+            peak_jerk - self.config.jerk_penalty_threshold,
+        )
+        duration_penalty = np.zeros(n_samples, dtype=float)
+        if self.config.include_time_effects:
+            duration_penalty = self.config.duration_penalty_weight * np.maximum(
+                0.0,
+                duration_s - self.config.duration_penalty_threshold,
+            )
+            duration_penalty += 0.004 * cumulative_discomfort
+        intensities = peak_accel + jerk_penalty + duration_penalty
+        violations = (
+            (peak_accel > self.config.safe_peak_accel)
+            | (peak_jerk > self.config.safe_peak_jerk)
+            | (duration_s > self.config.safe_duration)
+        )
+        return intensities.astype(float), violations.astype(bool)
+
+
+class PassengerFeedbackModel:
+    def __init__(self, config: Config, rng: np.random.Generator):
+        self.config = config
+        self.rng = rng
+
+    def respond(
+        self,
+        passenger: Passenger,
+        features: dict[str, float | bool],
+        trial_id: int,
+        cumulative_discomfort: float,
+    ) -> dict[str, float | int | bool]:
+        intensity = float(features["realized_intensity"])
+        carryover = 0.0
+        if self.config.include_time_effects:
+            carryover = passenger.carryover_sensitivity * math.tanh(cumulative_discomfort / 25.0)
+            carryover += 0.004 * trial_id
+
+        latent = (passenger.acceptability_midpoint - intensity - carryover) / passenger.sensitivity
+        p_accept = float(sigmoid(latent))
+        p_accept = p_accept * (1.0 - passenger.noisiness) + 0.5 * passenger.noisiness
+        p_accept = clip(p_accept, 0.02, 0.98)
+        acceptable = bool(self.rng.random() < p_accept)
+
+        peak_accel = float(features["peak_accel"])
+        peak_jerk = float(features["peak_jerk"])
+        comfort_raw = (
+            7.25
+            - 3.25 * max(0.0, intensity - 0.38) / 1.65
+            - 0.22 * max(0.0, peak_jerk - 2.10)
+            + 0.38 * passenger.risk_tolerance
+            + self.rng.normal(0.0, 0.48)
+        )
+        comfort = likert(comfort_raw)
+        discomfort = likert(
+            8.05
+            - comfort
+            + 0.40 * max(0.0, intensity - passenger.acceptability_midpoint)
+            + self.rng.normal(0, 0.42)
+        )
+        smoothness = likert(7.55 - 1.10 * max(0.0, peak_jerk - 0.85) + self.rng.normal(0, 0.45))
+        perceived_safety = likert(
+            comfort
+            + 0.45 * passenger.risk_tolerance
+            - 0.50 * max(0.0, intensity - passenger.acceptability_midpoint)
+            - 0.08 * max(0.0, peak_accel - 1.70)
+            + self.rng.normal(0, 0.45)
+        )
+
+        return {
+            "p_accept_true": p_accept,
+            "acceptable": acceptable,
+            "comfort": comfort,
+            "discomfort": discomfort,
+            "smoothness": smoothness,
+            "perceived_safety": perceived_safety,
+            "carryover_term": carryover,
+        }
+
+
+class KernelAcceptanceSurrogate:
+    """Lightweight Bernoulli surrogate over realized motion intensity."""
+
+    def __init__(self, tau: float):
+        self.tau = tau
+        self.intensities = np.array([], dtype=float)
+        self.labels = np.array([], dtype=float)
+
+    def fit(self, intensities: Iterable[float], labels: Iterable[int]) -> "KernelAcceptanceSurrogate":
+        self.intensities = np.asarray(list(intensities), dtype=float)
+        self.labels = np.asarray(list(labels), dtype=float)
+        return self
+
+    def predict_array(self, intensity_grid: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+        x_grid = np.asarray(intensity_grid, dtype=float)
+        prior_boundary = 1.24
+        prior = np.asarray(sigmoid((prior_boundary - x_grid) / 0.30), dtype=float)
+        if len(self.intensities) == 0:
+            return prior, np.full_like(x_grid, 0.42, dtype=float)
+
+        bandwidth = 0.24
+        distances = np.abs(x_grid[:, None] - self.intensities[None, :])
+        weights = np.exp(-0.5 * (distances / bandwidth) ** 2)
+        n_eff = weights.sum(axis=1)
+        prior_strength = 1.25
+        p = (weights @ self.labels + prior_strength * prior) / (n_eff + prior_strength)
+
+        nearest = distances.min(axis=1)
+        uncertainty_from_distance = np.minimum(0.35, nearest / 0.80)
+        uncertainty_from_probability = np.sqrt(np.maximum(p * (1.0 - p), 1e-6) / (n_eff + 1.0))
+        uncertainty = np.clip(uncertainty_from_distance + uncertainty_from_probability, 0.03, 0.55)
+        return np.clip(p, 0.01, 0.99), uncertainty
+
+    def predict(self, intensity: float) -> tuple[float, float]:
+        p, u = self.predict_array(np.array([intensity], dtype=float))
+        return float(p[0]), float(u[0])
+
+    def estimate_boundary(self) -> float:
+        grid = np.linspace(0.25, 2.35, 180)
+        probabilities, _ = self.predict_array(grid)
+        feasible = grid[probabilities >= self.tau]
+        if len(feasible) == 0:
+            return float(grid[np.argmin(np.abs(probabilities - self.tau))])
+        return float(feasible.max())
+
+
+class Policy(Protocol):
+    name: str
+
+    def choose(self, history: list[dict[str, float | int | bool | str]], trial_id: int) -> float:
+        ...
+
+
+def fit_surrogate_from_history(config: Config, history: list[dict[str, float | int | bool | str]]) -> KernelAcceptanceSurrogate:
+    return KernelAcceptanceSurrogate(config.tau).fit(
+        [float(row["realized_intensity"]) for row in history],
+        [int(bool(row["acceptable"])) for row in history],
+    )
+
+
+def recent_high_discomfort(history: list[dict[str, float | int | bool | str]]) -> bool:
+    return bool(history and int(history[-1]["discomfort"]) >= 6)
+
+
+class UncertainInputBO:
+    name = "UncertainInputBO"
+
+    def __init__(
+        self,
+        config: Config,
+        execution_model: ContinuousExecutionModel,
+        rng: np.random.Generator,
+    ):
+        self.config = config
+        self.execution_model = execution_model
+        self.rng = rng
+        self.candidates = np.linspace(config.x_min, config.x_max, config.candidate_count)
+
+    def _initial_design(self) -> list[float]:
+        return [
+            self.config.x_min + 0.12 * (self.config.x_max - self.config.x_min),
+            self.config.x_min + 0.42 * (self.config.x_max - self.config.x_min),
+            self.config.x_min + 0.66 * (self.config.x_max - self.config.x_min),
+        ]
+
+    def choose(self, history: list[dict[str, float | int | bool | str]], trial_id: int) -> float:
+        initial = self._initial_design()
+        if trial_id <= len(initial):
+            return float(initial[trial_id - 1])
+
+        surrogate = fit_surrogate_from_history(self.config, history)
+        cumulative_discomfort = float(sum(float(row["discomfort"]) for row in history))
+        last_target = float(history[-1]["target_command_x"]) if history else self.config.x_min
+
+        best_x = float(self.candidates[0])
+        best_score = -float("inf")
+        for target_x in self.candidates:
+            sampled_intensities, violations = self.execution_model.sample_many(
+                float(target_x),
+                self.rng,
+                self.config.mc_samples,
+                cumulative_discomfort,
+            )
+            p_values, uncertainties = surrogate.predict_array(sampled_intensities)
+            boundary_info = float(np.mean(-np.abs(p_values - self.config.tau)))
+            uncertainty = float(np.mean(uncertainties))
+            discomfort_risk = float(np.mean(np.maximum(0.0, self.config.tau - p_values)))
+            safety_risk = float(np.mean(violations))
+            repeat_penalty = 0.03 * sum(
+                1 for row in history[-3:] if abs(float(row["target_command_x"]) - float(target_x)) < 0.08
+            )
+            downgrade_penalty = 0.0
+            if recent_high_discomfort(history) and target_x >= last_target:
+                downgrade_penalty = 0.75
+            jitter = float(self.rng.normal(0.0, 0.002))
+
+            score = (
+                boundary_info
+                + 0.40 * uncertainty
+                - 0.70 * discomfort_risk
+                - 1.20 * safety_risk
+                - repeat_penalty
+                - downgrade_penalty
+                + jitter
+            )
+            if score > best_score:
+                best_score = score
+                best_x = float(target_x)
+        return best_x
+
+
+class NaiveContinuousBO:
+    """Continuous BO baseline that ignores execution uncertainty in acquisition."""
+
+    name = "NaiveContinuousBO"
+
+    def __init__(
+        self,
+        config: Config,
+        execution_model: ContinuousExecutionModel,
+        rng: np.random.Generator,
+    ):
+        self.config = config
+        self.execution_model = execution_model
+        self.rng = rng
+        self.candidates = np.linspace(config.x_min, config.x_max, config.candidate_count)
+
+    def _initial_design(self) -> list[float]:
+        return [
+            self.config.x_min + 0.12 * (self.config.x_max - self.config.x_min),
+            self.config.x_min + 0.42 * (self.config.x_max - self.config.x_min),
+            self.config.x_min + 0.66 * (self.config.x_max - self.config.x_min),
+        ]
+
+    def choose(self, history: list[dict[str, float | int | bool | str]], trial_id: int) -> float:
+        initial = self._initial_design()
+        if trial_id <= len(initial):
+            return float(initial[trial_id - 1])
+
+        surrogate = fit_surrogate_from_history(self.config, history)
+        last_target = float(history[-1]["target_command_x"]) if history else self.config.x_min
+        best_x = float(self.candidates[0])
+        best_score = -float("inf")
+
+        for target_x in self.candidates:
+            nominal = self.execution_model.nominal_features(float(target_x))
+            p_accept, uncertainty = surrogate.predict(float(nominal["target_nominal_intensity"]))
+            boundary_info = -abs(p_accept - self.config.tau)
+            discomfort_risk = max(0.0, self.config.tau - p_accept)
+            safety_risk = 1.0 if bool(nominal["nominal_safety_violation"]) else 0.0
+            downgrade_penalty = 0.0
+            if recent_high_discomfort(history) and target_x >= last_target:
+                downgrade_penalty = 0.75
+            jitter = float(self.rng.normal(0.0, 0.002))
+
+            score = boundary_info + 0.40 * uncertainty - 0.70 * discomfort_risk - 0.70 * safety_risk - downgrade_penalty + jitter
+            if score > best_score:
+                best_score = score
+                best_x = float(target_x)
+        return best_x
+
+
+class RandomContinuous:
+    name = "RandomContinuous"
+
+    def __init__(self, config: Config, rng: np.random.Generator):
+        self.config = config
+        self.rng = rng
+
+    def choose(self, history: list[dict[str, float | int | bool | str]], trial_id: int) -> float:
+        del history, trial_id
+        return float(self.rng.uniform(self.config.x_min, self.config.x_max))
+
+
+class GridContinuous:
+    name = "GridContinuous"
+
+    def __init__(self, config: Config):
+        self.grid = np.linspace(config.x_min, config.x_max, 7)
+
+    def choose(self, history: list[dict[str, float | int | bool | str]], trial_id: int) -> float:
+        del history
+        return float(self.grid[(trial_id - 1) % len(self.grid)])
+
+
+class Staircase:
+    name = "Staircase"
+
+    def __init__(self, config: Config):
+        self.config = config
+        self.current = 0.48 * config.x_min + 0.52 * config.x_max
+        self.step = 0.22 * (config.x_max - config.x_min)
+        self.last_direction = 0
+
+    def choose(self, history: list[dict[str, float | int | bool | str]], trial_id: int) -> float:
+        if trial_id == 1 or not history:
+            return float(self.current)
+
+        direction = 1 if bool(history[-1]["acceptable"]) else -1
+        if self.last_direction and direction != self.last_direction:
+            self.step = max(0.06, self.step * 0.72)
+        self.last_direction = direction
+        self.current = clip(self.current + direction * self.step, self.config.x_min, self.config.x_max)
+        return float(self.current)
+
+
+def build_policies(
+    config: Config,
+    execution_model: ContinuousExecutionModel,
+    seed_base: int,
+) -> list[Policy]:
+    return [
+        UncertainInputBO(config, execution_model, np.random.default_rng(seed_base + 11)),
+        NaiveContinuousBO(config, execution_model, np.random.default_rng(seed_base + 22)),
+        RandomContinuous(config, np.random.default_rng(seed_base + 33)),
+        GridContinuous(config),
+        Staircase(config),
+    ]
+
+
+def run_algorithm(
+    config: Config,
+    passenger: Passenger,
+    policy: Policy,
+    execution_model: ContinuousExecutionModel,
+    execution_rng: np.random.Generator,
+    feedback_rng: np.random.Generator,
+) -> list[dict[str, float | int | bool | str]]:
+    rows: list[dict[str, float | int | bool | str]] = []
+    history: list[dict[str, float | int | bool | str]] = []
+    feedback_model = PassengerFeedbackModel(config, feedback_rng)
+    cumulative_discomfort = 0.0
+    baseline_boundary = criterion_boundary_tau(passenger, config.tau)
+
+    for trial_id in range(1, config.n_trials + 1):
+        target_x = policy.choose(history, trial_id)
+        motion = execution_model.sample_features(target_x, execution_rng, cumulative_discomfort)
+        feedback = feedback_model.respond(passenger, motion, trial_id, cumulative_discomfort)
+        cumulative_discomfort += float(feedback["discomfort"])
+
+        row: dict[str, float | int | bool | str] = {
+            "scenario": config.scenario_name,
+            "execution_noise": config.execution_noise,
+            "calibration_bias": config.calibration_bias,
+            "participant_id": passenger.participant_id,
+            "algorithm": policy.name,
+            "trial_id": trial_id,
+            "tau": config.tau,
+            "acceptability_midpoint": passenger.acceptability_midpoint,
+            "criterion_boundary_tau_baseline": baseline_boundary,
+            "criterion_boundary_tau": criterion_boundary_tau(
+                passenger, config.tau, float(feedback["carryover_term"])
+            ),
+            "passenger_sensitivity": passenger.sensitivity,
+            "passenger_noisiness": passenger.noisiness,
+            "passenger_risk_tolerance": passenger.risk_tolerance,
+            **motion,
+            **feedback,
+        }
+        row["overshoot"] = max(0.0, float(row["realized_intensity"]) - float(row["criterion_boundary_tau"]))
+        row["legacy_midpoint_overshoot"] = max(
+            0.0, float(row["realized_intensity"]) - passenger.acceptability_midpoint
+        )
+        row["cumulative_discomfort_after_trial"] = cumulative_discomfort
+
+        history.append(row)
+        surrogate = fit_surrogate_from_history(config, history)
+        row["estimated_boundary_so_far"] = surrogate.estimate_boundary()
+        row["signed_boundary_error_so_far"] = (
+            float(row["estimated_boundary_so_far"]) - float(row["criterion_boundary_tau"])
+        )
+        row["boundary_error_so_far"] = abs(float(row["signed_boundary_error_so_far"]))
+        row["legacy_midpoint_error_so_far"] = abs(
+            float(row["estimated_boundary_so_far"]) - passenger.acceptability_midpoint
+        )
+        rows.append(row)
+
+    return rows
+
+
+def run_scenario(config: Config, passengers: list[Passenger]) -> pd.DataFrame:
+    execution_model = ContinuousExecutionModel(config)
+    rows: list[dict[str, float | int | bool | str]] = []
+
+    for passenger in passengers:
+        policies = build_policies(config, execution_model, config.seed + passenger.participant_id * 10_000)
+        for algorithm_index, policy in enumerate(policies):
+            seed_base = config.seed + passenger.participant_id * 1009 + algorithm_index * 9176
+            execution_rng = np.random.default_rng(seed_base + 101)
+            feedback_rng = np.random.default_rng(seed_base + 202)
+            rows.extend(run_algorithm(config, passenger, policy, execution_model, execution_rng, feedback_rng))
+    return pd.DataFrame(rows)
+
+
+def evaluate(trials: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    final = trials.sort_values("trial_id").groupby(["scenario", "participant_id", "algorithm"]).tail(1)
+    participant = (
+        trials.groupby(["scenario", "execution_noise", "participant_id", "algorithm"])
+        .agg(
+            n_trials=("trial_id", "max"),
+            unacceptable_trials=("acceptable", lambda s: int((~s.astype(bool)).sum())),
+            cumulative_discomfort=("discomfort", "sum"),
+            max_discomfort=("discomfort", "max"),
+            max_overshoot=("overshoot", "max"),
+            mean_overshoot=("overshoot", "mean"),
+            protocol_deviations=("protocol_deviation", lambda s: int(s.astype(bool).sum())),
+            mean_abs_realization_error=("abs_realization_error", "mean"),
+            mean_command_tracking_error=("command_tracking_error", "mean"),
+        )
+        .reset_index()
+        .merge(
+            final[
+                [
+                    "scenario",
+                    "participant_id",
+                    "algorithm",
+                    "tau",
+                    "acceptability_midpoint",
+                    "criterion_boundary_tau_baseline",
+                    "criterion_boundary_tau",
+                    "estimated_boundary_so_far",
+                    "boundary_error_so_far",
+                    "signed_boundary_error_so_far",
+                    "legacy_midpoint_error_so_far",
+                ]
+            ],
+            on=["scenario", "participant_id", "algorithm"],
+            how="left",
+        )
+    )
+
+    algorithm = (
+        participant.groupby(["scenario", "execution_noise", "algorithm"])
+        .agg(
+            mean_boundary_error=("boundary_error_so_far", "mean"),
+            median_boundary_error=("boundary_error_so_far", "median"),
+            sd_boundary_error=("boundary_error_so_far", "std"),
+            mean_signed_boundary_error=("signed_boundary_error_so_far", "mean"),
+            mean_legacy_midpoint_error=("legacy_midpoint_error_so_far", "mean"),
+            mean_unacceptable_trials=("unacceptable_trials", "mean"),
+            mean_cumulative_discomfort=("cumulative_discomfort", "mean"),
+            mean_max_discomfort=("max_discomfort", "mean"),
+            mean_max_overshoot=("max_overshoot", "mean"),
+            mean_protocol_deviations=("protocol_deviations", "mean"),
+            mean_abs_realization_error=("mean_abs_realization_error", "mean"),
+        )
+        .reset_index()
+    )
+
+    diagnostics = (
+        trials.groupby(["scenario", "execution_noise", "algorithm"])
+        .agg(
+            mean_realization_error=("realization_error", "mean"),
+            mean_abs_realization_error=("abs_realization_error", "mean"),
+            sd_realization_error=("realization_error", "std"),
+            command_tracking_rmse=("command_tracking_error", lambda s: float(np.sqrt(np.mean(np.square(s))))),
+            mean_target_command=("target_command_x", "mean"),
+            mean_realized_intensity=("realized_intensity", "mean"),
+        )
+        .reset_index()
+    )
+
+    safety = (
+        trials.groupby(["scenario", "execution_noise", "algorithm"])
+        .agg(
+            protocol_deviation_trials=("protocol_deviation", lambda s: int(s.astype(bool).sum())),
+            safety_violation_trials=("safety_violation", lambda s: int(s.astype(bool).sum())),
+            high_discomfort_trials=("discomfort", lambda s: int((s >= 6).sum())),
+            total_trials=("trial_id", "count"),
+            max_peak_accel=("peak_accel", "max"),
+            max_peak_jerk=("peak_jerk", "max"),
+        )
+        .reset_index()
+    )
+    safety["protocol_deviation_rate"] = safety["protocol_deviation_trials"] / safety["total_trials"]
+
+    sensitivity_rows: list[dict[str, float | str]] = []
+    for algorithm_name, group in participant.groupby("algorithm"):
+        for execution_noise, sub in group.groupby("execution_noise"):
+            sensitivity_rows.append(
+                {
+                    "sensitivity_type": "execution_noise",
+                    "condition": str(execution_noise),
+                    "algorithm": algorithm_name,
+                    "mean_boundary_error": float(sub["boundary_error_so_far"].mean()),
+                    "mean_unacceptable_trials": float(sub["unacceptable_trials"].mean()),
+                    "mean_cumulative_discomfort": float(sub["cumulative_discomfort"].mean()),
+                    "mean_abs_realization_error": float(sub["mean_abs_realization_error"].mean()),
+                }
+            )
+    sensitivity = pd.DataFrame(sensitivity_rows)
+    return participant, algorithm, diagnostics, safety, sensitivity
+
+
+def sorted_algorithms(df: pd.DataFrame) -> list[str]:
+    present = set(df["algorithm"].unique())
+    return [algorithm for algorithm in ALGORITHM_ORDER if algorithm in present]
+
+
+def default_participant_slice(participant: pd.DataFrame) -> pd.DataFrame:
+    first_scenario = str(participant["scenario"].iloc[0])
+    return participant[participant["scenario"] == first_scenario]
+
+
+def plot_bar_metric(participant: pd.DataFrame, metric: str, ylabel: str, title: str, output_path: Path) -> None:
+    default = default_participant_slice(participant)
+    order = sorted_algorithms(default)
+    means = default.groupby("algorithm")[metric].mean().reindex(order)
+    ses = default.groupby("algorithm")[metric].sem().reindex(order)
+    x = np.arange(len(order))
+    plt.figure(figsize=(9, 5.2))
+    plt.bar(x, means.values, yerr=ses.values, capsize=4, color=[COLORS[a] for a in order])
+    plt.xticks(x, order, rotation=15, ha="right")
+    plt.ylabel(ylabel)
+    plt.title(title)
+    plt.grid(axis="y", alpha=0.25)
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=180)
+    plt.close()
+
+
+def plot_box_metric(participant: pd.DataFrame, metric: str, ylabel: str, title: str, output_path: Path) -> None:
+    default = default_participant_slice(participant)
+    order = sorted_algorithms(default)
+    data = [default[default["algorithm"] == algorithm][metric].values for algorithm in order]
+    plt.figure(figsize=(9, 5.2))
+    plt.boxplot(data, tick_labels=order)
+    plt.xticks(rotation=15, ha="right")
+    plt.ylabel(ylabel)
+    plt.title(title)
+    plt.grid(axis="y", alpha=0.25)
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=180)
+    plt.close()
+
+
+def save_tradeoff_plot(participant: pd.DataFrame, output_path: Path) -> None:
+    means = (
+        participant.groupby(["algorithm", "execution_noise"])
+        .agg(
+            boundary_error=("boundary_error_so_far", "mean"),
+            cumulative_discomfort=("cumulative_discomfort", "mean"),
+        )
+        .reset_index()
+    )
+
+    plt.figure(figsize=(8.8, 5.6))
+    for algorithm_name, sub in means.groupby("algorithm"):
+        plt.scatter(
+            sub["boundary_error"],
+            sub["cumulative_discomfort"],
+            s=72,
+            label=algorithm_name,
+            color=COLORS.get(algorithm_name),
+            alpha=0.82,
+        )
+        for _, row in sub.iterrows():
+            plt.annotate(
+                str(row["execution_noise"]),
+                (row["boundary_error"], row["cumulative_discomfort"]),
+                fontsize=8,
+                xytext=(4, 4),
+                textcoords="offset points",
+            )
+    plt.xlabel("Mean absolute error against criterion boundary B(tau)")
+    plt.ylabel("Mean cumulative discomfort")
+    plt.title("Continuous simulation: accuracy-cost tradeoff")
+    plt.grid(alpha=0.25)
+    plt.legend(fontsize=8)
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=180)
+    plt.close()
+
+
+def save_target_realized_scatter(trials: pd.DataFrame, output_path: Path) -> None:
+    first_scenario = str(trials["scenario"].iloc[0])
+    sub = trials[trials["scenario"] == first_scenario].copy()
+    if len(sub) > 1200:
+        sub = sub.sample(1200, random_state=BASE_SEED)
+
+    plt.figure(figsize=(8.7, 5.6))
+    for algorithm_name, group in sub.groupby("algorithm"):
+        plt.scatter(
+            group["target_command_x"],
+            group["realized_intensity"],
+            s=20,
+            alpha=0.45,
+            label=algorithm_name,
+            color=COLORS.get(algorithm_name),
+        )
+    lo = min(float(sub["target_command_x"].min()), float(sub["realized_intensity"].min()))
+    hi = max(float(sub["target_command_x"].max()), float(sub["realized_intensity"].max()))
+    plt.plot([lo, hi], [lo, hi], color="#333333", linestyle="--", linewidth=1, label="target = realized")
+    plt.xlabel("Target command x")
+    plt.ylabel("Realized intensity m(z)")
+    plt.title("Target command vs realized motion intensity")
+    plt.grid(alpha=0.25)
+    plt.legend(fontsize=7)
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=180)
+    plt.close()
+
+
+def save_example_trajectory(trials: pd.DataFrame, output_path: Path) -> None:
+    first_scenario = str(trials["scenario"].iloc[0])
+    participant_id = int(trials[trials["scenario"] == first_scenario]["participant_id"].min())
+    sub = trials[(trials["scenario"] == first_scenario) & (trials["participant_id"] == participant_id)]
+    order = sorted_algorithms(sub)
+    fig, axes = plt.subplots(3, 2, figsize=(11, 9), sharex=True, sharey=True)
+    axes = axes.ravel()
+
+    for ax, algorithm_name in zip(axes, order):
+        df = sub[sub["algorithm"] == algorithm_name].sort_values("trial_id")
+        accepted = df[df["acceptable"].astype(bool)]
+        rejected = df[~df["acceptable"].astype(bool)]
+
+        ax.plot(df["trial_id"], df["estimated_boundary_so_far"], color="#1f77b4", linewidth=2, label="estimated boundary")
+        ax.plot(df["trial_id"], df["criterion_boundary_tau"], color="#d62728", linestyle="--", linewidth=1.5, label="true B(tau, history)")
+        ax.scatter(accepted["trial_id"], accepted["realized_intensity"], color="#2ca02c", label="acceptable", zorder=3)
+        ax.scatter(rejected["trial_id"], rejected["realized_intensity"], color="#e45756", marker="x", s=55, label="unacceptable", zorder=3)
+        ax.plot(df["trial_id"], df["target_command_x"], color="#777777", linestyle=":", linewidth=1.2, label="target x")
+        ax.set_title(algorithm_name)
+        ax.grid(alpha=0.22)
+        ax.set_ylim(0.20, 2.35)
+
+    for ax in axes[len(order) :]:
+        ax.axis("off")
+    axes[0].legend(loc="upper right", fontsize=7)
+    fig.supxlabel("Trial")
+    fig.supylabel("Motion intensity")
+    fig.suptitle(f"Synthetic passenger {participant_id}, tau={float(sub['tau'].iloc[0]):.2f}", y=0.98)
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=180)
+    plt.close()
+
+
+def save_plots(trials: pd.DataFrame, participant: pd.DataFrame, output_dir: Path) -> None:
+    plot_box_metric(
+        participant,
+        metric="boundary_error_so_far",
+        ylabel="Final absolute error against B(tau)",
+        title="Synthetic simulation: criterion-matched boundary error",
+        output_path=output_dir / "continuous_boundary_error_by_algorithm.png",
+    )
+    plot_bar_metric(
+        participant,
+        metric="unacceptable_trials",
+        ylabel="Unacceptable trials per participant",
+        title="Continuous simulation: unacceptable trials by algorithm",
+        output_path=output_dir / "continuous_unacceptable_trials_by_algorithm.png",
+    )
+    plot_bar_metric(
+        participant,
+        metric="cumulative_discomfort",
+        ylabel="Cumulative discomfort score",
+        title="Continuous simulation: cumulative discomfort by algorithm",
+        output_path=output_dir / "continuous_cumulative_discomfort_by_algorithm.png",
+    )
+    save_tradeoff_plot(participant, output_dir / "continuous_accuracy_cost_tradeoff.png")
+    save_target_realized_scatter(trials, output_dir / "continuous_target_vs_realized_scatter.png")
+    plot_box_metric(
+        participant,
+        metric="mean_abs_realization_error",
+        ylabel="Mean absolute realization error",
+        title="Continuous simulation: realization error by algorithm",
+        output_path=output_dir / "continuous_realization_error_by_algorithm.png",
+    )
+    plot_box_metric(
+        participant,
+        metric="max_overshoot",
+        ylabel="Max realized overshoot above B(tau)",
+        title="Synthetic simulation: criterion-boundary overshoot",
+        output_path=output_dir / "continuous_overshoot_by_algorithm.png",
+    )
+    plot_bar_metric(
+        participant,
+        metric="protocol_deviations",
+        ylabel="Protocol deviations per participant",
+        title="Continuous simulation: safety/protocol deviations by algorithm",
+        output_path=output_dir / "continuous_protocol_deviations_by_algorithm.png",
+    )
+    save_example_trajectory(trials, output_dir / "continuous_example_participant_trajectory.png")
+
+
+def run_configurations(scenarios: list[Config], output_dir: Path) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    output_dir.mkdir(parents=True, exist_ok=True)
+    passengers = make_passengers(scenarios[0])
+
+    all_trials = []
+    for scenario in scenarios:
+        print(f"Running scenario: {scenario.scenario_name}")
+        all_trials.append(run_scenario(scenario, passengers))
+
+    trials = pd.concat(all_trials, ignore_index=True)
+    participant, algorithm, diagnostics, safety, sensitivity = evaluate(trials)
+
+    trials.to_csv(output_dir / "continuous_trials.csv", index=False, encoding="utf-8-sig")
+    participant.to_csv(output_dir / "continuous_participant_summary.csv", index=False, encoding="utf-8-sig")
+    algorithm.to_csv(output_dir / "continuous_algorithm_summary.csv", index=False, encoding="utf-8-sig")
+    diagnostics.to_csv(output_dir / "continuous_target_realized_diagnostics.csv", index=False, encoding="utf-8-sig")
+    safety.to_csv(output_dir / "continuous_safety_protocol_summary.csv", index=False, encoding="utf-8-sig")
+    sensitivity.to_csv(output_dir / "continuous_sensitivity_summary.csv", index=False, encoding="utf-8-sig")
+    save_plots(trials, participant, output_dir)
+    return trials, participant, algorithm
+
+
+def main() -> None:
+    scenarios = [
+        Config(execution_noise="low", scenario_name="continuous_low_noise", seed=BASE_SEED + 1),
+        Config(execution_noise="high", scenario_name="continuous_high_noise", seed=BASE_SEED + 2),
+    ]
+    _, _, algorithm = run_configurations(scenarios, OUTPUT_DIR)
+
+    print("Continuous-target uncertain-input simulation complete.")
+    print(f"Output directory: {OUTPUT_DIR}")
+    display_cols = [
+        "scenario",
+        "algorithm",
+        "mean_boundary_error",
+        "mean_unacceptable_trials",
+        "mean_cumulative_discomfort",
+        "mean_max_overshoot",
+        "mean_abs_realization_error",
+    ]
+    print(algorithm[display_cols].round(3).to_string(index=False))
+
+
+if __name__ == "__main__":
+    main()

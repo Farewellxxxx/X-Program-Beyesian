@@ -28,7 +28,7 @@ def main() -> None:
     parser.add_argument("--output-dir", type=Path)
     add_execution_cli_arguments(parser)
     args = parser.parse_args()
-    output_dir = args.output_dir or default_output_dir(args.surrogate,args.execution_belief,poc=True,rng_mode=args.process_rng_mode)
+    output_dir = args.output_dir or default_output_dir(args.surrogate,args.execution_belief,poc=True,rng_mode=args.process_rng_mode,execution_estimator=args.execution_estimator)
     scenario = Config(
         surrogate_kind=args.surrogate,
         n_participants=18,
@@ -40,7 +40,7 @@ def main() -> None:
         mc_samples=40,
         **execution_cli_config(args),
     )
-    _, _, algorithm = run_configurations([scenario], output_dir)
+    _, _, algorithm = run_configurations([scenario], output_dir,execution_estimator=args.execution_estimator)
 
     print("Continuous-target POC simulation complete.")
     print(f"Output directory: {output_dir}")

@@ -821,7 +821,8 @@ def evaluate(trials: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataF
     if trials.empty or trials.surrogate_kind.isna().any() or trials.surrogate_kind.nunique() != 1:
         raise ValueError("Evaluate one nonempty surrogate dataset at a time")
     surrogate_kind = str(trials.surrogate_kind.iloc[0])
-    provenance=trials[['scenario',*EXECUTION_METADATA]].drop_duplicates()
+    fit_metadata=[c for c in trials if c.startswith('fit_') or c=='execution_estimator']
+    provenance=trials[['scenario',*EXECUTION_METADATA,*fit_metadata]].drop_duplicates()
     if provenance.scenario.duplicated().any():
         raise ValueError('Each scenario must have one execution/population configuration')
     final = trials.sort_values("trial_id").groupby(["scenario", "participant_id", "algorithm"]).tail(1)
@@ -1135,17 +1136,27 @@ def save_plots(trials: pd.DataFrame, participant: pd.DataFrame, output_dir: Path
     save_example_trajectory(trials, output_dir / "continuous_example_participant_trajectory.png")
 
 
-def run_configurations(scenarios: list[Config], output_dir: Path) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+def run_configurations(scenarios: list[Config], output_dir: Path, execution_estimator: str = 'simple') -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     if not scenarios or len({s.surrogate_kind for s in scenarios}) != 1:
         raise ValueError("Provide non-empty scenarios for exactly one surrogate per output directory")
     if len({s.scenario_name for s in scenarios}) != len(scenarios):
         raise ValueError("Scenario names must be unique within an output directory")
+    if execution_estimator not in ('simple','quadratic_covariance'):
+        raise ValueError('Unknown execution estimator')
+    if execution_estimator=='quadratic_covariance' and any(s.execution_belief!='calibrated' for s in scenarios):
+        raise ValueError('Quadratic covariance estimator requires calibrated execution belief')
     output_dir.mkdir(parents=True, exist_ok=True)
     all_trials = []
     calibration_rows = []
+    fit_rows = []
     for scenario in scenarios:
         print(f"Running scenario: {scenario.scenario_name}")
-        frame=run_scenario(scenario, make_passengers(scenario))
+        prepared=None
+        if execution_estimator=='quadratic_covariance':
+            from comfort_boundary_bo_research_package.simulation.flexible_execution import prepare_flexible_execution
+            prepared=prepare_flexible_execution(scenario)
+            fit_rows.append({'scenario':scenario.scenario_name,**prepared.metadata})
+        frame=run_scenario(scenario, make_passengers(scenario),prepared)
         for index,observation in enumerate(frame.attrs['calibration_observations'],start=1):
             calibration_rows.append({'scenario':scenario.scenario_name,'calibration_trial':index,
                 'calibration_seed':scenario.calibration_seed,**observation})
@@ -1162,11 +1173,14 @@ def run_configurations(scenarios: list[Config], output_dir: Path) -> tuple[pd.Da
     sensitivity.to_csv(output_dir / "continuous_sensitivity_summary.csv", index=False, encoding="utf-8-sig")
     pd.DataFrame(calibration_rows,columns=['scenario','calibration_trial','calibration_seed',*CALIBRATION_FIELDS]).to_csv(
         output_dir / 'continuous_execution_calibration.csv',index=False,encoding='utf-8-sig')
+    if fit_rows:
+        pd.DataFrame(fit_rows).to_csv(output_dir/'continuous_execution_fit.csv',index=False,encoding='utf-8-sig')
     save_plots(trials, participant, output_dir)
     return trials, participant, algorithm
 
 
 def add_execution_cli_arguments(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument('--execution-estimator',choices=['simple','quadratic_covariance'],default='simple')
     parser.add_argument('--execution-belief',choices=['calibrated','nominal','oracle'],default='calibrated')
     parser.add_argument('--process-rng-mode',choices=['independent','legacy'],default='independent')
     parser.add_argument('--population-seed',type=int,default=BASE_SEED+101)
@@ -1184,8 +1198,10 @@ def execution_cli_config(args) -> dict:
         calibration_bias=args.true_execution_bias)
 
 
-def default_output_dir(surrogate: str, belief: str, poc: bool = False, rng_mode: str = 'independent') -> Path:
+def default_output_dir(surrogate: str, belief: str, poc: bool = False, rng_mode: str = 'independent', execution_estimator: str = 'simple') -> Path:
     suffix='_poc' if poc else ''
+    if execution_estimator=='quadratic_covariance':
+        return ROOT/('outputs_flexible_execution'+suffix)
     if belief=='oracle' and rng_mode=='legacy':
         return ROOT/('outputs_bayesian'+suffix if surrogate=='monotone_bayes' else 'outputs_continuous'+suffix)
     if belief=='calibrated' and surrogate=='monotone_bayes':
@@ -1199,12 +1215,12 @@ def main() -> None:
     parser.add_argument("--output-dir", type=Path)
     add_execution_cli_arguments(parser)
     args = parser.parse_args()
-    output_dir = args.output_dir or default_output_dir(args.surrogate,args.execution_belief,rng_mode=args.process_rng_mode)
+    output_dir = args.output_dir or default_output_dir(args.surrogate,args.execution_belief,rng_mode=args.process_rng_mode,execution_estimator=args.execution_estimator)
     scenarios = [
         Config(execution_noise="low", scenario_name="continuous_low_noise", seed=BASE_SEED + 1, surrogate_kind=args.surrogate,**execution_cli_config(args)),
         Config(execution_noise="high", scenario_name="continuous_high_noise", seed=BASE_SEED + 2, surrogate_kind=args.surrogate,**execution_cli_config(args)),
     ]
-    _, _, algorithm = run_configurations(scenarios, output_dir)
+    _, _, algorithm = run_configurations(scenarios, output_dir,execution_estimator=args.execution_estimator)
 
     print("Continuous-target uncertain-input simulation complete.")
     print(f"Output directory: {output_dir}")

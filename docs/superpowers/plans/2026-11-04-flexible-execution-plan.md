@@ -19,7 +19,7 @@
 ## Tasks
 
 - [x] 1. Create `simulation/flexible_execution.py` and `long_horizon_audit/tests/test_flexible_execution.py`. RED tests for independent coefficient/covariance fixtures, constraints, invalid inputs, sampler moments and truth isolation; implement immutable model, fit, upgrade adapter; full suite and commit.
-- [ ] 2. Add explicit extended/POC `--execution-estimator` integration and fit exports. Create `run_flexible_execution_audit.py`, `compare_flexible_execution.py`, tests for exact paired design, outputs, prefix/hash identity, parameter/config mismatch and missing cells. RED-to-GREEN, full suite, commit.
+- [x] 2. Add explicit extended/POC `--execution-estimator` integration and fit exports. Create `run_flexible_execution_audit.py`, `compare_flexible_execution.py`, tests for exact paired design, outputs, prefix/hash identity, parameter/config mismatch and missing cells. RED-to-GREEN, full suite, commit.
 - [ ] 3. Run 280 new scenarios + 420 baseline replays and new-model extended/POC; compare with old archive and produce complete CSV/JSON/PNG plus Chinese result/verification reports. Inspect figures, document benefits and regressions without post-hoc retuning.
 - [ ] 4. One independent review, one verified fix pass if needed, final tests/hashes/workspace sync, main fast-forward and authorized push, remote SHA verification.
 
@@ -37,3 +37,5 @@
 - Pre-flight: model adapter changes belief and its metadata only; historical Config/manifests and physical RNG paths stay unchanged. Audit uses the same observations, diagnostic namespace and population-batch statistical units as the previous study.
 
 - Task 1: baseline 63 tests passed; 11 new numerical/isolation tests first failed for the missing module. After implementation, one deliberately decreasing fixture exceeded physical acceleration bounds; corrected its intercept (1.2 to 0.9) without changing the constraint case. Final full suite: 74 passed. No outcome-based model tuning.
+
+- Task 2: five new integration/integrity tests first failed for absent CLI/scripts; implemented explicit selector, immutable study manifests, exact observation hashes, fit recomputation guards and historical replay checks. Full suite: 79 passed. All 280 calibration designs fit without dropped scenarios. Native PowerShell/Python verification is used in place of the skill shell helper.

@@ -89,7 +89,7 @@
 - [x] Astra reviews each scoped implementation against spec and quality, sends fixes to owning worker.
 - [x] Root runs integrated suite, runtime pilot, freezes config, executes held-out run and verifies artifacts.
 - [x] Astra conducts whole-change review including information flow, fairness and conclusions; resolve findings.
-- [ ] Root records verification, commits/pushes authorized branch, verifies remote hash, and synchronizes only finished task files to original workspace if needed.
+- [x] Root records verification, commits/pushes authorized branch, verifies remote hash, and synchronizes only finished task files to original workspace if needed. Code/results release `91c59422344b03efd240cdeab7e2d4890223981e` was verified on GitHub main; final documentation bookkeeping follows separately.
 
 
 

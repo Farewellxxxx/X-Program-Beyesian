@@ -15,18 +15,20 @@ from __future__ import annotations
 from pathlib import Path
 import argparse
 
-from run_uncertain_input_bo_extended import BASE_SEED, Config, run_configurations
+from run_uncertain_input_bo_extended import (BASE_SEED, Config, run_configurations,
+    add_execution_cli_arguments, execution_cli_config, default_output_dir)
 
 
-OUTPUT_DIR = Path(__file__).resolve().parent / "outputs_bayesian_poc"
+OUTPUT_DIR = Path(__file__).resolve().parent / "outputs_execution_separated_poc"
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--surrogate", choices=["monotone_bayes", "legacy_kernel"], default="monotone_bayes")
     parser.add_argument("--output-dir", type=Path)
+    add_execution_cli_arguments(parser)
     args = parser.parse_args()
-    output_dir = args.output_dir or (OUTPUT_DIR if args.surrogate == "monotone_bayes" else OUTPUT_DIR.parent / "outputs_continuous_poc")
+    output_dir = args.output_dir or default_output_dir(args.surrogate,args.execution_belief,poc=True)
     scenario = Config(
         surrogate_kind=args.surrogate,
         n_participants=18,
@@ -36,6 +38,7 @@ def main() -> None:
         seed=BASE_SEED + 501,
         candidate_count=35,
         mc_samples=40,
+        **execution_cli_config(args),
     )
     _, _, algorithm = run_configurations([scenario], output_dir)
 

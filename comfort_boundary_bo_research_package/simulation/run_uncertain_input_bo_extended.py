@@ -18,12 +18,12 @@ Run:
     python comfort_boundary_bo_research_package/simulation/run_uncertain_input_bo_extended.py
 
 Outputs:
-    comfort_boundary_bo_research_package/simulation/outputs_bayesian/
+    comfort_boundary_bo_research_package/simulation/outputs_execution_separated/
 """
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, fields
 import argparse
 from pathlib import Path
 import sys
@@ -44,9 +44,12 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 from comfort_boundary_bo_research_package.simulation.monotone_bayes import MonotoneBayesianLogistic, PriorGrid
+from comfort_boundary_bo_research_package.simulation.execution_belief import (
+    ExecutionParameters, ExecutionSettings, CALIBRATION_FIELDS, fit_execution_parameters,
+)
 
 ROOT = Path(__file__).resolve().parent
-OUTPUT_DIR = ROOT / "outputs_bayesian"
+OUTPUT_DIR = ROOT / "outputs_execution_separated"
 BASE_SEED = 20260703
 
 ALGORITHM_ORDER = [
@@ -85,6 +88,12 @@ class Config:
     include_time_effects: bool = False
     scenario_name: str = "continuous_low_noise"
     seed: int = BASE_SEED
+    population_seed: int = BASE_SEED + 101
+    calibration_seed: int = BASE_SEED + 303
+    execution_belief: str = "calibrated"  # calibrated, nominal, oracle
+    calibration_trials: int = 40
+    assumed_execution_bias: float = 0.0
+    assumed_execution_noise_scale: float = 0.65
     candidate_count: int = 35
     mc_samples: int = 35
     surrogate_kind: str = "monotone_bayes"
@@ -101,6 +110,41 @@ class Config:
     def __post_init__(self):
         if self.surrogate_kind not in ("monotone_bayes", "legacy_kernel"):
             raise ValueError("surrogate_kind must be monotone_bayes or legacy_kernel")
+        if self.execution_belief not in ('calibrated','nominal','oracle'):
+            raise ValueError('execution_belief must be calibrated, nominal or oracle')
+        if self.execution_noise not in ('low','medium','high'):
+            raise ValueError('execution_noise must be low, medium or high')
+        for name in ('seed','population_seed','calibration_seed'):
+            value=getattr(self,name)
+            if isinstance(value,bool) or not isinstance(value,int) or value<0:
+                raise ValueError(f'{name} must be a nonnegative integer')
+        if isinstance(self.calibration_trials,bool) or not isinstance(self.calibration_trials,int) or self.calibration_trials<4:
+            raise ValueError('calibration_trials must be an integer >= 4')
+        ExecutionParameters(self.calibration_bias,1.)
+        ExecutionParameters(self.assumed_execution_bias,self.assumed_execution_noise_scale)
+        ExecutionSettings(x_min=self.x_min,x_max=self.x_max)
+
+
+@dataclass(frozen=True)
+class PolicySettings:
+    tau: float
+    x_min: float
+    x_max: float
+    candidate_count: int
+    mc_samples: int
+    surrogate_kind: str
+    bayes_grid: PriorGrid
+
+
+def policy_settings(config: Config) -> PolicySettings:
+    return PolicySettings(**{field.name:getattr(config,field.name) for field in fields(PolicySettings)})
+
+
+OBSERVED_HISTORY_FIELDS = ('target_command_x','peak_accel','peak_jerk','duration_s',
+                           'realized_intensity','acceptable','discomfort')
+EXECUTION_METADATA = ('population_seed','process_seed','calibration_seed','execution_belief',
+    'true_execution_bias','true_execution_noise_scale','belief_execution_bias',
+    'belief_execution_noise_scale','calibration_n_observations','calibration_n_used','calibration_n_clipped')
 
 
 @dataclass(frozen=True)
@@ -165,9 +209,9 @@ def effective_intensity(
 
 
 def make_passengers(config: Config) -> list[Passenger]:
-    """Use the same synthetic passenger population across scenarios."""
+    """Draw a reproducible population independently of process/calibration RNGs."""
 
-    rng = np.random.default_rng(BASE_SEED + 101)
+    rng = np.random.default_rng(config.population_seed)
     passengers: list[Passenger] = []
     for pid in range(1, config.n_participants + 1):
         passengers.append(
@@ -186,15 +230,14 @@ def make_passengers(config: Config) -> list[Passenger]:
 class ContinuousExecutionModel:
     """Continuous target command x -> realized measured motion features z."""
 
-    def __init__(self, config: Config):
-        if config.execution_noise not in ("low", "medium", "high"):
-            raise ValueError("execution_noise must be low, medium, or high")
+    def __init__(self, config: ExecutionSettings, parameters: ExecutionParameters):
         self.config = config
-        self.noise_scale = {"low": 0.65, "medium": 1.0, "high": 1.55}[config.execution_noise]
+        self.parameters = parameters
+        self.noise_scale = parameters.noise_scale
 
     def nominal_features(self, target_x: float) -> dict[str, float | bool]:
         target_x = clip(target_x, self.config.x_min, self.config.x_max)
-        peak_accel = clip(0.05 + 0.94 * target_x + self.config.calibration_bias, 0.20, 2.35)
+        peak_accel = clip(0.05 + 0.94 * target_x + self.parameters.bias, 0.20, 2.35)
         peak_jerk = clip(0.58 + 1.74 * peak_accel + 0.10 * target_x, 0.30, 5.60)
         duration_s = clip(3.90 - 0.30 * peak_accel, 2.25, 4.65)
         rms_jerk = clip(0.55 * peak_jerk, 0.10, 3.40)
@@ -315,6 +358,44 @@ class ContinuousExecutionModel:
         return intensities.astype(float), violations.astype(bool)
 
 
+@dataclass
+class PreparedExecution:
+    truth: ContinuousExecutionModel
+    belief: ContinuousExecutionModel
+    calibration_observations: pd.DataFrame
+    metadata: dict
+
+
+def prepare_execution(config: Config, calibration_observations: pd.DataFrame | None = None) -> PreparedExecution:
+    settings=ExecutionSettings(**{field.name:getattr(config,field.name) for field in fields(ExecutionSettings)})
+    truth_parameters=ExecutionParameters(config.calibration_bias,{'low':.65,'medium':1.,'high':1.55}[config.execution_noise])
+    truth=ContinuousExecutionModel(settings,truth_parameters)
+    observations=pd.DataFrame(columns=CALIBRATION_FIELDS)
+    n_used=n_clipped=0
+    if config.execution_belief=='oracle':
+        estimated=ExecutionParameters(truth_parameters.bias,truth_parameters.noise_scale)
+    elif config.execution_belief=='nominal':
+        estimated=ExecutionParameters(config.assumed_execution_bias,config.assumed_execution_noise_scale)
+    else:
+        if calibration_observations is None:
+            rng=np.random.default_rng(np.random.SeedSequence([config.calibration_seed,0xCA1B]))
+            span=config.x_max-config.x_min
+            commands=np.linspace(config.x_min+.20*span,config.x_min+.80*span,config.calibration_trials)
+            observations=pd.DataFrame([truth.sample_features(float(x),rng) for x in commands])[CALIBRATION_FIELDS]
+        else:
+            observations=calibration_observations.copy()
+        fit=fit_execution_parameters(observations,settings)
+        estimated=fit.parameters; n_used=fit.n_used; n_clipped=fit.n_clipped
+        observations=observations[CALIBRATION_FIELDS].copy()
+    belief=ContinuousExecutionModel(settings,estimated)
+    metadata=dict(population_seed=config.population_seed,process_seed=config.seed,
+        calibration_seed=config.calibration_seed,execution_belief=config.execution_belief,
+        true_execution_bias=truth_parameters.bias,true_execution_noise_scale=truth_parameters.noise_scale,
+        belief_execution_bias=estimated.bias,belief_execution_noise_scale=estimated.noise_scale,
+        calibration_n_observations=len(observations),calibration_n_used=n_used,calibration_n_clipped=n_clipped)
+    return PreparedExecution(truth,belief,observations,metadata)
+
+
 class PassengerFeedbackModel:
     def __init__(self, config: Config, rng: np.random.Generator):
         self.config = config
@@ -428,7 +509,7 @@ class Policy(Protocol):
         ...
 
 
-def fit_surrogate_from_history(config: Config, history: list[dict[str, float | int | bool | str]]) -> KernelAcceptanceSurrogate | MonotoneBayesianLogistic:
+def fit_surrogate_from_history(config: Config | PolicySettings, history: list[dict[str, float | int | bool | str]]) -> KernelAcceptanceSurrogate | MonotoneBayesianLogistic:
     surrogate = (MonotoneBayesianLogistic(config.tau, grid=config.bayes_grid)
                  if config.surrogate_kind == "monotone_bayes"
                  else KernelAcceptanceSurrogate(config.tau))
@@ -447,7 +528,7 @@ class UncertainInputBO:
 
     def __init__(
         self,
-        config: Config,
+        config: PolicySettings,
         execution_model: ContinuousExecutionModel,
         rng: np.random.Generator,
     ):
@@ -516,7 +597,7 @@ class NaiveContinuousBO:
 
     def __init__(
         self,
-        config: Config,
+        config: PolicySettings,
         execution_model: ContinuousExecutionModel,
         rng: np.random.Generator,
     ):
@@ -563,7 +644,7 @@ class NaiveContinuousBO:
 class RandomContinuous:
     name = "RandomContinuous"
 
-    def __init__(self, config: Config, rng: np.random.Generator):
+    def __init__(self, config: PolicySettings, rng: np.random.Generator):
         self.config = config
         self.rng = rng
 
@@ -575,7 +656,7 @@ class RandomContinuous:
 class GridContinuous:
     name = "GridContinuous"
 
-    def __init__(self, config: Config):
+    def __init__(self, config: PolicySettings):
         self.grid = np.linspace(config.x_min, config.x_max, 7)
 
     def choose(self, history: list[dict[str, float | int | bool | str]], trial_id: int) -> float:
@@ -586,7 +667,7 @@ class GridContinuous:
 class Staircase:
     name = "Staircase"
 
-    def __init__(self, config: Config):
+    def __init__(self, config: PolicySettings):
         self.config = config
         self.current = 0.48 * config.x_min + 0.52 * config.x_max
         self.step = 0.22 * (config.x_max - config.x_min)
@@ -605,7 +686,7 @@ class Staircase:
 
 
 def build_policies(
-    config: Config,
+    config: PolicySettings,
     execution_model: ContinuousExecutionModel,
     seed_base: int,
 ) -> list[Policy]:
@@ -669,7 +750,7 @@ def run_algorithm(
         )
         row["cumulative_discomfort_after_trial"] = cumulative_discomfort
 
-        history.append(row)
+        history.append({key:row[key] for key in OBSERVED_HISTORY_FIELDS})
         surrogate = fit_surrogate_from_history(config, history)
         row["estimated_boundary_so_far"] = surrogate.estimate_boundary()
         if isinstance(surrogate, MonotoneBayesianLogistic):
@@ -697,23 +778,31 @@ def run_algorithm(
 
 
 def run_scenario(config: Config, passengers: list[Passenger]) -> pd.DataFrame:
-    execution_model = ContinuousExecutionModel(config)
+    prepared = prepare_execution(config)
+    execution_model = prepared.truth
     rows: list[dict[str, float | int | bool | str]] = []
 
     for passenger in passengers:
-        policies = build_policies(config, execution_model, config.seed + passenger.participant_id * 10_000)
+        policies = build_policies(policy_settings(config), prepared.belief, config.seed + passenger.participant_id * 10_000)
         for algorithm_index, policy in enumerate(policies):
             seed_base = config.seed + passenger.participant_id * 1009 + algorithm_index * 9176
             execution_rng = np.random.default_rng(seed_base + 101)
             feedback_rng = np.random.default_rng(seed_base + 202)
             rows.extend(run_algorithm(config, passenger, policy, execution_model, execution_rng, feedback_rng))
-    return pd.DataFrame(rows)
+    trials = pd.DataFrame(rows)
+    for key,value in prepared.metadata.items():
+        trials[key]=value
+    trials.attrs['calibration_observations']=prepared.calibration_observations.to_dict('records')
+    return trials
 
 
 def evaluate(trials: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     if trials.empty or trials.surrogate_kind.isna().any() or trials.surrogate_kind.nunique() != 1:
         raise ValueError("Evaluate one nonempty surrogate dataset at a time")
     surrogate_kind = str(trials.surrogate_kind.iloc[0])
+    provenance=trials[['scenario',*EXECUTION_METADATA]].drop_duplicates()
+    if provenance.scenario.duplicated().any():
+        raise ValueError('Each scenario must have one execution/population configuration')
     final = trials.sort_values("trial_id").groupby(["scenario", "participant_id", "algorithm"]).tail(1)
     participant = (
         trials.groupby(["scenario", "execution_noise", "participant_id", "algorithm"])
@@ -811,10 +900,11 @@ def evaluate(trials: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataF
     safety["protocol_deviation_rate"] = safety["protocol_deviation_trials"] / safety["total_trials"]
 
     sensitivity_rows: list[dict[str, float | str]] = []
-    for algorithm_name, group in participant.groupby("algorithm"):
+    for (scenario,algorithm_name), group in participant.groupby(["scenario","algorithm"]):
         for execution_noise, sub in group.groupby("execution_noise"):
             sensitivity_rows.append(
                 {
+                    "scenario": scenario,
                     "sensitivity_type": "execution_noise",
                     "condition": str(execution_noise),
                     "algorithm": algorithm_name,
@@ -827,7 +917,8 @@ def evaluate(trials: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataF
     sensitivity = pd.DataFrame(sensitivity_rows)
     for table in (participant, algorithm, diagnostics, safety, sensitivity):
         table["surrogate_kind"] = surrogate_kind
-    return participant, algorithm, diagnostics, safety, sensitivity
+    return tuple(table.merge(provenance,on='scenario',how='left',validate='many_to_one')
+                 for table in (participant, algorithm, diagnostics, safety, sensitivity))
 
 
 def sorted_algorithms(df: pd.DataFrame) -> list[str]:
@@ -1029,12 +1120,15 @@ def run_configurations(scenarios: list[Config], output_dir: Path) -> tuple[pd.Da
     if len({s.scenario_name for s in scenarios}) != len(scenarios):
         raise ValueError("Scenario names must be unique within an output directory")
     output_dir.mkdir(parents=True, exist_ok=True)
-    passengers = make_passengers(scenarios[0])
-
     all_trials = []
+    calibration_rows = []
     for scenario in scenarios:
         print(f"Running scenario: {scenario.scenario_name}")
-        all_trials.append(run_scenario(scenario, passengers))
+        frame=run_scenario(scenario, make_passengers(scenario))
+        for index,observation in enumerate(frame.attrs['calibration_observations'],start=1):
+            calibration_rows.append({'scenario':scenario.scenario_name,'calibration_trial':index,
+                'calibration_seed':scenario.calibration_seed,**observation})
+        all_trials.append(frame)
 
     trials = pd.concat(all_trials, ignore_index=True)
     participant, algorithm, diagnostics, safety, sensitivity = evaluate(trials)
@@ -1045,19 +1139,48 @@ def run_configurations(scenarios: list[Config], output_dir: Path) -> tuple[pd.Da
     diagnostics.to_csv(output_dir / "continuous_target_realized_diagnostics.csv", index=False, encoding="utf-8-sig")
     safety.to_csv(output_dir / "continuous_safety_protocol_summary.csv", index=False, encoding="utf-8-sig")
     sensitivity.to_csv(output_dir / "continuous_sensitivity_summary.csv", index=False, encoding="utf-8-sig")
+    pd.DataFrame(calibration_rows,columns=['scenario','calibration_trial','calibration_seed',*CALIBRATION_FIELDS]).to_csv(
+        output_dir / 'continuous_execution_calibration.csv',index=False,encoding='utf-8-sig')
     save_plots(trials, participant, output_dir)
     return trials, participant, algorithm
+
+
+def add_execution_cli_arguments(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument('--execution-belief',choices=['calibrated','nominal','oracle'],default='calibrated')
+    parser.add_argument('--population-seed',type=int,default=BASE_SEED+101)
+    parser.add_argument('--calibration-seed',type=int,default=BASE_SEED+303)
+    parser.add_argument('--calibration-trials',type=int,default=40)
+    parser.add_argument('--assumed-execution-bias',type=float,default=0.)
+    parser.add_argument('--assumed-execution-noise-scale',type=float,default=.65)
+    parser.add_argument('--true-execution-bias',type=float,default=0.)
+
+
+def execution_cli_config(args) -> dict:
+    return dict(execution_belief=args.execution_belief,population_seed=args.population_seed,
+        calibration_seed=args.calibration_seed,calibration_trials=args.calibration_trials,
+        assumed_execution_bias=args.assumed_execution_bias,assumed_execution_noise_scale=args.assumed_execution_noise_scale,
+        calibration_bias=args.true_execution_bias)
+
+
+def default_output_dir(surrogate: str, belief: str, poc: bool = False) -> Path:
+    suffix='_poc' if poc else ''
+    if belief=='oracle':
+        return ROOT/('outputs_bayesian'+suffix if surrogate=='monotone_bayes' else 'outputs_continuous'+suffix)
+    if belief=='calibrated' and surrogate=='monotone_bayes':
+        return ROOT/('outputs_execution_separated'+suffix)
+    return ROOT/f'outputs_{surrogate}_{belief}{suffix}'
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--surrogate", choices=["monotone_bayes", "legacy_kernel"], default="monotone_bayes")
     parser.add_argument("--output-dir", type=Path)
+    add_execution_cli_arguments(parser)
     args = parser.parse_args()
-    output_dir = args.output_dir or (OUTPUT_DIR if args.surrogate == "monotone_bayes" else ROOT / "outputs_continuous")
+    output_dir = args.output_dir or default_output_dir(args.surrogate,args.execution_belief)
     scenarios = [
-        Config(execution_noise="low", scenario_name="continuous_low_noise", seed=BASE_SEED + 1, surrogate_kind=args.surrogate),
-        Config(execution_noise="high", scenario_name="continuous_high_noise", seed=BASE_SEED + 2, surrogate_kind=args.surrogate),
+        Config(execution_noise="low", scenario_name="continuous_low_noise", seed=BASE_SEED + 1, surrogate_kind=args.surrogate,**execution_cli_config(args)),
+        Config(execution_noise="high", scenario_name="continuous_high_noise", seed=BASE_SEED + 2, surrogate_kind=args.surrogate,**execution_cli_config(args)),
     ]
     _, _, algorithm = run_configurations(scenarios, output_dir)
 

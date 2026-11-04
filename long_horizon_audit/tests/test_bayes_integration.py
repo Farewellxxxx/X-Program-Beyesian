@@ -29,7 +29,7 @@ class BayesianIntegrationTests(unittest.TestCase):
 
     def test_legacy_mode_replays_committed_corrected_records(self):
         config=self.sim.Config(n_participants=1,n_trials=4,seed=self.sim.BASE_SEED+1,
-            scenario_name="continuous_low_noise",surrogate_kind="legacy_kernel")
+            scenario_name="continuous_low_noise",surrogate_kind="legacy_kernel",execution_belief="oracle")
         actual=self.sim.run_scenario(config,self.sim.make_passengers(config))
         old=pd.read_csv(SOURCE.parent/"outputs_continuous/continuous_trials.csv")
         old=old[(old.scenario==config.scenario_name)&(old.participant_id==1)&(old.trial_id<=4)]

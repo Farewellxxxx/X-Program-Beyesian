@@ -32,6 +32,10 @@ def load_simulation_module():
 def run_one(sim, config) -> pd.DataFrame:
     passengers = sim.make_passengers(config)
     trials = sim.run_scenario(config, passengers)
+    return summarize_trials(sim,config,trials)
+
+
+def summarize_trials(sim, config, trials: pd.DataFrame) -> pd.DataFrame:
     participant, _, _, safety, _ = sim.evaluate(trials)
     output = participant.groupby("algorithm", as_index=False).agg(
         mean_boundary_error=("boundary_error_so_far", "mean"),
@@ -59,6 +63,8 @@ def run_one(sim, config) -> pd.DataFrame:
     output["n_participants"] = config.n_participants
     output["n_trials_per_algorithm_participant"] = config.n_trials
     output["surrogate_kind"] = config.surrogate_kind
+    for field in sim.EXECUTION_METADATA:
+        output[field]=trials[field].iloc[0]
     return output
 
 
@@ -119,6 +125,8 @@ def main() -> int:
     parser.add_argument("--output-dir", required=True, type=Path)
     parser.add_argument("--seeds", type=int, default=5)
     parser.add_argument("--surrogate", choices=["monotone_bayes", "legacy_kernel"], default="monotone_bayes")
+    parser.add_argument('--execution-belief',choices=['oracle','calibrated','nominal'],default='oracle',
+        help='Historical audit defaults to oracle; use run_execution_population_audit.py for independent populations')
     args = parser.parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -130,6 +138,7 @@ def main() -> int:
             configs.append(
                 sim.Config(
                     surrogate_kind=args.surrogate,
+                    execution_belief=args.execution_belief,
                     execution_noise=noise,
                     scenario_name=f"multiseed_{noise}_{repeat + 1}",
                     seed=seed,
@@ -145,7 +154,8 @@ def main() -> int:
         {"include_time_effects": True, "scenario_name": "sensitivity_time_effects_on"},
     ]
     for index, overrides in enumerate(sensitivity_specs):
-        configs.append(sim.Config(seed=20269000 + index, surrogate_kind=args.surrogate, **overrides))
+        configs.append(sim.Config(seed=20269000 + index, surrogate_kind=args.surrogate,
+                                  execution_belief=args.execution_belief, **overrides))
 
     rows = []
     for index, config in enumerate(configs, start=1):

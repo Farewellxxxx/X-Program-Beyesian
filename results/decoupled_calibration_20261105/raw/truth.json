@@ -1,0 +1,4994 @@
+[
+  {
+    "scenario": "logistic__precise",
+    "participant": 0,
+    "passenger": {
+      "boundary": 1.4166604861213545,
+      "family": "logistic",
+      "slope": 4.53771119102056,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.0008970067508283459,
+      "gain": 0.9976241065358121,
+      "sd": 0.028819469062758975,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 1,
+    "passenger": {
+      "boundary": 2.2131597159917735,
+      "family": "logistic",
+      "slope": 6.577702958231323,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.01129266793165825,
+      "gain": 0.9920086513283982,
+      "sd": 0.026835534092751377,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 2,
+    "passenger": {
+      "boundary": 0.9895685577285598,
+      "family": "logistic",
+      "slope": 2.8902238425576936,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.01309575850598583,
+      "gain": 1.0066840781738375,
+      "sd": 0.030704844132219897,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 3,
+    "passenger": {
+      "boundary": 0.6401689538237996,
+      "family": "logistic",
+      "slope": 4.5298974611536655,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.003769894808178382,
+      "gain": 1.00018084754703,
+      "sd": 0.02657795032575378,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 4,
+    "passenger": {
+      "boundary": 1.1655505216794921,
+      "family": "logistic",
+      "slope": 5.091751519054385,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.007296979175369484,
+      "gain": 0.9963762790313803,
+      "sd": 0.028110210371193028,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 5,
+    "passenger": {
+      "boundary": 2.476545692900828,
+      "family": "logistic",
+      "slope": 3.3509697612899076,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.000961682313079501,
+      "gain": 1.0000515280871864,
+      "sd": 0.026792787749412312,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 6,
+    "passenger": {
+      "boundary": 2.0034913236922156,
+      "family": "logistic",
+      "slope": 3.8877754290817057,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.008944980748986201,
+      "gain": 0.9940936370359441,
+      "sd": 0.03178542183455096,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 7,
+    "passenger": {
+      "boundary": 1.9751924839895605,
+      "family": "logistic",
+      "slope": 3.3800211215271676,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.004691114047698787,
+      "gain": 0.9977768909213051,
+      "sd": 0.03449513326318612,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 8,
+    "passenger": {
+      "boundary": 0.7285122430402073,
+      "family": "logistic",
+      "slope": 4.626037326987379,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.006146929853777796,
+      "gain": 0.9943386632963215,
+      "sd": 0.028379784062932522,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 9,
+    "passenger": {
+      "boundary": 2.451077628398675,
+      "family": "logistic",
+      "slope": 6.1131928436553835,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.020219364456000147,
+      "gain": 1.0143493526462577,
+      "sd": 0.033578711139735616,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 10,
+    "passenger": {
+      "boundary": 2.0290611779370717,
+      "family": "logistic",
+      "slope": 12.98272584635846,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.0010347347256042848,
+      "gain": 0.9982045348742218,
+      "sd": 0.025842911905996954,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 11,
+    "passenger": {
+      "boundary": 1.9174087342440063,
+      "family": "logistic",
+      "slope": 3.047416039435406,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.001097897774965727,
+      "gain": 0.9997737510579948,
+      "sd": 0.03087348919986403,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 12,
+    "passenger": {
+      "boundary": 2.1419952510978804,
+      "family": "logistic",
+      "slope": 2.958481594660211,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.0060793026614986995,
+      "gain": 0.9943079008102143,
+      "sd": 0.033144036792840045,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 13,
+    "passenger": {
+      "boundary": 1.2893728937861668,
+      "family": "logistic",
+      "slope": 4.45151124801401,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.008472009141323084,
+      "gain": 1.005238053829613,
+      "sd": 0.03320661344553839,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 14,
+    "passenger": {
+      "boundary": 2.000384753055874,
+      "family": "logistic",
+      "slope": 5.872858465701181,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.007086537112794701,
+      "gain": 1.0041379759724962,
+      "sd": 0.030029254941729547,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 15,
+    "passenger": {
+      "boundary": 1.1326933059075421,
+      "family": "logistic",
+      "slope": 5.350304132322266,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.010010529852666324,
+      "gain": 0.9933722978144884,
+      "sd": 0.031212859694227556,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 16,
+    "passenger": {
+      "boundary": 1.5153859909322953,
+      "family": "logistic",
+      "slope": 6.311523362139692,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.0069010259483185754,
+      "gain": 0.9916540012129336,
+      "sd": 0.029030551779316592,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 17,
+    "passenger": {
+      "boundary": 2.1224672084914857,
+      "family": "logistic",
+      "slope": 4.641549695634231,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.0013385325366665121,
+      "gain": 0.9998201581588103,
+      "sd": 0.025319012815629843,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 18,
+    "passenger": {
+      "boundary": 1.2360150028039203,
+      "family": "logistic",
+      "slope": 3.9114238071725347,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.005503422901977514,
+      "gain": 1.0061199281064461,
+      "sd": 0.028199074437430516,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 19,
+    "passenger": {
+      "boundary": 2.333240983338995,
+      "family": "logistic",
+      "slope": 3.264132203179782,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.0053833582983660155,
+      "gain": 1.002431462838937,
+      "sd": 0.03209206314180531,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 20,
+    "passenger": {
+      "boundary": 0.9134967861448395,
+      "family": "logistic",
+      "slope": 5.470119899354364,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.014062870038469342,
+      "gain": 0.9919166120103415,
+      "sd": 0.028672830201192046,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 21,
+    "passenger": {
+      "boundary": 0.913911622139296,
+      "family": "logistic",
+      "slope": 2.224142440151301,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.009585604142267657,
+      "gain": 0.9947298055315871,
+      "sd": 0.031568024017590304,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 22,
+    "passenger": {
+      "boundary": 1.6328379679547886,
+      "family": "logistic",
+      "slope": 2.939720815822954,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.01071068363117913,
+      "gain": 0.9914382698902041,
+      "sd": 0.028296681885684242,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 23,
+    "passenger": {
+      "boundary": 1.0060796844901347,
+      "family": "logistic",
+      "slope": 3.97729968431901,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.0171476267374498,
+      "gain": 1.0084337923096427,
+      "sd": 0.028707893163804232,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 24,
+    "passenger": {
+      "boundary": 1.5096112053439656,
+      "family": "logistic",
+      "slope": 2.048822932188794,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.016392263757253788,
+      "gain": 0.9916206155741214,
+      "sd": 0.03479933706494476,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 25,
+    "passenger": {
+      "boundary": 1.068189389119637,
+      "family": "logistic",
+      "slope": 4.43304506699862,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.0007877905943562187,
+      "gain": 0.9996951926389676,
+      "sd": 0.02978412519485458,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 26,
+    "passenger": {
+      "boundary": 1.9776507334130955,
+      "family": "logistic",
+      "slope": 5.5642362788647475,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.0013644848991786523,
+      "gain": 1.0007135544065575,
+      "sd": 0.029781385389923528,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 27,
+    "passenger": {
+      "boundary": 1.7028121115855743,
+      "family": "logistic",
+      "slope": 3.5034123319963832,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.005945589815191541,
+      "gain": 0.9971357726277773,
+      "sd": 0.027205116844961595,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 28,
+    "passenger": {
+      "boundary": 1.4512497029933666,
+      "family": "logistic",
+      "slope": 5.2703823354314405,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.003642874462380022,
+      "gain": 0.9973724334318703,
+      "sd": 0.02714573540853264,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 29,
+    "passenger": {
+      "boundary": 0.7018508638374654,
+      "family": "logistic",
+      "slope": 4.420740892460244,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.00583471772169369,
+      "gain": 1.0049868317711315,
+      "sd": 0.027773398132375303,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 30,
+    "passenger": {
+      "boundary": 0.6431369153719984,
+      "family": "logistic",
+      "slope": 4.262622471668042,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.005129449227735341,
+      "gain": 0.9967662261653513,
+      "sd": 0.027098845926501813,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 31,
+    "passenger": {
+      "boundary": 2.224207894183503,
+      "family": "logistic",
+      "slope": 3.952767660991105,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.0014880429491138099,
+      "gain": 0.9992033519679043,
+      "sd": 0.030114735027264156,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 0,
+    "passenger": {
+      "boundary": 1.4166604861213545,
+      "family": "logistic",
+      "slope": 4.53771119102056,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.07474769896942478,
+      "gain": 0.9061849727576712,
+      "sd": 0.18207848056804657,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 1,
+    "passenger": {
+      "boundary": 2.2131597159917735,
+      "family": "logistic",
+      "slope": 6.577702958231323,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.2029096206979357,
+      "gain": 0.8412521546578747,
+      "sd": 0.1782181281579373,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 2,
+    "passenger": {
+      "boundary": 0.9895685577285598,
+      "family": "logistic",
+      "slope": 2.8902238425576936,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.057487425386770104,
+      "gain": 0.9355644384213909,
+      "sd": 0.18452974103432782,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 3,
+    "passenger": {
+      "boundary": 0.6401689538237996,
+      "family": "logistic",
+      "slope": 4.5298974611536655,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.19856626016150927,
+      "gain": 0.8405852074273575,
+      "sd": 0.20987941754291412,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 4,
+    "passenger": {
+      "boundary": 1.1655505216794921,
+      "family": "logistic",
+      "slope": 5.091751519054385,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.12329997742493203,
+      "gain": 0.9002171982444414,
+      "sd": 0.20050609757297055,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 5,
+    "passenger": {
+      "boundary": 2.476545692900828,
+      "family": "logistic",
+      "slope": 3.3509697612899076,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.0041734001114844795,
+      "gain": 0.9666450614918475,
+      "sd": 0.17445785829682137,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 6,
+    "passenger": {
+      "boundary": 2.0034913236922156,
+      "family": "logistic",
+      "slope": 3.8877754290817057,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.08133647272913777,
+      "gain": 0.9411292034155588,
+      "sd": 0.17496292656678591,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 7,
+    "passenger": {
+      "boundary": 1.9751924839895605,
+      "family": "logistic",
+      "slope": 3.3800211215271676,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.07087063079689818,
+      "gain": 1.0145670871822667,
+      "sd": 0.16111305815796012,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 8,
+    "passenger": {
+      "boundary": 0.7285122430402073,
+      "family": "logistic",
+      "slope": 4.626037326987379,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.05632894089339764,
+      "gain": 0.9453981283418607,
+      "sd": 0.19147049949221998,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 9,
+    "passenger": {
+      "boundary": 2.451077628398675,
+      "family": "logistic",
+      "slope": 6.1131928436553835,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.09612142178309208,
+      "gain": 0.8937117513518481,
+      "sd": 0.1932171900673082,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 10,
+    "passenger": {
+      "boundary": 2.0290611779370717,
+      "family": "logistic",
+      "slope": 12.98272584635846,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.05147776833621218,
+      "gain": 0.9307706464846142,
+      "sd": 0.18247551159425696,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 11,
+    "passenger": {
+      "boundary": 1.9174087342440063,
+      "family": "logistic",
+      "slope": 3.047416039435406,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.1396232801297757,
+      "gain": 0.8774886032197801,
+      "sd": 0.180151340651654,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 12,
+    "passenger": {
+      "boundary": 2.1419952510978804,
+      "family": "logistic",
+      "slope": 2.958481594660211,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.10453903885134978,
+      "gain": 0.9081131805799546,
+      "sd": 0.1896163228049186,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 13,
+    "passenger": {
+      "boundary": 1.2893728937861668,
+      "family": "logistic",
+      "slope": 4.45151124801401,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.10599949694664,
+      "gain": 0.8921992487015679,
+      "sd": 0.18497572963597594,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 14,
+    "passenger": {
+      "boundary": 2.000384753055874,
+      "family": "logistic",
+      "slope": 5.872858465701181,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.1042701098676642,
+      "gain": 0.8914301750591201,
+      "sd": 0.16290649126689288,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 15,
+    "passenger": {
+      "boundary": 1.1326933059075421,
+      "family": "logistic",
+      "slope": 5.350304132322266,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.08666730308193193,
+      "gain": 0.9127973290215861,
+      "sd": 0.17280024076292883,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 16,
+    "passenger": {
+      "boundary": 1.5153859909322953,
+      "family": "logistic",
+      "slope": 6.311523362139692,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.0650496809714401,
+      "gain": 0.9238890733616528,
+      "sd": 0.1865164251100293,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 17,
+    "passenger": {
+      "boundary": 2.1224672084914857,
+      "family": "logistic",
+      "slope": 4.641549695634231,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.028018118652659445,
+      "gain": 0.9373262782494469,
+      "sd": 0.1616973416874903,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 18,
+    "passenger": {
+      "boundary": 1.2360150028039203,
+      "family": "logistic",
+      "slope": 3.9114238071725347,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.1076558076355608,
+      "gain": 0.8951106136761724,
+      "sd": 0.19134386508414689,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 19,
+    "passenger": {
+      "boundary": 2.333240983338995,
+      "family": "logistic",
+      "slope": 3.264132203179782,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.18069002714483726,
+      "gain": 0.8447220831763067,
+      "sd": 0.15302493335541387,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 20,
+    "passenger": {
+      "boundary": 0.9134967861448395,
+      "family": "logistic",
+      "slope": 5.470119899354364,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.11977612883893654,
+      "gain": 0.8750383038313985,
+      "sd": 0.1821936766600569,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 21,
+    "passenger": {
+      "boundary": 0.913911622139296,
+      "family": "logistic",
+      "slope": 2.224142440151301,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.0037352508486755832,
+      "gain": 0.9602194643394636,
+      "sd": 0.18685347937003954,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 22,
+    "passenger": {
+      "boundary": 1.6328379679547886,
+      "family": "logistic",
+      "slope": 2.939720815822954,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.10111589214641713,
+      "gain": 0.896471201140768,
+      "sd": 0.16601509351417643,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 23,
+    "passenger": {
+      "boundary": 1.0060796844901347,
+      "family": "logistic",
+      "slope": 3.97729968431901,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.07780725805676773,
+      "gain": 0.9088829700177242,
+      "sd": 0.18474950106891155,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 24,
+    "passenger": {
+      "boundary": 1.5096112053439656,
+      "family": "logistic",
+      "slope": 2.048822932188794,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.10073819066696207,
+      "gain": 0.9239244199284202,
+      "sd": 0.1868913189880622,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 25,
+    "passenger": {
+      "boundary": 1.068189389119637,
+      "family": "logistic",
+      "slope": 4.43304506699862,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.06034573114484588,
+      "gain": 1.0006617601796501,
+      "sd": 0.17387329681789201,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 26,
+    "passenger": {
+      "boundary": 1.9776507334130955,
+      "family": "logistic",
+      "slope": 5.5642362788647475,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.11834320248376448,
+      "gain": 0.8706593015427624,
+      "sd": 0.17856610120017405,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 27,
+    "passenger": {
+      "boundary": 1.7028121115855743,
+      "family": "logistic",
+      "slope": 3.5034123319963832,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.07405124002449796,
+      "gain": 0.925647911005425,
+      "sd": 0.1717282410350209,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 28,
+    "passenger": {
+      "boundary": 1.4512497029933666,
+      "family": "logistic",
+      "slope": 5.2703823354314405,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.05166459799203932,
+      "gain": 0.9468419646032251,
+      "sd": 0.18558838939389494,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 29,
+    "passenger": {
+      "boundary": 0.7018508638374654,
+      "family": "logistic",
+      "slope": 4.420740892460244,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.027010443732109094,
+      "gain": 0.9824123094434142,
+      "sd": 0.18119370861926118,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 30,
+    "passenger": {
+      "boundary": 0.6431369153719984,
+      "family": "logistic",
+      "slope": 4.262622471668042,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.04759021500667657,
+      "gain": 0.9392721570978375,
+      "sd": 0.18779076020775537,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__variable",
+    "participant": 31,
+    "passenger": {
+      "boundary": 2.224207894183503,
+      "family": "logistic",
+      "slope": 3.952767660991105,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.17265045573458587,
+      "gain": 0.8622562688088073,
+      "sd": 0.1821115984848959,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 0,
+    "passenger": {
+      "boundary": 1.3843122172600244,
+      "family": "probit",
+      "slope": 5.501625691586861,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.005340705546682761,
+      "gain": 0.9965901671993534,
+      "sd": 0.03035082342381217,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 1,
+    "passenger": {
+      "boundary": 2.157873024881379,
+      "family": "probit",
+      "slope": 5.096202595252006,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.00185021530871768,
+      "gain": 0.9975250958934991,
+      "sd": 0.03218441121826472,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 2,
+    "passenger": {
+      "boundary": 1.868949146734166,
+      "family": "probit",
+      "slope": 4.241439181690225,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.0008042055079078729,
+      "gain": 1.0027160300048183,
+      "sd": 0.03128472740885771,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 3,
+    "passenger": {
+      "boundary": 2.1201506286648195,
+      "family": "probit",
+      "slope": 3.9879701638108265,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.004478897517581965,
+      "gain": 0.9939369945563392,
+      "sd": 0.02801967837309522,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 4,
+    "passenger": {
+      "boundary": 1.1171587766261541,
+      "family": "probit",
+      "slope": 3.206742343654948,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.004046407527531867,
+      "gain": 1.0044728165712065,
+      "sd": 0.027554506848469242,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 5,
+    "passenger": {
+      "boundary": 1.792635158194026,
+      "family": "probit",
+      "slope": 2.871100773585349,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.023651238496387967,
+      "gain": 1.0167796660804143,
+      "sd": 0.028686526737324643,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 6,
+    "passenger": {
+      "boundary": 1.969214163586677,
+      "family": "probit",
+      "slope": 3.7874617893096296,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.004708303632536445,
+      "gain": 0.9975718233871048,
+      "sd": 0.026583521498404688,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 7,
+    "passenger": {
+      "boundary": 0.6508080472374147,
+      "family": "probit",
+      "slope": 5.346335042690778,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.006602692224751987,
+      "gain": 0.9998877743914187,
+      "sd": 0.03149705251780659,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 8,
+    "passenger": {
+      "boundary": 0.5612415845367931,
+      "family": "probit",
+      "slope": 5.771394439414329,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.0007783279319564994,
+      "gain": 1.0022962207494515,
+      "sd": 0.033148182514085966,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 9,
+    "passenger": {
+      "boundary": 1.9360343123837636,
+      "family": "probit",
+      "slope": 5.173232565595358,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.002475764353829504,
+      "gain": 1.0034611333270385,
+      "sd": 0.032507965625470585,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 10,
+    "passenger": {
+      "boundary": 0.7955461568282627,
+      "family": "probit",
+      "slope": 4.388024942897279,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.01563131701824147,
+      "gain": 0.9909815360324314,
+      "sd": 0.03009957962002724,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 11,
+    "passenger": {
+      "boundary": 1.4774784002087646,
+      "family": "probit",
+      "slope": 3.7105425013962927,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.008829341520056024,
+      "gain": 1.0033018741428217,
+      "sd": 0.03129214342467866,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 12,
+    "passenger": {
+      "boundary": 0.8675525509236477,
+      "family": "probit",
+      "slope": 4.90739907930737,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.0017226090833956042,
+      "gain": 0.9982349557166356,
+      "sd": 0.025750871281739494,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 13,
+    "passenger": {
+      "boundary": 2.2634806446530167,
+      "family": "probit",
+      "slope": 5.8244983680069735,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.00393784027523688,
+      "gain": 1.0029413574778059,
+      "sd": 0.027853717381180712,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 14,
+    "passenger": {
+      "boundary": 1.493943103226369,
+      "family": "probit",
+      "slope": 3.27647381778172,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.004435729932890929,
+      "gain": 1.001929962980104,
+      "sd": 0.02724000567389607,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 15,
+    "passenger": {
+      "boundary": 2.3526553018060596,
+      "family": "probit",
+      "slope": 5.15682545789164,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.018045621928876893,
+      "gain": 0.9894020670034771,
+      "sd": 0.029367164378083496,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 16,
+    "passenger": {
+      "boundary": 0.6679589681652534,
+      "family": "probit",
+      "slope": 4.40587943803958,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.02114262148459411,
+      "gain": 1.0144219480535366,
+      "sd": 0.02616714309533802,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 17,
+    "passenger": {
+      "boundary": 1.1009418139295288,
+      "family": "probit",
+      "slope": 3.1782158032364984,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.0005567529064311403,
+      "gain": 1.0027000785225408,
+      "sd": 0.030005839707876094,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 18,
+    "passenger": {
+      "boundary": 0.8078762767650407,
+      "family": "probit",
+      "slope": 4.642318669704461,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.0009910199270025501,
+      "gain": 0.999717470201486,
+      "sd": 0.033965106931307665,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 19,
+    "passenger": {
+      "boundary": 2.0215067890021894,
+      "family": "probit",
+      "slope": 3.952458756728646,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.018816234804541723,
+      "gain": 1.0128448829486614,
+      "sd": 0.03040198944188932,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 20,
+    "passenger": {
+      "boundary": 1.2230327192291774,
+      "family": "probit",
+      "slope": 3.9150405765267826,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.0056283015740996095,
+      "gain": 0.9995388721649058,
+      "sd": 0.03107701913802404,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 21,
+    "passenger": {
+      "boundary": 2.095223190720197,
+      "family": "probit",
+      "slope": 4.5398731294954775,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.01669469836054579,
+      "gain": 0.9926042835299819,
+      "sd": 0.030510765919962907,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 22,
+    "passenger": {
+      "boundary": 2.4858039428334875,
+      "family": "probit",
+      "slope": 2.91110176935379,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.012637315768138424,
+      "gain": 0.9945370583214636,
+      "sd": 0.030174022075119943,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 23,
+    "passenger": {
+      "boundary": 1.1018182408755777,
+      "family": "probit",
+      "slope": 5.62963734958416,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.02654858922835267,
+      "gain": 0.982279828708253,
+      "sd": 0.029877097726546464,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 24,
+    "passenger": {
+      "boundary": 1.3212099726857855,
+      "family": "probit",
+      "slope": 9.665174982567352,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.00590778376379535,
+      "gain": 0.997398452312726,
+      "sd": 0.02701124545880795,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 25,
+    "passenger": {
+      "boundary": 0.5345097211545364,
+      "family": "probit",
+      "slope": 3.6364683292117252,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.008272240785722607,
+      "gain": 1.0038653767125048,
+      "sd": 0.027140334569304456,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 26,
+    "passenger": {
+      "boundary": 2.2794514993702544,
+      "family": "probit",
+      "slope": 2.6991182197442116,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.008961310067431488,
+      "gain": 0.9873454720372409,
+      "sd": 0.02939431973192959,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 27,
+    "passenger": {
+      "boundary": 1.3275077396065889,
+      "family": "probit",
+      "slope": 2.625534992065206,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.021696121319581037,
+      "gain": 1.015803851521257,
+      "sd": 0.028765755480384538,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 28,
+    "passenger": {
+      "boundary": 1.9866900656769828,
+      "family": "probit",
+      "slope": 5.48360023947735,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.006632328689049275,
+      "gain": 1.0015591216405288,
+      "sd": 0.02779502831899877,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 29,
+    "passenger": {
+      "boundary": 1.5590067024376297,
+      "family": "probit",
+      "slope": 4.488842780210343,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.012309705538968155,
+      "gain": 0.9922601485188113,
+      "sd": 0.028271077041661614,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 30,
+    "passenger": {
+      "boundary": 0.7818482470367007,
+      "family": "probit",
+      "slope": 5.296692059827503,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.003910720198049175,
+      "gain": 1.0048279983787436,
+      "sd": 0.027204349531944866,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__precise",
+    "participant": 31,
+    "passenger": {
+      "boundary": 1.8530107308379697,
+      "family": "probit",
+      "slope": 3.9195949173076534,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.00236210827694547,
+      "gain": 0.9987821356154929,
+      "sd": 0.02831362729697689,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 0,
+    "passenger": {
+      "boundary": 1.3843122172600244,
+      "family": "probit",
+      "slope": 5.501625691586861,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.027691631454795414,
+      "gain": 0.9375973606765204,
+      "sd": 0.18679761192054012,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 1,
+    "passenger": {
+      "boundary": 2.157873024881379,
+      "family": "probit",
+      "slope": 5.096202595252006,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.20376536732200756,
+      "gain": 0.849582606375625,
+      "sd": 0.17973956184785142,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 2,
+    "passenger": {
+      "boundary": 1.868949146734166,
+      "family": "probit",
+      "slope": 4.241439181690225,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.10743114251263121,
+      "gain": 0.9119130013338602,
+      "sd": 0.19449002513081293,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 3,
+    "passenger": {
+      "boundary": 2.1201506286648195,
+      "family": "probit",
+      "slope": 3.9879701638108265,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.07493686707489987,
+      "gain": 0.9363763608018965,
+      "sd": 0.17975788797471004,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 4,
+    "passenger": {
+      "boundary": 1.1171587766261541,
+      "family": "probit",
+      "slope": 3.206742343654948,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.0807579794122961,
+      "gain": 0.9264607531276073,
+      "sd": 0.17297949681377334,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 5,
+    "passenger": {
+      "boundary": 1.792635158194026,
+      "family": "probit",
+      "slope": 2.871100773585349,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.08681821606564577,
+      "gain": 0.8772680567096945,
+      "sd": 0.16700990524923956,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 6,
+    "passenger": {
+      "boundary": 1.969214163586677,
+      "family": "probit",
+      "slope": 3.7874617893096296,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.04658140102712845,
+      "gain": 0.9439868525548342,
+      "sd": 0.18111353570641314,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 7,
+    "passenger": {
+      "boundary": 0.6508080472374147,
+      "family": "probit",
+      "slope": 5.346335042690778,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.058498853504206486,
+      "gain": 0.936013782561988,
+      "sd": 0.1801696364769928,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 8,
+    "passenger": {
+      "boundary": 0.5612415845367931,
+      "family": "probit",
+      "slope": 5.771394439414329,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.11220540647084654,
+      "gain": 0.9116672679058909,
+      "sd": 0.17466908609856868,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 9,
+    "passenger": {
+      "boundary": 1.9360343123837636,
+      "family": "probit",
+      "slope": 5.173232565595358,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.07077500052570672,
+      "gain": 0.9313657863668691,
+      "sd": 0.19364196092620253,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 10,
+    "passenger": {
+      "boundary": 0.7955461568282627,
+      "family": "probit",
+      "slope": 4.388024942897279,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.026408473026574647,
+      "gain": 0.9711951631910456,
+      "sd": 0.182562667412873,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 11,
+    "passenger": {
+      "boundary": 1.4774784002087646,
+      "family": "probit",
+      "slope": 3.7105425013962927,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.01064198507594837,
+      "gain": 0.9738920909501936,
+      "sd": 0.18390696243138158,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 12,
+    "passenger": {
+      "boundary": 0.8675525509236477,
+      "family": "probit",
+      "slope": 4.90739907930737,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.1299473459336922,
+      "gain": 0.8753541073392797,
+      "sd": 0.1646039435695429,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 13,
+    "passenger": {
+      "boundary": 2.2634806446530167,
+      "family": "probit",
+      "slope": 5.8244983680069735,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.038387805040254186,
+      "gain": 0.9435554537845433,
+      "sd": 0.20092280906512358,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 14,
+    "passenger": {
+      "boundary": 1.493943103226369,
+      "family": "probit",
+      "slope": 3.27647381778172,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.06961539721394835,
+      "gain": 0.9361693218659206,
+      "sd": 0.1683311052516988,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 15,
+    "passenger": {
+      "boundary": 2.3526553018060596,
+      "family": "probit",
+      "slope": 5.15682545789164,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.006671074530834961,
+      "gain": 0.9679017757934342,
+      "sd": 0.19249993248052732,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 16,
+    "passenger": {
+      "boundary": 0.6679589681652534,
+      "family": "probit",
+      "slope": 4.40587943803958,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.08386497865558791,
+      "gain": 0.9153054269848211,
+      "sd": 0.15691884352597882,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 17,
+    "passenger": {
+      "boundary": 1.1009418139295288,
+      "family": "probit",
+      "slope": 3.1782158032364984,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.048094662813452926,
+      "gain": 0.9485599883034946,
+      "sd": 0.17359816225676816,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 18,
+    "passenger": {
+      "boundary": 0.8078762767650407,
+      "family": "probit",
+      "slope": 4.642318669704461,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.04946626448802156,
+      "gain": 0.9247485927764449,
+      "sd": 0.18423163070943752,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 19,
+    "passenger": {
+      "boundary": 2.0215067890021894,
+      "family": "probit",
+      "slope": 3.952458756728646,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.10029774981765638,
+      "gain": 0.9002684795175623,
+      "sd": 0.16763298907342053,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 20,
+    "passenger": {
+      "boundary": 1.2230327192291774,
+      "family": "probit",
+      "slope": 3.9150405765267826,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.00742231391396758,
+      "gain": 0.9709894737849133,
+      "sd": 0.17965431853402644,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 21,
+    "passenger": {
+      "boundary": 2.095223190720197,
+      "family": "probit",
+      "slope": 4.5398731294954775,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.008283064693795831,
+      "gain": 0.9741521918815454,
+      "sd": 0.2009363019703971,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 22,
+    "passenger": {
+      "boundary": 2.4858039428334875,
+      "family": "probit",
+      "slope": 2.91110176935379,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.10638071833907663,
+      "gain": 0.8984911578166417,
+      "sd": 0.18699172005443265,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 23,
+    "passenger": {
+      "boundary": 1.1018182408755777,
+      "family": "probit",
+      "slope": 5.62963734958416,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.1336341977144364,
+      "gain": 0.8883353690745392,
+      "sd": 0.1730896385567482,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 24,
+    "passenger": {
+      "boundary": 1.3212099726857855,
+      "family": "probit",
+      "slope": 9.665174982567352,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.04776954385514688,
+      "gain": 0.9142356715330214,
+      "sd": 0.1949542122937036,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 25,
+    "passenger": {
+      "boundary": 0.5345097211545364,
+      "family": "probit",
+      "slope": 3.6364683292117252,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.011096776489421398,
+      "gain": 0.9619956895276026,
+      "sd": 0.18393338628571637,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 26,
+    "passenger": {
+      "boundary": 2.2794514993702544,
+      "family": "probit",
+      "slope": 2.6991182197442116,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.07138778915404967,
+      "gain": 0.9487852638307278,
+      "sd": 0.16957315643090456,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 27,
+    "passenger": {
+      "boundary": 1.3275077396065889,
+      "family": "probit",
+      "slope": 2.625534992065206,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.06785454962810315,
+      "gain": 0.9287372261445273,
+      "sd": 0.19179468985746964,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 28,
+    "passenger": {
+      "boundary": 1.9866900656769828,
+      "family": "probit",
+      "slope": 5.48360023947735,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.0514588247029614,
+      "gain": 0.9238952740205804,
+      "sd": 0.18424353373209712,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 29,
+    "passenger": {
+      "boundary": 1.5590067024376297,
+      "family": "probit",
+      "slope": 4.488842780210343,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.12522407968199067,
+      "gain": 0.9010283247707918,
+      "sd": 0.17569311970633553,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 30,
+    "passenger": {
+      "boundary": 0.7818482470367007,
+      "family": "probit",
+      "slope": 5.296692059827503,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.001962849842178563,
+      "gain": 0.9706102599504549,
+      "sd": 0.19546410771507616,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "probit__variable",
+    "participant": 31,
+    "passenger": {
+      "boundary": 1.8530107308379697,
+      "family": "probit",
+      "slope": 3.9195949173076534,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.17465728072163836,
+      "gain": 0.8757495839909218,
+      "sd": 0.19967336132892594,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 0,
+    "passenger": {
+      "boundary": 2.4012219249621904,
+      "family": "lapse_logistic",
+      "slope": 5.730321691203569,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.0131458398291397,
+      "gain": 1.0085846842855068,
+      "sd": 0.029694740353973355,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 1,
+    "passenger": {
+      "boundary": 2.0964342213734266,
+      "family": "lapse_logistic",
+      "slope": 4.539741125874799,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.003623888309670016,
+      "gain": 0.9963822743471104,
+      "sd": 0.032329715034503825,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 2,
+    "passenger": {
+      "boundary": 0.88406781751516,
+      "family": "lapse_logistic",
+      "slope": 2.976867492082563,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.003763024844616737,
+      "gain": 0.9977946358151364,
+      "sd": 0.0301209451027029,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 3,
+    "passenger": {
+      "boundary": 1.0562262315190916,
+      "family": "lapse_logistic",
+      "slope": 3.107834054150485,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.0028105278001007887,
+      "gain": 0.9987537311316725,
+      "sd": 0.027013460804045184,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 4,
+    "passenger": {
+      "boundary": 2.0500944156099656,
+      "family": "lapse_logistic",
+      "slope": 3.1357385724052103,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.009238281350036287,
+      "gain": 1.0036304437727128,
+      "sd": 0.03199692930160561,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 5,
+    "passenger": {
+      "boundary": 0.6067029522212657,
+      "family": "lapse_logistic",
+      "slope": 4.211781356971437,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.010750701485145253,
+      "gain": 1.0044065695735251,
+      "sd": 0.027975619073431497,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 6,
+    "passenger": {
+      "boundary": 1.6128829165998513,
+      "family": "lapse_logistic",
+      "slope": 2.6546789931794215,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.009969496682266737,
+      "gain": 1.0058671978765663,
+      "sd": 0.028525701476051175,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 7,
+    "passenger": {
+      "boundary": 2.0411128212487704,
+      "family": "lapse_logistic",
+      "slope": 6.615118194569321,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.010753464024763935,
+      "gain": 1.0066429786255504,
+      "sd": 0.030396631666716464,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 8,
+    "passenger": {
+      "boundary": 2.1018628039944516,
+      "family": "lapse_logistic",
+      "slope": 5.013100332801984,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.007609220349829504,
+      "gain": 1.0075944601663218,
+      "sd": 0.030644426838705694,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 9,
+    "passenger": {
+      "boundary": 1.8154460813383126,
+      "family": "lapse_logistic",
+      "slope": 6.0864279525067415,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.016585975652551658,
+      "gain": 1.0083820910446324,
+      "sd": 0.02777181658313455,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 10,
+    "passenger": {
+      "boundary": 1.3275083466088415,
+      "family": "lapse_logistic",
+      "slope": 3.8599912355366244,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.0007578556505676413,
+      "gain": 1.0020309834674423,
+      "sd": 0.03524702080029302,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 11,
+    "passenger": {
+      "boundary": 1.8127676705921612,
+      "family": "lapse_logistic",
+      "slope": 4.047190616039159,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.014625720703393583,
+      "gain": 1.0057121703901306,
+      "sd": 0.02959454350640946,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 12,
+    "passenger": {
+      "boundary": 1.6005692049315274,
+      "family": "lapse_logistic",
+      "slope": 3.031157310792273,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.0005887783267565501,
+      "gain": 1.0005401863062775,
+      "sd": 0.033661361568519746,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 13,
+    "passenger": {
+      "boundary": 0.7371640641508259,
+      "family": "lapse_logistic",
+      "slope": 2.439865521095314,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.005140663190893083,
+      "gain": 1.002984140729467,
+      "sd": 0.025682393914206948,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 14,
+    "passenger": {
+      "boundary": 2.469169476509343,
+      "family": "lapse_logistic",
+      "slope": 3.8097953842421264,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.01788018784719433,
+      "gain": 0.9899187658707058,
+      "sd": 0.028305167590510234,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 15,
+    "passenger": {
+      "boundary": 2.291067457174395,
+      "family": "lapse_logistic",
+      "slope": 4.53729060640359,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.004662264884924886,
+      "gain": 0.9949917474829794,
+      "sd": 0.03315448844967535,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 16,
+    "passenger": {
+      "boundary": 1.0611449725909208,
+      "family": "lapse_logistic",
+      "slope": 7.14304743584871,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.01351505147714179,
+      "gain": 0.9964033103259691,
+      "sd": 0.030484588860979635,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 17,
+    "passenger": {
+      "boundary": 1.8450660265049903,
+      "family": "lapse_logistic",
+      "slope": 2.692470482618242,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.019896821611107583,
+      "gain": 1.0124212220292343,
+      "sd": 0.030296741211670385,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 18,
+    "passenger": {
+      "boundary": 2.483609150477209,
+      "family": "lapse_logistic",
+      "slope": 2.544317507211297,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.004512493330004998,
+      "gain": 1.0023172778647846,
+      "sd": 0.030752791146372038,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 19,
+    "passenger": {
+      "boundary": 2.0549431419462048,
+      "family": "lapse_logistic",
+      "slope": 4.533343967352999,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.01506629189888401,
+      "gain": 0.9927599676392906,
+      "sd": 0.031378638816568494,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 20,
+    "passenger": {
+      "boundary": 2.2824594257236988,
+      "family": "lapse_logistic",
+      "slope": 2.7546609327366522,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.009818457750574204,
+      "gain": 0.9954136432790017,
+      "sd": 0.029479772225079,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 21,
+    "passenger": {
+      "boundary": 2.32588747941356,
+      "family": "lapse_logistic",
+      "slope": 2.591257699840562,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.004876514437106082,
+      "gain": 0.9965469142777124,
+      "sd": 0.030588198452242595,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 22,
+    "passenger": {
+      "boundary": 2.4247331240369867,
+      "family": "lapse_logistic",
+      "slope": 4.538036355667568,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.003034216733405631,
+      "gain": 1.0005718424552612,
+      "sd": 0.030999386249213758,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 23,
+    "passenger": {
+      "boundary": 2.4052396620976615,
+      "family": "lapse_logistic",
+      "slope": 5.3535214616294216,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.01207155690917123,
+      "gain": 0.993355313666008,
+      "sd": 0.028812309919492952,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 24,
+    "passenger": {
+      "boundary": 1.2684822064020016,
+      "family": "lapse_logistic",
+      "slope": 4.830343182828775,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.015250752531668414,
+      "gain": 1.0112862685145252,
+      "sd": 0.03258458659467294,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 25,
+    "passenger": {
+      "boundary": 0.6824762442053991,
+      "family": "lapse_logistic",
+      "slope": 4.546215721800818,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.0004893988560869522,
+      "gain": 0.9964583418947994,
+      "sd": 0.029895470221123054,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 26,
+    "passenger": {
+      "boundary": 1.7843939354695229,
+      "family": "lapse_logistic",
+      "slope": 2.2961641887290214,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.01514789459626982,
+      "gain": 1.0095898365306135,
+      "sd": 0.03041623720652257,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 27,
+    "passenger": {
+      "boundary": 1.2629901940334018,
+      "family": "lapse_logistic",
+      "slope": 3.2542101371114622,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.010145278243234005,
+      "gain": 0.995372832771792,
+      "sd": 0.03173280467386482,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 28,
+    "passenger": {
+      "boundary": 1.9756514268596936,
+      "family": "lapse_logistic",
+      "slope": 2.9168721348407223,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.010466015154544086,
+      "gain": 1.005941230946087,
+      "sd": 0.033684195402475886,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 29,
+    "passenger": {
+      "boundary": 0.5024409386487316,
+      "family": "lapse_logistic",
+      "slope": 3.68041596761521,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.014607909150571124,
+      "gain": 1.0032114641967482,
+      "sd": 0.029534551180618318,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 30,
+    "passenger": {
+      "boundary": 2.2301397672469876,
+      "family": "lapse_logistic",
+      "slope": 3.194336603820229,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.003037787823225331,
+      "gain": 0.9965439531786815,
+      "sd": 0.032861159501732615,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__precise",
+    "participant": 31,
+    "passenger": {
+      "boundary": 2.4037375890656745,
+      "family": "lapse_logistic",
+      "slope": 5.3921274766515825,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.0006926465819475709,
+      "gain": 1.0024883643513922,
+      "sd": 0.02657007597380311,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 0,
+    "passenger": {
+      "boundary": 2.4012219249621904,
+      "family": "lapse_logistic",
+      "slope": 5.730321691203569,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.13881724868815667,
+      "gain": 0.8996031894678834,
+      "sd": 0.1882078461934055,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 1,
+    "passenger": {
+      "boundary": 2.0964342213734266,
+      "family": "lapse_logistic",
+      "slope": 4.539741125874799,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.08832393382378967,
+      "gain": 0.9326205293647487,
+      "sd": 0.1735903789815746,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 2,
+    "passenger": {
+      "boundary": 0.88406781751516,
+      "family": "lapse_logistic",
+      "slope": 2.976867492082563,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.030801652942744288,
+      "gain": 0.9158921867028303,
+      "sd": 0.1739983413946766,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 3,
+    "passenger": {
+      "boundary": 1.0562262315190916,
+      "family": "lapse_logistic",
+      "slope": 3.107834054150485,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.18695014140835844,
+      "gain": 0.8486323939212291,
+      "sd": 0.18933646054951286,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 4,
+    "passenger": {
+      "boundary": 2.0500944156099656,
+      "family": "lapse_logistic",
+      "slope": 3.1357385724052103,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.12195098052514637,
+      "gain": 0.8869346373897262,
+      "sd": 0.1881737687898493,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 5,
+    "passenger": {
+      "boundary": 0.6067029522212657,
+      "family": "lapse_logistic",
+      "slope": 4.211781356971437,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.050322954693302446,
+      "gain": 0.9274533081437099,
+      "sd": 0.17947447695410232,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 6,
+    "passenger": {
+      "boundary": 1.6128829165998513,
+      "family": "lapse_logistic",
+      "slope": 2.6546789931794215,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.07541844130842937,
+      "gain": 0.9176879706544359,
+      "sd": 0.19728706622874764,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 7,
+    "passenger": {
+      "boundary": 2.0411128212487704,
+      "family": "lapse_logistic",
+      "slope": 6.615118194569321,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.13404368371482622,
+      "gain": 0.8911423147520522,
+      "sd": 0.16517139395788646,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 8,
+    "passenger": {
+      "boundary": 2.1018628039944516,
+      "family": "lapse_logistic",
+      "slope": 5.013100332801984,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.16926372716253613,
+      "gain": 0.8664810191608869,
+      "sd": 0.1841246426463616,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 9,
+    "passenger": {
+      "boundary": 1.8154460813383126,
+      "family": "lapse_logistic",
+      "slope": 6.0864279525067415,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.13634410711425496,
+      "gain": 0.890214710171499,
+      "sd": 0.17866507441047008,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 10,
+    "passenger": {
+      "boundary": 1.3275083466088415,
+      "family": "lapse_logistic",
+      "slope": 3.8599912355366244,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.1596475553474173,
+      "gain": 0.8843206198257964,
+      "sd": 0.1760010820427556,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 11,
+    "passenger": {
+      "boundary": 1.8127676705921612,
+      "family": "lapse_logistic",
+      "slope": 4.047190616039159,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.17289708064543333,
+      "gain": 0.8826897602547287,
+      "sd": 0.18074864206816688,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 12,
+    "passenger": {
+      "boundary": 1.6005692049315274,
+      "family": "lapse_logistic",
+      "slope": 3.031157310792273,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.14811856292907263,
+      "gain": 0.8772756025968774,
+      "sd": 0.1737472619302567,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 13,
+    "passenger": {
+      "boundary": 0.7371640641508259,
+      "family": "lapse_logistic",
+      "slope": 2.439865521095314,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.20058523181979737,
+      "gain": 0.8343872015590635,
+      "sd": 0.17643046499016712,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 14,
+    "passenger": {
+      "boundary": 2.469169476509343,
+      "family": "lapse_logistic",
+      "slope": 3.8097953842421264,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.0028282977789302307,
+      "gain": 0.9750080673214206,
+      "sd": 0.1843574464180184,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 15,
+    "passenger": {
+      "boundary": 2.291067457174395,
+      "family": "lapse_logistic",
+      "slope": 4.53729060640359,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.12472550594331062,
+      "gain": 0.9046765605501629,
+      "sd": 0.1754977578694926,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 16,
+    "passenger": {
+      "boundary": 1.0611449725909208,
+      "family": "lapse_logistic",
+      "slope": 7.14304743584871,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.1352696367251362,
+      "gain": 0.8866606703199321,
+      "sd": 0.18175050470257012,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 17,
+    "passenger": {
+      "boundary": 1.8450660265049903,
+      "family": "lapse_logistic",
+      "slope": 2.692470482618242,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.11861258756755735,
+      "gain": 0.88966030084866,
+      "sd": 0.19338152944926176,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 18,
+    "passenger": {
+      "boundary": 2.483609150477209,
+      "family": "lapse_logistic",
+      "slope": 2.544317507211297,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.10042544880024183,
+      "gain": 0.9163409332473347,
+      "sd": 0.1710000890853211,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 19,
+    "passenger": {
+      "boundary": 2.0549431419462048,
+      "family": "lapse_logistic",
+      "slope": 4.533343967352999,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.1362177390469066,
+      "gain": 0.886556720028442,
+      "sd": 0.17292454089269316,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 20,
+    "passenger": {
+      "boundary": 2.2824594257236988,
+      "family": "lapse_logistic",
+      "slope": 2.7546609327366522,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.012000433219922137,
+      "gain": 0.9624177458735408,
+      "sd": 0.18964385325267585,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 21,
+    "passenger": {
+      "boundary": 2.32588747941356,
+      "family": "lapse_logistic",
+      "slope": 2.591257699840562,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.09141466112181541,
+      "gain": 0.9134748140885425,
+      "sd": 0.16438039128982082,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 22,
+    "passenger": {
+      "boundary": 2.4247331240369867,
+      "family": "lapse_logistic",
+      "slope": 4.538036355667568,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.062375850952644606,
+      "gain": 0.9339027342426788,
+      "sd": 0.18397819635051857,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 23,
+    "passenger": {
+      "boundary": 2.4052396620976615,
+      "family": "lapse_logistic",
+      "slope": 5.3535214616294216,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.13840237517732798,
+      "gain": 0.8909090788407534,
+      "sd": 0.17240324637059726,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 24,
+    "passenger": {
+      "boundary": 1.2684822064020016,
+      "family": "lapse_logistic",
+      "slope": 4.830343182828775,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.1201541188378716,
+      "gain": 0.8898899581308868,
+      "sd": 0.16857316178871584,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 25,
+    "passenger": {
+      "boundary": 0.6824762442053991,
+      "family": "lapse_logistic",
+      "slope": 4.546215721800818,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": -0.0018107494456378998,
+      "gain": 0.9779029865559017,
+      "sd": 0.18735178340918973,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 26,
+    "passenger": {
+      "boundary": 1.7843939354695229,
+      "family": "lapse_logistic",
+      "slope": 2.2961641887290214,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.08121402091565047,
+      "gain": 0.9341533764372988,
+      "sd": 0.18181820503173496,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 27,
+    "passenger": {
+      "boundary": 1.2629901940334018,
+      "family": "lapse_logistic",
+      "slope": 3.2542101371114622,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.0045458948121483165,
+      "gain": 0.971312447944492,
+      "sd": 0.16212801413299363,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 28,
+    "passenger": {
+      "boundary": 1.9756514268596936,
+      "family": "lapse_logistic",
+      "slope": 2.9168721348407223,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.056058724646027645,
+      "gain": 0.9395678240601549,
+      "sd": 0.20211661777383444,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 29,
+    "passenger": {
+      "boundary": 0.5024409386487316,
+      "family": "lapse_logistic",
+      "slope": 3.68041596761521,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.22785314987862515,
+      "gain": 0.8456116575464083,
+      "sd": 0.1703222474564046,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 30,
+    "passenger": {
+      "boundary": 2.2301397672469876,
+      "family": "lapse_logistic",
+      "slope": 3.194336603820229,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.12131807657400186,
+      "gain": 0.8672950721598477,
+      "sd": 0.16839455638290696,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "lapse_logistic__variable",
+    "participant": 31,
+    "passenger": {
+      "boundary": 2.4037375890656745,
+      "family": "lapse_logistic",
+      "slope": 5.3921274766515825,
+      "lapse": 0.1,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.08,
+      "gain": 0.92,
+      "sd": 0.18,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.13862938326738045,
+      "gain": 0.8775806777788753,
+      "sd": 0.20636790957020093,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  }
+]

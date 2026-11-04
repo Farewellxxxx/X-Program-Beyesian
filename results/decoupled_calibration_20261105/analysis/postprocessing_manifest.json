@@ -1,0 +1,20 @@
+{
+  "analysis_source_sha256": "b5026814146c7d58d439434933e0c4836ed9187f41c291bcdb6e473f4d55ffe8",
+  "input_sha256": {
+    "trials.csv": "e73051e41c47b96c7d7955da2c8164fa71508937e59bd1e463233817c836483f",
+    "participants.csv": "15ba8345083ea9bcbda153793faf9e174ce45f47ff9260fafe41ce3b8dddea67",
+    "config.json": "127062fd0530e7e6e6c3bf1cf11611d381bd2bb8187076aed4ca6735dab58cdd"
+  },
+  "bootstrap_seed": 314159,
+  "bootstrap_replicates": 2000,
+  "figures": [
+    "accuracy_trajectories.png",
+    "paired_effects.png",
+    "scenario_outcomes.png"
+  ],
+  "figure_data": {
+    "accuracy_trajectories.png": "trajectories.csv",
+    "scenario_outcomes.png": "scenario_summary.csv",
+    "paired_effects.png": "paired_effects.csv"
+  }
+}

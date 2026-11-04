@@ -1,0 +1,5 @@
+{
+  "elapsed_seconds": 446.7230687,
+  "blas_threads": 1,
+  "command": "python -m comfort_boundary_bo_research_package.simulation.decoupled_calibration --config configs/decoupled_heldout.json --output results/decoupled_calibration_20261105/raw"
+}

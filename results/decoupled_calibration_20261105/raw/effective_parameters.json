@@ -1,0 +1,75 @@
+{
+  "policy": {
+    "lower": 0.0,
+    "midpoint_nodes": 81,
+    "quadrature_nodes": 7,
+    "slope_nodes": 41,
+    "targets": [
+      0.0,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1.0,
+      1.1,
+      1.2,
+      1.3,
+      1.4,
+      1.5,
+      1.6,
+      1.7,
+      1.8,
+      1.9,
+      2.0,
+      2.1,
+      2.2,
+      2.3,
+      2.4,
+      2.5,
+      2.6,
+      2.7,
+      2.8,
+      2.9,
+      3.0
+    ],
+    "tau": 0.7,
+    "upper": 3.0
+  },
+  "population": {
+    "boundary_uniform": [
+      0.5,
+      2.5
+    ],
+    "lapse_logistic": 0.1,
+    "log_slope_mean": 1.3862943611198906,
+    "log_slope_sd": 0.35
+  },
+  "prior_grid": {
+    "log_slope_max": 3.6888794541139363,
+    "log_slope_mean": 1.3862943611198906,
+    "log_slope_min": -1.3862943611198906,
+    "log_slope_sd": 0.7,
+    "midpoint_max": 4.0,
+    "midpoint_mean": 1.2,
+    "midpoint_min": -1.5,
+    "midpoint_nodes": 81,
+    "midpoint_sd": 0.75,
+    "slope_nodes": 41
+  },
+  "source_sha256": {
+    "__init__.py": "fbdf0734b3956fef6cf0a07bf5a293cb79a0a42df3682b3e8a911e600fd98105",
+    "__main__.py": "09bfc6bdb467f9a9a74412634677b9ef0d57c133eb9459fd4526bd322328417a",
+    "analysis.py": "87c7ba0871134daa9eba313fc37d506051b477b6f143991a1a77bc7c92a608ae",
+    "execution.py": "990ff7c013d628082e1f1a88073858e2ad86218222a84668d3fbbbc8f22a093d",
+    "monotone_bayes.py": "8dcb8f59ae07ca1d9391d941083fd0e8844f320dc95cb4c4bf152e57a59ac6bf",
+    "passenger.py": "7c2baf11c1f880d3aa45be829a2946ccdc161910cd97e19f5e84384e2e8a438b",
+    "policies.py": "b811d0aaea2751a6cc46335e2b963f3c639df84a4abd808c4a1b29ccdf2fd081",
+    "public.py": "57a3033318924c02b73fb135dd2af7580b5a96aab09e64ceb74b36daff8a0756",
+    "study.py": "8b9702e3f8086b492debae236dcd4d0a18795cc39808a89e1187694bcce785b4"
+  }
+}

@@ -1,0 +1,54 @@
+[
+  {
+    "scenario": "logistic__precise",
+    "participant": 0,
+    "passenger": {
+      "boundary": -0.5,
+      "family": "logistic",
+      "slope": 2.5690997567010307,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.0024328955785133497,
+      "gain": 0.999470174793896,
+      "sd": 0.031464039598294975,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  },
+  {
+    "scenario": "logistic__precise",
+    "participant": 1,
+    "passenger": {
+      "boundary": -0.5,
+      "family": "logistic",
+      "slope": 3.8563087927975155,
+      "lapse": 0.0,
+      "tau": 0.7
+    },
+    "vehicle": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "execution_belief": {
+      "intercept": 0.005373421031208495,
+      "gain": 0.9968175882039358,
+      "sd": 0.03085004740215265,
+      "lower": 0.0,
+      "upper": 3.0
+    },
+    "calibration_measurements": 90
+  }
+]

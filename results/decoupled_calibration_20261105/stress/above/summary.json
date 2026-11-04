@@ -1,0 +1,13 @@
+{
+  "config_sha256": "7f8068f0f4b1515d1ed11dbd0ddc4925f4b3d0a03c66953972dee3eb109d4334",
+  "split": "stress-out-of-domain",
+  "scenarios": 1,
+  "participants_per_cell": 2,
+  "participant_method_rows": 10,
+  "trial_rows": 300,
+  "primary_endpoint": "suffix_stable",
+  "secondary_endpoint": "rolling_five",
+  "calibration_measurements_per_participant_condition": 90,
+  "total_calibration_measurements": 180,
+  "calibration_excluded_from_passenger_trial_counts": true
+}

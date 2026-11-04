@@ -1,0 +1,11 @@
+scenario,family,execution,participant,method,boundary,slope,lapse,tau,budget,primary_event_trial,primary_observed,primary_cost,secondary_event_trial,secondary_observed,secondary_cost,final_absolute_error,final_signed_error,overestimated,unacceptable_count,unacceptable_rate,interval_coverage,interval_width,out_of_domain,unidentifiable
+logistic__precise,logistic,precise,0,bayes_risk,3.5,3.2073686468969718,0.0,0.7,30,21,True,21,25,True,25,0.09561634490717896,-0.09561634490717896,False,0,0.0,True,0.7003357545962623,True,True
+logistic__precise,logistic,precise,0,bayes_point,3.5,3.2073686468969718,0.0,0.7,30,,False,30,,False,30,0.312646328319131,-0.312646328319131,False,2,0.06666666666666667,True,0.6193255490832503,True,True
+logistic__precise,logistic,precise,0,ucb_tvcg,3.5,3.2073686468969718,0.0,0.7,30,,False,30,,False,30,0.486296190919163,-0.486296190919163,False,0,0.0,True,1.0400440868645981,True,True
+logistic__precise,logistic,precise,0,ucb_tau,3.5,3.2073686468969718,0.0,0.7,30,,False,30,,False,30,0.5595984088496464,-0.5595984088496464,False,1,0.03333333333333333,False,0.9183597933403802,True,True
+logistic__precise,logistic,precise,0,staircase,3.5,3.2073686468969718,0.0,0.7,30,,False,30,,False,30,0.26283661696482996,-0.26283661696482996,False,1,0.03333333333333333,True,0.5969882081151834,True,True
+logistic__precise,logistic,precise,1,bayes_risk,3.5,6.296236516830161,0.0,0.7,30,21,True,21,25,True,25,0.10639632831913026,-0.10639632831913026,False,0,0.0,True,0.7023725574082991,True,True
+logistic__precise,logistic,precise,1,bayes_point,3.5,6.296236516830161,0.0,0.7,30,,False,30,,False,30,0.23311634490717914,-0.23311634490717914,False,1,0.03333333333333333,True,0.5998486139885228,True,True
+logistic__precise,logistic,precise,1,ucb_tvcg,3.5,6.296236516830161,0.0,0.7,30,,False,30,,False,30,0.3315866169648296,-0.3315866169648296,False,0,0.0,True,0.9749077640773467,True,True
+logistic__precise,logistic,precise,1,ucb_tau,3.5,6.296236516830161,0.0,0.7,30,,False,30,,False,30,0.25783620240973626,-0.25783620240973626,False,0,0.0,True,0.8457431565306783,True,True
+logistic__precise,logistic,precise,1,staircase,3.5,6.296236516830161,0.0,0.7,30,22,True,22,26,True,26,0.10639632831913026,-0.10639632831913026,False,0,0.0,True,0.7023725574082991,True,True

@@ -1,0 +1,91 @@
+{
+  "study": "independent-realized-boundary-sampling-efficiency",
+  "split": "stress-out-of-domain",
+  "seed": 110501,
+  "families": [
+    "logistic"
+  ],
+  "execution_conditions": {
+    "precise": {
+      "intercept": 0.0,
+      "gain": 1.0,
+      "sd": 0.03
+    }
+  },
+  "methods": [
+    "bayes_risk",
+    "bayes_point",
+    "ucb_tvcg",
+    "ucb_tau",
+    "staircase"
+  ],
+  "primary_methods": [
+    "bayes_risk",
+    "bayes_point",
+    "ucb_tvcg",
+    "staircase"
+  ],
+  "sensitivity_methods": [
+    "ucb_tau"
+  ],
+  "participants_per_cell": 2,
+  "budget": 30,
+  "checkpoints": [
+    10,
+    20,
+    30
+  ],
+  "tau": 0.7,
+  "delta": 0.15,
+  "calibration_n": 90,
+  "primary_endpoint": "first t>=10 with at least five estimates in t..budget and all suffix estimates within delta",
+  "secondary_endpoint": "first t>=10 ending five consecutive estimates within delta",
+  "censoring": "no event is right-censored at budget; restricted cost equals budget",
+  "policy": {
+    "lower": 0.0,
+    "upper": 3.0,
+    "targets": [
+      0.0,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1.0,
+      1.1,
+      1.2,
+      1.3,
+      1.4,
+      1.5,
+      1.6,
+      1.7,
+      1.8,
+      1.9,
+      2.0,
+      2.1,
+      2.2,
+      2.3,
+      2.4,
+      2.5,
+      2.6,
+      2.7,
+      2.8,
+      2.9,
+      3.0
+    ],
+    "midpoint_nodes": 81,
+    "slope_nodes": 41,
+    "quadrature_nodes": 7
+  },
+  "bootstrap": {
+    "seed": 314159,
+    "replicates": 2000,
+    "unit": "passenger within scenario; retain method pairing"
+  },
+  "boundary_override": -0.5,
+  "stress_note": "Development stress only; outside-domain truth; never pool with held-out main comparison."
+}

@@ -1,72 +1,80 @@
-# Passenger motion-boundary calibration — synthetic simulation
+# 个体加速度可接受上限：独立模拟乘客与自适应校准
 
-本仓库保存乘客运动可接受边界研究中可复现的仿真代码、测试、合成结果及研究设计。
+研究问题：在车辆不能精确执行目标加速度时，如何利用“接受／不接受”反馈，以较少个人试次估计可接受上限？本仓库提供可复现的**合成乘客仿真**；尚无真人比较结果。
 
-**当前版本：2026-11-04 执行模型复杂度选择与参数不确定性传播。全部结果来自合成乘客，真人研究尚未开展。**
+当前主线是 **2026-11-05 独立乘客与算法比较**。历史复杂执行模型实验保留在原目录，不作为新主入口。
 
-当前接受模型使用单调 Bernoulli–logistic 后验，输出 B_tau 中位数和可信区间。新增 `adaptive_posterior` 对仅偏差、线性增益、二次曲率三种单调执行模型进行贝叶斯模型平均，并传播均值参数和完整噪声协方差的不确定性。执行生成器与算法持有的分布现在是独立对象：原 simple 模型由 40 条额外合成执行记录拟合偏差和公共噪声；前版 `quadratic_covariance` 从同样的可观测记录估计偏差、增益、二次曲率和三通道残差协方差；`oracle` 明确表示已知真实参数的对照，`nominal` 表示固定假设。策略只能看到可观测历史，不能读取乘客真值或生成参数。
+本轮结果：在六个冻结仿真情景中，贝叶斯方法相对 TVCG 衍生 UCB 的平均受限达标成本降低 12.1–18.0 次（未达标按 60 次计，场景内未校正配对 95% 区间均低于零）。与 staircase 的差异、以及积分执行不确定性相对只用均值的增益均没有明确方向证据。不能据此宣称 BO 普遍最优或已证明真人优势；完整失败率和区间见中文报告。
 
-人群、过程、执行校准分别使用显式种子。过程子流由种子、用途、参与者和策略标识共同派生，避免旧加法偏移的种子碰撞。新实验包含五批独立人群、每批两个过程种子，以及同过程的固定人群对照；按人群批次汇总区间，不把重复试验当成独立人群。另有未知执行偏差/低估噪声场景和上一版完整复现检查。
+## 阅读入口
 
-- [本次小预算过拟合、覆盖率与前后结果](docs/2026-11-04-adaptive-execution-results.md)
-- [本次模型方法与复现说明](docs/2026-11-04-adaptive-execution-method.md)
-- [本次验证记录](docs/2026-11-04-adaptive-execution-verification.md)
-- [历史：增益、非线性和相关噪声估计](docs/2026-11-04-flexible-execution-results.md)
-- [历史：执行模型失配与校准预算](docs/2026-11-04-execution-robustness-results.md)
-- [历史：执行分布分离与独立人群](docs/2026-11-04-execution-population-results.md)
-- [历史：单调贝叶斯模型替换](docs/2026-11-04-monotone-bayes-results.md)
-- [运行入口与数据字段](comfort_boundary_bo_research_package/simulation/README.md)
-- [历史：边界定义修正](docs/2026-11-04-boundary-correction-results.md)
+- [研究任务与证据边界](docs/superpowers/specs/2026-11-05-decoupled-calibration-design.md)
+- [模拟乘客与车辆执行](comfort_boundary_bo_research_package/docs/decoupled_simulator.md)
+- [贝叶斯采集函数、UCB 与 staircase 的来源和适配](comfort_boundary_bo_research_package/docs/decoupled_algorithms.md)
+- [复现、随机种子、指标和数据字段](comfort_boundary_bo_research_package/docs/decoupled_reproducibility.md)
+- [中文结果报告](comfort_boundary_bo_research_package/docs/decoupled_results_zh.md)
+- [后续 BO 单臂真人研究衔接](comfort_boundary_bo_research_package/docs/decoupled_human_handoff_zh.md)
+- [验证与发布记录](docs/2026-11-05-decoupled-calibration-verification.md)
 
-新审计沿用七种压力条件和 8、20、40、160 次校准，运行 280 个新场景及 280 个前版重放场景。五批人群、每批两次过程重复，新旧使用逐值相同的校准观测和成对随机流。六种执行预测方式拆分复杂度选择与参数传播；独立未来样本评估 90% 区间覆盖率，同时报告宽度和适当区间评分，防止把单纯放宽区间当作改进。另有固定的抽样数与先验敏感性检查。
+## 模块之间的关系
 
-![Independent future predictive coverage](results/adaptive_execution_20261104/extrapolation_coverage.png)
+`策略提出目标 → 车辆产生实际加速度 → 模拟乘客返回二元反馈 → 策略更新`
 
-## 安装与复现
+独立评价器读取隐藏真值计算误差；策略只收到不可变的公开观测、公开配置和独立校准的执行估计。
 
-验证环境 Python 3.12.7；建议使用独立虚拟环境。
+| 模块 | 文件 | 职责 |
+|---|---|---|
+| 模拟乘客 | `passenger.py` | 独立接受概率、隐藏边界、二元反馈；不导入策略或拟合模型 |
+| 车辆执行 | `execution.py` | 真实执行、独立校准及公开执行预测 |
+| 公开接口 | `public.py` | 指令、实际测量、反馈与估计结果的白名单类型 |
+| 校准策略 | `policies.py` | 贝叶斯风险减少选点、原文衍生 UCB、加权 staircase |
+| 运行与评价 | `study.py` | 人群、独立随机流、真值隔离、冻结配置和逐试次评价 |
+| 结果分析 | `analysis.py` | 完整性检查、乘客配对统计、图表与后处理指纹 |
 
-```bash
+这些文件位于 `comfort_boundary_bo_research_package/simulation/decoupled_calibration/`。
+
+## 比较的含义
+
+- `bayes_risk`：选择预计减少边界后验方差最多的指令，对可能的实际执行结果求平均。
+- `bayes_point`：相同贝叶斯方法，仅使用执行预测均值，是执行不确定性的消融。
+- `ucb_tvcg`：保留 TVCG 源码的符号奖励、多数投票、Q/count 探索及衰减；统一量纲后探索系数为 0.2。它是领域适配，非原研究完整复现。
+- `staircase`：与接受概率标准匹配的加权上下阶梯。
+- `ucb_tau`：调整拒绝惩罚的次要敏感性版本，不取代原奖励 UCB 主对照。
+
+所有方法用自己的实际观测拟合同一个贝叶斯边界估计器。因此这里比较**采样效率**，不宣称比较了原算法整套系统，更不预设 BO 必须获胜。
+
+主配置：3 种乘客曲线、2 种执行条件、每场景 32 人、5 方法、每条轨迹 60 次反馈。共 96 个独立乘客参数集、192 个乘客—条件案例、960 条轨迹、57,600 次反馈。每个乘客—条件另有 90 次合成车辆校准，跨方法共享，单独计入辅助数据成本。
+
+接受标准 tau=0.70、误差容限 delta=0.15 m/s² 和 [0,3] m/s² 测试域都是仿真操作定义，不是经验证的真人标准或实车操作建议。主要“达标试次”需要事后检查到预算结束持续满足误差要求，不是可部署的在线停止规则。失败样本保留，区间以场景内的乘客为单位。
+
+## 安装、测试与复现
+
+使用 Python 3.12 与固定依赖：
+
+```powershell
 python -m pip install -r requirements-simulation.txt
+$env:OPENBLAS_NUM_THREADS='1'
+$env:OMP_NUM_THREADS='1'
+$env:MKL_NUM_THREADS='1'
 python -m pytest -q
-python comfort_boundary_bo_research_package/simulation/run_uncertain_input_bo_extended.py --execution-estimator adaptive_posterior
-python comfort_boundary_bo_research_package/simulation/run_uncertain_input_bo_poc.py --execution-estimator adaptive_posterior
-python long_horizon_audit/scripts/run_adaptive_execution_audit.py --workers 8
-python long_horizon_audit/scripts/compare_adaptive_execution.py
+python -m comfort_boundary_bo_research_package.simulation.decoupled_calibration --config configs/decoupled_pilot.json --output outputs/pilot
+python -m comfort_boundary_bo_research_package.simulation.decoupled_calibration --config configs/decoupled_heldout.json --output outputs/heldout
+python -m comfort_boundary_bo_research_package.simulation.decoupled_calibration.analysis --input outputs/heldout --output outputs/analysis
 ```
 
-上面两个示例显式选择新模型，写入 `outputs_adaptive_execution/` 和 `outputs_adaptive_execution_poc/`，并导出拟合系数、完整协方差及诊断。省略 `--execution-estimator adaptive_posterior` 时仍运行历史 simple 默认值，写入原来的 `outputs_execution_separated/` 和 `_poc/`，以保留可复现性。同一固定人群用于单次运行示例，可用 `--population-seed` 指定另一个种子。人群审计默认运行 85 个场景；可分别用 `--suite historical|fixed_control|population|stress` 运行，四组完成后再执行比较。每组保存参数清单、个体/策略汇总、人群参数和校准观测。校准的 40 次额外合成执行不含乘客反馈，与每人 12 次反馈预算分开计算。
+输出目录必须是新的或空的，运行器拒绝覆盖已有结果。开发 pilot 与正式评估使用不同种子；正式配置在结果查看前冻结。已发布结果位于 `results/decoupled_calibration_20261105/`，其中 `raw/` 保存配置、真值与完整记录，`analysis/` 保存统计和图表。
 
-最新审计共 560 个反馈场景，可用 `--suite adaptive|replay|sensitivity` 分组运行；前两组支持 `--profile matched_low|matched_high|biased_high|gain_high|nonlinear_high|correlated_high|combined_high`。全部完成后比较。`--workers` 可设 1–8，建议各 worker 的 `OPENBLAS_NUM_THREADS`、`OMP_NUM_THREADS`、`MKL_NUM_THREADS` 为 1。新旧观测、模型设置、后验抽样、实际过程流和历史重放均校验。旧执行扩展审计仍使用 `run_flexible_execution_audit.py` 和 `compare_flexible_execution.py`；更早失配审计仍使用 `run_execution_robustness_audit.py` 和 `compare_execution_robustness.py`。
+在 Windows 沙箱下，若系统临时目录报权限错误，先将当前进程的 TMP/TEMP 指向仓库内独立临时目录，再运行 pytest：
 
-旧结果保留。历史 kernel 重跑须使用 `--surrogate legacy_kernel --execution-belief oracle --process-rng-mode legacy`；上一版 Bayesian 重跑使用 `--surrogate monotone_bayes --execution-belief oracle --process-rng-mode legacy`。历史审计入口 `run_multiseed_simulation_audit.py` 默认仍为 oracle/固定人群/legacy 子流。旧比较脚本继续读取旧快照：
-
-```bash
-python comfort_boundary_bo_research_package/simulation/compare_boundary_results.py --baseline-root results/baseline_before_boundary_fix
-python comfort_boundary_bo_research_package/simulation/compare_surrogates.py
+```powershell
+New-Item -ItemType Directory -Force tmp/local-tests | Out-Null
+$env:TMP=(Resolve-Path tmp/local-tests).Path
+$env:TEMP=$env:TMP
+python -m pytest -q --basetemp tmp/local-tests/pytest
 ```
 
-## 目录与研究范围
+## 历史与范围
 
-| 路径 | 内容 |
-|---|---|
-| `comfort_boundary_bo_research_package/simulation/` | 新旧模型、仿真入口和结果 |
-| `long_horizon_audit/scripts/` | 多种子仿真及可选历史数据审计 |
-| `long_horizon_audit/tests/` | 数学、回归、模型和比较测试 |
-| `long_horizon_audit/derived/adaptive_execution_20261104/` | 新后验模型、六种执行诊断、敏感性与前版重放 |
-| `results/adaptive_execution_20261104/` | 批次配对比较、模型权重与覆盖率/宽度/评分图 |
-| `long_horizon_audit/derived/execution_population_20261104/` | 85 场景的配置、校准、人群及指标 |
-| `results/execution_population_20261104/` | 上一轮人群区间、配对影响和图表 |
-| `long_horizon_audit/derived/execution_robustness_20261104/` | 新失配/预算审计及历史重放的配置、观测、指标和独立执行诊断 |
-| `results/execution_robustness_20261104/` | 历史：简单校准器的预算、失配和校准顺序对照 |
-| `long_horizon_audit/derived/flexible_execution_20261104/` | 新模型 280 场景完整记录、拟合与诊断，及旧版 420 场景重放汇总 |
-| `results/flexible_execution_20261104/` | 历史：固定二次点估计与简单校准器的配对比较及图表 |
-| `long_horizon_audit/derived/simulation_audit_bayesian_20261104/` | 新模型五种子和敏感性结果 |
-| `long_horizon_audit/derived/simulation_audit_legacy_comparison_20261104/` | 旧模型重跑，新增 Brier 指标 |
-| `results/monotone_bayes_20261104/` | 新旧配对比较、数值验证、覆盖率和图表 |
-| `results/boundary_correction_20261104/` | 上一轮边界指标修正的历史比较 |
-| `docs/` | 当前及历史报告、研究设计、执行计划 |
+[历史仿真入口和完整说明](comfort_boundary_bo_research_package/simulation/README.md)保留原来的边界修正、单调贝叶斯模型、执行估计分离、失配、复杂度选择及参数不确定性实验。新主线没有删除这些代码和结果。
 
-选点仍是 BO-inspired heuristic，未实现信息增益最优化或 SafeOpt 保证。新估计器在三种单调均值之间做模型平均并传播执行参数不确定性，但仍假定已知条件 jerk/时长均值、异方差形状和强度映射；尚未在线更新执行后验。相关性指同一次执行的通道相关性，不包括跨次时间自相关。当前压力条件位于扩展模型族内，不能代表一般高阶非线性、滞后、漂移或重尾失配。五批合成人群的区间仍有限，不能证明实车安全或真人有效性。
-
-历史原始 VR/实车数据、参与者信息、第三方论文、内部论文草稿、旧 PPT、环境缓存和备份均未发布。数据审计测试自行构造虚拟 ZIP/XLSX，不依赖实车资源。完整本地研究文件夹另有旧 Presentations 运行时测试，该演示系统未收录，本仓库测试范围见 `pytest.ini`。
+原始真人数据、第三方论文和个人信息不在发布范围内。合成比较不能证明真人样本效率、实车安全或普遍算法优势；Poster 的后续真人阶段规划为 BO 单臂可行性研究加独立验证。

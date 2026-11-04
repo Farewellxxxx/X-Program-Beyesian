@@ -1,0 +1,8 @@
+{
+  "bootstrap_seed": 314159,
+  "bootstrap_replicates": 2000,
+  "interval": "paired participant percentile 95%; scenario-specific; unadjusted",
+  "effect_direction": "bayes_risk minus comparator",
+  "split": "held-out",
+  "cost": "restricted event trial or budget for censored; no successful-only deletion"
+}

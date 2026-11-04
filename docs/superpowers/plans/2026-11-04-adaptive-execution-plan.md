@@ -22,7 +22,7 @@
 - [x] 2. Adapter and diagnostics: create simulation/adaptive_execution.py, simulation/execution_predictive_diagnostics.py, tests/test_adaptive_execution.py. RED mixture moments/variance, immutable state, scalar/vector/time effects, fixed trajectories, independent holdout score and CLI metadata/path isolation. Add CLI mode and pinned dependency; full suite and commit.
 - [x] 3. Audit/comparison: create scripts/run_adaptive_execution_audit.py, scripts/compare_adaptive_execution.py, tests/test_adaptive_execution_audit.py. Preserve 280 configs/observations and old replay; six diagnostic variants, numerical sensitivity; strict complete manifests/fit recomputation guards and cluster contrasts. RED→GREEN; full suite; commit.
 - [x] 4. Run 280 adaptive +280 current-version replays, six-variant diagnostics, 14 predeclared sensitivity cells and extended/POC. Produce CSV/JSON/PNG, Chinese methods/results/verification, inspect figures, explain regressions/remaining limits. Commit verified artifacts.
-- [ ] 5. One independent read-only review, one TDD fix pass if needed; final checks and archive hashes, original-workspace mirror, main fast-forward/push and independent remote SHA confirmation.
+- [x] 5. One independent read-only review, one TDD fix pass if needed; final checks and archive hashes, original-workspace mirror, main fast-forward/push and independent remote SHA confirmation.
 
 ## Interfaces
 
@@ -49,3 +49,5 @@ Task 3: reuse prior RobustnessSpec unchanged; new manifest includes posterior se
 
 - Final independent review: /root/review_adaptive_execution, fresh gpt-6-astra/high context, reviewed33e0123..8a9721d. No Critical/Important/Minor findings; suite94passed; nondefault conjugate moments,17-to333prefixes,immutability,rejectionbudget;504diagnosticrows exact; allnew_vs_old paired intervals independently reconstructed, maxdelta0. No fix pass needed.
 - Publication checks:132workspacefiles mirrored, root scoped suite94passed;495manifestfiles SHA/sizechecked. Baseline367files:363exactlyunchanged, only4source/docs/dependencyfiles changed; all historical results untouched. Final main fast-forward/push still pending.
+
+- Task 5: complete. Independent review clean, main fast-forward, final full suite94passed(21.93s),495filemanifest and132workspacecopies verified. Push33e0123..dfb4774 successful; independent GitHub API confirms dfb47745362b546aa5195c35579e641483af1fe9 onmain. Publication-record-only follow-up commit leaves all code/results unchanged. No deferred minor findings.

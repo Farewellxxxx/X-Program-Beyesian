@@ -797,8 +797,9 @@ def process_rng(config: Config, role: str, participant_id: int, algorithm_index:
     return np.random.default_rng(seed_sequence)
 
 
-def run_scenario(config: Config, passengers: list[Passenger]) -> pd.DataFrame:
-    prepared = prepare_execution(config)
+def run_scenario(config: Config, passengers: list[Passenger], prepared: PreparedExecution | None = None) -> pd.DataFrame:
+    if prepared is None:
+        prepared = prepare_execution(config)
     execution_model = prepared.truth
     rows: list[dict[str, float | int | bool | str]] = []
 

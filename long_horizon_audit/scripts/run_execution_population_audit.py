@@ -76,9 +76,9 @@ def experiment_metadata(spec: ScenarioSpec, passengers=None) -> dict:
         calibration_budget=config.calibration_trials)
 
 
-def execute(spec: ScenarioSpec):
+def execute(spec: ScenarioSpec, prepared=None):
     config=spec.config; passengers=sim.make_passengers(config)
-    trials=sim.run_scenario(config,passengers)
+    trials=sim.run_scenario(config,passengers,prepared=prepared)
     participant,*_=sim.evaluate(trials)
     metrics=summarize_trials(sim,config,trials)
     metadata=experiment_metadata(spec,passengers)

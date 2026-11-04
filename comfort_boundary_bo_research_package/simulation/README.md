@@ -1,18 +1,30 @@
 # Continuous-command synthetic simulation
 
-Current revision: **2026-11-04 monotone Bayesian binary surrogate**. Synthetic passengers only. The response model is Bayesian; the acquisition score remains heuristic.
+Current revision: **2026-11-04 execution belief separation and independent populations**. Synthetic passengers only. The response model remains Bayesian; the acquisition score remains heuristic.
 
-See the [model and comparison report](../../docs/2026-11-04-monotone-bayes-results.md) and [earlier criterion-boundary correction](../../docs/2026-11-04-boundary-correction-results.md).
+See the [latest results](../../docs/2026-11-04-execution-population-results.md), [Bayesian model report](../../docs/2026-11-04-monotone-bayes-results.md) and [earlier boundary correction](../../docs/2026-11-04-boundary-correction-results.md).
 
 ## Entry points
 
-- `run_uncertain_input_bo_extended.py`: 24 synthetic passengers × 12 trials × 5 policies × 2 noise levels; defaults to `outputs_bayesian/`.
-- `run_uncertain_input_bo_poc.py`: 18 synthetic passengers × 10 trials × 5 policies; defaults to `outputs_bayesian_poc/`.
+- `run_uncertain_input_bo_extended.py`: 24 synthetic passengers × 12 trials × 5 policies × 2 noise levels; defaults to `outputs_execution_separated/`.
+- `run_uncertain_input_bo_poc.py`: 18 synthetic passengers × 10 trials × 5 policies; defaults to `outputs_execution_separated_poc/`.
+- `../../long_horizon_audit/scripts/run_execution_population_audit.py`: independent nested population/process experiments, matched fixed-population controls, historical replay and execution-misspecification stress test.
+- `../../long_horizon_audit/scripts/compare_execution_population.py`: validates complete configurations and pairing, computes intervals over independent population batches, and plots current comparisons.
 - `../../long_horizon_audit/scripts/run_multiseed_simulation_audit.py`: five process seeds plus six sensitivity scenarios. Specify `--output-dir`; optionally `--surrogate legacy_kernel`.
 - `compare_surrogates.py`: reads the committed/rebuilt new and legacy audit paths, runs same-history replay, checks grid resolution and prior sensitivity, and writes `../../results/monotone_bayes_20261104/`.
 - `compare_boundary_results.py`: historical metric-correction comparison, still uses the preserved legacy snapshots.
 
-Both simulation entry points accept `--surrogate monotone_bayes|legacy_kernel` and `--output-dir`. Legacy defaults write `outputs_continuous/` and `outputs_continuous_poc/`. Do not use a Bayesian run to overwrite the historical directories.
+Both entry points accept `--surrogate`, `--execution-belief calibrated|nominal|oracle`, `--population-seed`, `--calibration-seed`, `--calibration-trials`, `--true-execution-bias`, `--assumed-execution-bias`, `--assumed-execution-noise-scale` and `--output-dir`. `oracle` selects the old Bayesian/kernel output paths; default calibrated runs use new directories. Keep historical directories for their original settings.
+
+## Execution information and random streams
+
+`execution_belief.py` contains immutable public settings and execution parameters, plus a weighted bias/common-noise calibration fit that receives only command, acceleration, jerk and duration observations. Calibration uses 40 independent simulated maneuvers per execution condition/seed; it uses no passenger labels. Commands cover the central 20%-80% of the public range. Observations at realized clipping bounds are excluded and counted. The known functional form and clipping approximation are limitations, not learned vehicle dynamics.
+
+The physical model and policy belief are separate objects. `PolicySettings` omits truth and seed fields; policy history is an explicit observable-field projection. `oracle` is the only mode intentionally supplied true execution parameters. `calibrated` uses a plug-in fit; `nominal` uses explicit assumed parameters. Neither propagates execution-parameter uncertainty or learns online.
+
+`population_seed` controls passenger attributes, `seed` (exported as `process_seed`) controls existing policy/execution/feedback streams, and `calibration_seed` controls a separate `SeedSequence([seed, 0xCA1B])`. The single-run population default remains historical `20260804`; batch runners draw each scenario's requested population. The dedicated audit varies populations independently, with distinct process and calibration streams nested inside each batch, and shares streams within paired controls.
+
+Trial and summary provenance includes all three seeds, `execution_belief`, `true_execution_bias/noise_scale`, `belief_execution_bias/noise_scale`, and calibration counts. `continuous_execution_calibration.csv` saves the calibration observations. Audit configuration JSONs, population parameters and fingerprints support reconstruction. Five population batches, rather than individual passengers or repeated trials, determine the main confidence intervals.
 
 ## Model and fields
 

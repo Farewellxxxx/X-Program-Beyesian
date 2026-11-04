@@ -127,8 +127,26 @@ def plot_comparison(summary: pd.DataFrame, archive: pd.DataFrame, out: Path):
             ax.set_title(noise.capitalize()+' execution noise'); ax.set_ylabel(label); ax.grid(axis='y',alpha=.2)
     fig.legend(*axes[0,0].get_legend_handles_labels(),loc='upper center',bbox_to_anchor=(.5,.95),ncol=3)
     fig.suptitle('Execution belief and population changes | synthetic study',fontsize=15)
-    fig.text(.5,.015,'New results: 5 independent population batches, 2 process seeds each. Archive uses a fixed population; intervals and paired controls are in CSV/report.',ha='center',fontsize=9)
+    example=summary[summary.experiment_suite=='population'].iloc[0]
+    batches=int(example.n_population_blocks); repeats=int(example.n_process_runs/batches)
+    fig.text(.5,.015,f'New results: {batches} independent population batches, {repeats} process seeds each. Archive uses a fixed population; intervals and paired controls are in CSV/report.',ha='center',fontsize=9)
     fig.tight_layout(rect=(0,.045,1,.90)); fig.savefig(out/'execution_population_comparison.png',dpi=170); plt.close(fig)
+
+
+def plot_stress(summary: pd.DataFrame, out: Path):
+    fig,axes=plt.subplots(1,2,figsize=(11,5))
+    algorithms=['UncertainInputBO','NaiveContinuousBO']; x=np.arange(2)
+    for ax,metric,label in zip(axes,['mean_boundary_error','mean_unacceptable_trials'],
+                               ['Absolute boundary error','Unacceptable trials / 12']):
+        for i,(mode,color) in enumerate([('oracle','#999999'),('nominal','#e69f00'),('calibrated','#2166ac')]):
+            rows=summary[(summary.experiment_suite=='stress')&(summary.execution_belief==mode)&(summary.metric==metric)].set_index('algorithm').loc[algorithms]
+            ax.bar(x+(i-1)*.25,rows['mean'],width=.24,color=color,label=mode,
+                yerr=np.array([rows['mean']-rows.ci95_low,rows.ci95_high-rows['mean']]),capsize=3)
+        ax.set_xticks(x,['Uncertain-input','Naive']); ax.set_ylabel(label); ax.grid(axis='y',alpha=.2)
+    fig.legend(*axes[0].get_legend_handles_labels(),loc='upper center',bbox_to_anchor=(.5,.94),ncol=3)
+    fig.suptitle('Unknown bias +0.15 and high noise | error-exposure tradeoff',fontsize=14)
+    fig.text(.5,.015,'Nominal assumes bias 0 and low noise. Error bars: 95% intervals across independent population batches.',ha='center',fontsize=9)
+    fig.tight_layout(rect=(0,.04,1,.86)); fig.savefig(out/'unknown_execution_stress.png',dpi=170); plt.close(fig)
 
 
 def main():
@@ -168,6 +186,20 @@ def main():
         result=paired_effects(left,right,contrast); result['experiment_suite']='stress'; comparisons.append(result)
     effects=pd.concat(comparisons,ignore_index=True); effects.to_csv(out/'paired_population_effects.csv',index=False)
     summary=absolute_summaries(all_runs); summary.to_csv(out/'population_cluster_summary.csv',index=False)
+    stages=[]
+    for (noise,algorithm),group in archive.groupby(['execution_noise','algorithm']):
+        stages.append(dict(stage='previous_fixed_population_oracle',execution_noise=noise,algorithm=algorithm,
+            **{metric:float(group[metric].mean()) for metric in METRICS}))
+    for suite,mode,stage in [('fixed_control','oracle','matched_process_fixed_population_oracle'),
+                            ('population','oracle','new_population_oracle'),('population','calibrated','new_population_calibrated')]:
+        subset=summary[(summary.experiment_suite==suite)&(summary.execution_belief==mode)]
+        for (noise,algorithm),group in subset.groupby(['execution_noise','algorithm']):
+            stages.append(dict(stage=stage,execution_noise=noise,algorithm=algorithm,**group.set_index('metric')['mean'].to_dict()))
+    pd.DataFrame(stages).to_csv(out/'before_after_stages.csv',index=False)
+    people=pd.concat([pd.read_csv(args.input_dir/f'{suite}_populations.csv') for suite in SUITES]).drop_duplicates()
+    people.groupby('population_seed').agg(n_people=('participant_id','size'),
+        mean_midpoint=('acceptability_midpoint','mean'),mean_sensitivity=('sensitivity','mean'),
+        mean_noisiness=('noisiness','mean')).to_csv(out/'population_traits.csv')
     fixed=['RandomContinuous','GridContinuous','Staircase']; invariance_count=0
     for frame in (population,stress):
         for _,group in frame[frame.algorithm.isin(fixed)].groupby(KEYS):
@@ -187,6 +219,7 @@ def main():
         max_clipped_calibration_observations=int(calibration.calibration_n_clipped.max()))
     (out/'validation_summary.json').write_text(json.dumps(validation,indent=2),encoding='utf-8')
     plot_comparison(summary,archive,out)
+    plot_stress(summary,out)
     print(json.dumps(validation,indent=2))
     print(effects[(effects.algorithm=='UncertainInputBO')&(effects.metric=='mean_boundary_error')].round(6).to_string(index=False))
 

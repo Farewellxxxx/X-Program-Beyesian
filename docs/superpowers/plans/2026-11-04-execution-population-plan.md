@@ -20,7 +20,7 @@
 
 - [x] 1. Add `execution_belief.py` with immutable parameter/settings and observation-only fit. Add statistical calibration tests (known WLS calculation, invalid/clipped data), watch RED, implement, pass tests.
 - [x] 2. Integrate Config seed/mode fields, restricted policy settings/history and separate true/belief objects; expose diagnostics. Test population/process/calibration independence, same observations/no truth leakage, fixed-policy invariance, historical oracle reproduction, new summaries. Keep legacy regression tests explicit about oracle. Pass full suite and commit.
-- [ ] 3. Add `run_execution_population_audit.py` and `compare_execution_population.py`. Test scenario design, paired configuration guards, population-cluster intervals and missing/duplicate blocks before implementation. Run 85 scenarios and regenerated extended/POC; compare history, population and belief effects; produce readable report and figures.
+- [x] 3. Add `run_execution_population_audit.py` and `compare_execution_population.py`. Test scenario design, paired configuration guards, population-cluster intervals and missing/duplicate blocks before implementation. Run 85 scenarios and regenerated extended/POC; compare history, population and belief effects; produce readable report and figures.
 - [ ] 4. Independent read-only review, fix verified findings, final tests and integrity checks; sync original workspace; fast-forward and push main; independently verify remote SHA.
 
 ## Ledger
@@ -31,3 +31,6 @@
 
 - Tasks 1-2: eight new calibration/information-boundary/population tests RED to GREEN; prior 36 tests also pass (44 total before audit tests). A batch-runner test exposed reuse of the first cohort; fixed per-scenario population generation.
 - Task 3 in progress: four audit/comparison tests RED to GREEN, including complete design coverage; all 85 scenarios launched in four separate processes. Extended and POC regenerated successfully.
+
+- Task 3 complete: all 85 scenarios exited successfully; 425 policy and 10,200 participant summaries. Comparison exit 0; all 50 historical rows match exactly; 75 fixed-policy cells invariant. Full suite 48 passed. Main estimates and unfavorable/error-exposure tradeoffs documented.
+- Decision: restrict population blocks to 2-10 (tested) to use the existing finite-sample t table correctly; default five unchanged. Empty calibration frames are omitted when combining with nonempty data; no numerical changes.

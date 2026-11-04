@@ -1,0 +1,12 @@
+{
+  "historical_rows": 50,
+  "historical_max_metric_delta": 0.0,
+  "total_scenarios": 85,
+  "total_policy_summaries": 425,
+  "independent_population_batches": 5,
+  "fixed_policy_cells_verified": 75,
+  "interval_method": "Mean over 2 process seeds per population batch (one in stress), then t interval over 5 independent batches",
+  "mean_absolute_bias_estimation_error": 0.016313001121834036,
+  "mean_absolute_noise_scale_estimation_error": 0.0397747322495752,
+  "max_clipped_calibration_observations": 0
+}

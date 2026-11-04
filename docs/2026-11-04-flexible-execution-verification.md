@@ -65,3 +65,7 @@ python comfort_boundary_bo_research_package/simulation/run_uncertain_input_bo_po
 原工作区运行 `python -m pytest -q long_horizon_audit/tests --ignore=long_horizon_audit/tests/test_presentation_launcher.py`：81 passed（13.19 秒）。旧演示系统测试维持既有排除范围，不声称验证了该系统。发布目录此前修复后完整测试 81 passed（20.92 秒），合并后的最终运行另在发布记录中补充。
 
 367 个发布文件的大小和 SHA-256 全部核对，覆盖全部跟踪文件（清单自身除外）。旧默认输出、先前人群/失配审计和其他历史快照保持原样。发布仅含代码、文档与合成数据，无真实参与者数据、第三方论文、私有草稿、缓存或本地备份。
+
+## 发布确认
+
+快进合并到 main 后完整测试：81 passed（12.44 秒）；367 个文件哈希、121 个原目录同步文件及历史快照保护再次全部通过，工作树干净。代码与全量结果已推送到 GitHub main：`ff564707e257cbaf6f19af258b7166af46d3623d`；GitHub 连接器独立返回相同 SHA。本条记录由随后仅更新文档和发布哈希的提交补充，未改变代码或实验数据。

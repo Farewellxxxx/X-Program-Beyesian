@@ -21,7 +21,7 @@
 - [x] 1. Create `simulation/flexible_execution.py` and `long_horizon_audit/tests/test_flexible_execution.py`. RED tests for independent coefficient/covariance fixtures, constraints, invalid inputs, sampler moments and truth isolation; implement immutable model, fit, upgrade adapter; full suite and commit.
 - [x] 2. Add explicit extended/POC `--execution-estimator` integration and fit exports. Create `run_flexible_execution_audit.py`, `compare_flexible_execution.py`, tests for exact paired design, outputs, prefix/hash identity, parameter/config mismatch and missing cells. RED-to-GREEN, full suite, commit.
 - [x] 3. Run 280 new scenarios + 420 baseline replays and new-model extended/POC; compare with old archive and produce complete CSV/JSON/PNG plus Chinese result/verification reports. Inspect figures, document benefits and regressions without post-hoc retuning.
-- [ ] 4. One independent review, one verified fix pass if needed, final tests/hashes/workspace sync, main fast-forward and authorized push, remote SHA verification.
+- [x] 4. One independent review, one verified fix pass if needed, final tests/hashes/workspace sync, main fast-forward and authorized push, remote SHA verification.
 
 ## Interfaces
 
@@ -50,3 +50,5 @@
 - Task 3 complete: 700 scenarios finished in 2108.4 s; full comparator exit 0. Exact replay of all original fields in 2100 old policy rows (max delta 0), 280 identical/nested calibration sets, 5880 diagnostic rows, 210 unchanged fixed-policy cells and 9360 unique leaf states. Nine reviewed comparison files remain byte-identical. No clipped calibration records; 18 active-constraint fits. Reports updated with completed evidence.
 
 - Task 4 gates before push: all 420 old scenarios and full comparison passed. 367 publication files hashed; 121 files mirrored byte-identically with no unexpected root edits, all historical snapshots unchanged. Root scoped tests: 81 passed (13.19 s); old presentation-runtime test remains outside publication scope. Authorized main fast-forward/push and remote verification follow.
+
+- Task 4 complete: final merged suite 81 passed (12.44 s); clean main pushed at ff564707e257cbaf6f19af258b7166af46d3623d and independently confirmed by GitHub connector. All replay/comparison/hash/mirror gates satisfied. This ledger update only records completion and refreshes documentation hashes; no code/data change and no second review or redundant simulation rerun.

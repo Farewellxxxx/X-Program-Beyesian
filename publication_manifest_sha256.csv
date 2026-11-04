@@ -146,7 +146,7 @@ docs/2026-11-04-execution-robustness-results.md,11548,f0a9b03fa989479329f2d105eb
 docs/2026-11-04-execution-robustness-verification.md,5757,66a09d66549286ca1baa93ec3498acdaef1e3dbbe532851c190f54bfbccf9a50
 docs/2026-11-04-flexible-execution-method.md,7549,f28e640b25eecaf281cca8b890c2fee3c4952809d0c22ad372630d2840085b6d
 docs/2026-11-04-flexible-execution-results.md,13979,3f126351999f7a3e0f1719a4a615872e983200bdc3158a2b29fd95ed8aec4af1
-docs/2026-11-04-flexible-execution-verification.md,7515,bbdf9b48f78367e8f2f332f8bba2aaf74c9767a1f3013bc13057803a857aaec0
+docs/2026-11-04-flexible-execution-verification.md,7946,291ddf817429ab58b00e590b456303b4886e67a652ab21016a5f2966048f961d
 docs/2026-11-04-monotone-bayes-results.md,8231,e7a4826bfe7fc8f230596bdd92a53649188c5b4d5518dc9c136b1cab6cd5a1ca
 docs/2026-11-04-monotone-bayes-verification.md,4373,312b587caabcd245f8ad779bac8ae61397649da93f19c2aa1bb611e9a20fdc25
 docs/research-blueprint.md,13731,75131f8f362bf030a0c98e8040d263d8c335ec75e4a999031963fb92d6a1cfdf
@@ -154,7 +154,7 @@ docs/superpowers/plans/2026-08-07-bo-feasibility-user-study-execution-plan.md,37
 docs/superpowers/plans/2026-11-04-boundary-metric-correction.md,4886,f40b8a537433b7e1db153c95a2180a3c391b17e8939f695e3caa97903cee71cb
 docs/superpowers/plans/2026-11-04-execution-misspecification-budget-plan.md,7618,3c62add2fd18eea0c0ea6f067b7a4a59ea0913f16b9ffa5a122d8f59085e4cc9
 docs/superpowers/plans/2026-11-04-execution-population-plan.md,5829,d90aac7e792ca88e6684b6d7b50db446095365e082226a67aea8fcd96ba376e1
-docs/superpowers/plans/2026-11-04-flexible-execution-plan.md,7549,6b55173aade0621dfb3bcad8a84237037d2c653188e5848a91e6c0072d511b18
+docs/superpowers/plans/2026-11-04-flexible-execution-plan.md,7922,f6d84b3d58ee0ab8f41517ee88bf8c1a61f57f8bfc834ad4a31095897e6ffd83
 docs/superpowers/plans/2026-11-04-monotone-bayes-plan.md,5465,652f5ca4f3ec5dc6fd950876a11304c0cb1fb9574e0805a05d0d7b7d47f8dfb5
 docs/superpowers/specs/2026-08-07-bo-feasibility-user-study-design.md,37192,f335caa704d54a0d8eb6b24960ae6fb8febbfd7bc5491dac47a9cec2b3b5f225
 docs/superpowers/specs/2026-11-04-execution-misspecification-budget-design.md,5237,3a29c7ba17cbe2598182b71955c3bdab0f88761a87e463dbb63917e1ee683b4f

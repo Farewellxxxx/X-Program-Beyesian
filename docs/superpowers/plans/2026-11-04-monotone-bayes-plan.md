@@ -30,7 +30,7 @@
 - [x] 1. Write failing statistical tests; implement `monotone_bayes.py` with `PriorGrid`, `MonotoneBayesianLogistic.fit`, `predict_array`, `predict`, `estimate_boundary`, `boundary_summary`, and posterior diagnostics. Verify small-grid Bayes calculation independently.
 - [x] 2. Add config/CLI selection and posterior fields; tests verify default monotonicity, legacy replay, unchanged fixed policies, dynamic tau truth and deterministic records. Run full published suite.
 - [x] 3. Regenerate extended/POC and five-seed+sensitivity Bayesian results. Produce same-history, paired-seed, numerical-resolution, prior-sensitivity comparisons and readable figures/report.
-- [ ] 4. Independent review, final verification, documentation/manifest update, sync modified source back to original workspace, fast-forward main and push; verify remote SHA.
+- [x] 4. Independent review, final verification, documentation/manifest update, sync modified source back to original workspace, fast-forward main and push; verify remote SHA.
 
 ## Ledger
 
@@ -48,3 +48,4 @@
 - Final: Ruling: human/vehicle efficacy, optimal acquisition and formal safety guarantees were explicitly outside the requested synthetic-model replacement. They remain unvalidated; the report must not imply these guarantees.
 - Original workspace sync: 56 changed/new files byte-verified, previous files backed up under tmp/monotone_bayes_20261104/before. Original full test scope reproduced the existing presentation-runtime failure; simulation-only scope passed 34 tests before review fixes.
 - Final checks: revised comparison script exit 0, published suite 36 passed, original workspace simulation-only suite 36 passed. Historical metric comparison still verifies 3,780 rows with zero numerical change.
+- Task 4 complete: fast-forwarded main, merged-state suite 36 passed, pushed implementation f8b6d93eb9a716d60583c3953ee88ec0b5b4e4ce and independently confirmed that SHA through GitHub. Verified all 116 manifest entries and 56 original-workspace mirrors. This final documentation update records the completed publication.

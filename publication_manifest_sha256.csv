@@ -108,13 +108,13 @@ docs/2026-11-04-boundary-correction-verification.md,3313,973962ec0307d11cf3686d6
 docs/2026-11-04-execution-population-results.md,10707,79ff5f46f0bb1cea8bc5d7a882ea2aa11a93adab622333a5ab0840b9861950f9
 docs/2026-11-04-execution-population-verification.md,4787,db9819b37cbb681af04afe2c3f4ad708278f63b289f28a403f434322c4ae91f4
 docs/2026-11-04-execution-robustness-results.md,11548,f0a9b03fa989479329f2d105eb5d1ec6c4b8c9ed4c1e4dd57620792228e7595b
-docs/2026-11-04-execution-robustness-verification.md,4281,be2690a79adb90e364f49c692d8cd6d968860a3116897d1e0383dd0a19971baa
+docs/2026-11-04-execution-robustness-verification.md,5529,b6f65a5e9b5606880d239821443d0fb3e492b92aca020a87e4ae0780a830f86f
 docs/2026-11-04-monotone-bayes-results.md,8231,e7a4826bfe7fc8f230596bdd92a53649188c5b4d5518dc9c136b1cab6cd5a1ca
 docs/2026-11-04-monotone-bayes-verification.md,4373,312b587caabcd245f8ad779bac8ae61397649da93f19c2aa1bb611e9a20fdc25
 docs/research-blueprint.md,13731,75131f8f362bf030a0c98e8040d263d8c335ec75e4a999031963fb92d6a1cfdf
 docs/superpowers/plans/2026-08-07-bo-feasibility-user-study-execution-plan.md,37674,85bf117b81d9cc62e9d84595a73c939f924fc5261f7e2cd0393ce1a3299a2e68
 docs/superpowers/plans/2026-11-04-boundary-metric-correction.md,4886,f40b8a537433b7e1db153c95a2180a3c391b17e8939f695e3caa97903cee71cb
-docs/superpowers/plans/2026-11-04-execution-misspecification-budget-plan.md,6188,ea0643e05f2c00549829320a2f5affccade591159cd0fc67a937f1dad7a8b42a
+docs/superpowers/plans/2026-11-04-execution-misspecification-budget-plan.md,7268,2bf8020f544058aaa1555ee19482fb5d6754d802ab38bde1ee6c544a6005a389
 docs/superpowers/plans/2026-11-04-execution-population-plan.md,5829,d90aac7e792ca88e6684b6d7b50db446095365e082226a67aea8fcd96ba376e1
 docs/superpowers/plans/2026-11-04-monotone-bayes-plan.md,5465,652f5ca4f3ec5dc6fd950876a11304c0cb1fb9574e0805a05d0d7b7d47f8dfb5
 docs/superpowers/specs/2026-08-07-bo-feasibility-user-study-design.md,37192,f335caa704d54a0d8eb6b24960ae6fb8febbfd7bc5491dac47a9cec2b3b5f225

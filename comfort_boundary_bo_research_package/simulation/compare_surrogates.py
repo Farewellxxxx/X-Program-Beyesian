@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import argparse
-from dataclasses import replace
 import json
 import math
 from pathlib import Path
@@ -22,15 +21,26 @@ from long_horizon_audit.scripts.run_multiseed_simulation_audit import t_interval
 
 KEYS=["seed","scenario","execution_noise","algorithm"]
 METRICS=["mean_boundary_error","mean_unacceptable_trials","mean_cumulative_discomfort","mean_predictive_brier_score"]
+MATCHED_SETTINGS=["n_participants","n_trials_per_algorithm_participant","tau",
+                  "feedback_noise","calibration_bias","include_time_effects"]
 SIM_DIR=ROOT/"comfort_boundary_bo_research_package/simulation"
 AUDIT_DIR=ROOT/"long_horizon_audit/derived"
 
 
 def paired_effects(old: pd.DataFrame, new: pd.DataFrame) -> pd.DataFrame:
+    required=set(KEYS+METRICS+MATCHED_SETTINGS+["surrogate_kind"])
+    for frame,expected in ((old,"legacy_kernel"),(new,"monotone_bayes")):
+        if not required.issubset(frame.columns):
+            raise ValueError(f"Missing comparison columns: {sorted(required-set(frame.columns))}")
+        if frame[KEYS+MATCHED_SETTINGS].isna().any().any():
+            raise ValueError("Comparison settings must not be missing")
+        if not frame.surrogate_kind.eq(expected).all():
+            raise ValueError(f"Expected model identity {expected}")
     paired=old.merge(new,on=KEYS,suffixes=("_old","_new"),how="outer",validate="one_to_one",indicator=True)
     if not paired["_merge"].eq("both").all(): raise ValueError("All scenario/seed/algorithm pairs must match")
-    for budget in ("n_participants","n_trials_per_algorithm_participant"):
-        if not paired[f"{budget}_old"].eq(paired[f"{budget}_new"]).all(): raise ValueError("Comparison budgets differ")
+    for setting in MATCHED_SETTINGS:
+        if not paired[f"{setting}_old"].eq(paired[f"{setting}_new"]).all():
+            raise ValueError(f"Comparison setting differs: {setting}")
     paired=paired[paired.scenario.str.startswith("multiseed_")]
     rows=[]
     for (noise,algorithm),group in paired.groupby(["execution_noise","algorithm"]):

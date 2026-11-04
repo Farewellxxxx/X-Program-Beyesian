@@ -57,6 +57,15 @@ class BayesianIntegrationTests(unittest.TestCase):
         self.assertIn("mean_predictive_brier_score",algorithm)
         self.assertEqual(len(participant),5)
 
+    def test_every_summary_retains_model_identity_and_rejects_mixed_models(self):
+        config=self.sim.Config(n_participants=1,n_trials=2,candidate_count=5,mc_samples=3,seed=902)
+        trials=self.sim.run_scenario(config,self.sim.make_passengers(config))
+        for table in self.sim.evaluate(trials):
+            self.assertIn("surrogate_kind",table)
+            self.assertTrue(table.surrogate_kind.eq("monotone_bayes").all())
+        mixed=trials.copy(); mixed.loc[0,"surrogate_kind"]="legacy_kernel"
+        with self.assertRaises(ValueError): self.sim.evaluate(mixed)
+
 
 if __name__=="__main__":
     unittest.main()

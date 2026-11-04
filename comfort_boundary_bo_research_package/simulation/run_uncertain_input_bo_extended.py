@@ -711,6 +711,9 @@ def run_scenario(config: Config, passengers: list[Passenger]) -> pd.DataFrame:
 
 
 def evaluate(trials: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    if trials.empty or trials.surrogate_kind.isna().any() or trials.surrogate_kind.nunique() != 1:
+        raise ValueError("Evaluate one nonempty surrogate dataset at a time")
+    surrogate_kind = str(trials.surrogate_kind.iloc[0])
     final = trials.sort_values("trial_id").groupby(["scenario", "participant_id", "algorithm"]).tail(1)
     participant = (
         trials.groupby(["scenario", "execution_noise", "participant_id", "algorithm"])
@@ -822,6 +825,8 @@ def evaluate(trials: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataF
                 }
             )
     sensitivity = pd.DataFrame(sensitivity_rows)
+    for table in (participant, algorithm, diagnostics, safety, sensitivity):
+        table["surrogate_kind"] = surrogate_kind
     return participant, algorithm, diagnostics, safety, sensitivity
 
 

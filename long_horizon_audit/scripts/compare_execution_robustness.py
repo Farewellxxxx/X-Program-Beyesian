@@ -88,6 +88,9 @@ def validate_diagnostics(frame,specs,n_samples=4096):
         rows=frame[frame.scenario==scenario].sort_values('command')
         grid=np.linspace(spec.config.x_min,spec.config.x_max,21)
         if len(rows)!=21 or not np.allclose(rows.command,grid,rtol=0,atol=1e-12): raise ValueError('Incomplete diagnostic command grid')
+        span=spec.config.x_max-spec.config.x_min
+        regions=np.where((grid>=spec.config.x_min+.2*span-1e-12)&(grid<=spec.config.x_min+.8*span+1e-12),'interior','extrapolation')
+        if not np.array_equal(rows.region.to_numpy(),regions): raise ValueError('Diagnostic command regions differ')
         for key,value in audit.expected_metadata(spec).items():
             if key not in rows or not rows[key].eq(value).all(): raise ValueError('Diagnostic metadata differs: '+key)
         if not rows.diagnostic_samples.eq(n_samples).all(): raise ValueError('Diagnostic sample budget differs')
@@ -171,14 +174,15 @@ def plot_tables(summary,diagnostics,out):
     axes.flat[-1].axis('off')
     fig.suptitle('Uncertain-input BO | exposure versus calibration cost (95% batch intervals)')
     fig.tight_layout(rect=(0,0,1,.95)); fig.savefig(out/'budget_unacceptable_trials.png',dpi=160); plt.close(fig)
-    fig,axes=plt.subplots(1,2,figsize=(13,5))
-    for ax,region in zip(axes,['interior','extrapolation']):
-        for profile in profiles:
-            rows=diagnostics[(diagnostics.profile==profile)&(diagnostics.region==region)&(diagnostics.metric=='mean_abs_error')].set_index('arm')
-            ax.plot(budgets,rows.loc[[f'cal{n}' for n in budgets],'mean'],marker='o',label=profile.replace('_',' '))
-        ax.set_xscale('log'); ax.set_xticks(budgets,[str(n) for n in budgets]); ax.set_title(region+' commands')
-        ax.set_xlabel('Extra calibration maneuvers'); ax.set_ylabel('Mean intensity prediction absolute error'); ax.grid(alpha=.2)
-    axes[1].legend(fontsize=8); fig.suptitle('Independent execution diagnostics | structural error can remain at larger budgets')
+    fig,axes=plt.subplots(2,2,figsize=(13,9))
+    for row,(metric,label) in enumerate([('mean_abs_error','Mean intensity prediction absolute error'),('wasserstein1','Empirical Wasserstein-1 distance')]):
+        for ax,region in zip(axes[row],['interior','extrapolation']):
+            for profile in profiles:
+                rows=diagnostics[(diagnostics.profile==profile)&(diagnostics.region==region)&(diagnostics.metric==metric)].set_index('arm')
+                ax.plot(budgets,rows.loc[[f'cal{n}' for n in budgets],'mean'],marker='o',label=profile.replace('_',' '))
+            ax.set_xscale('log'); ax.set_xticks(budgets,[str(n) for n in budgets]); ax.set_title(region+' commands')
+            ax.set_xlabel('Extra calibration maneuvers'); ax.set_ylabel(label); ax.grid(alpha=.2)
+    axes[0,1].legend(fontsize=8); fig.suptitle('Independent execution diagnostics | check both location and distribution shape')
     fig.tight_layout(rect=(0,0,1,.94)); fig.savefig(out/'execution_prediction_diagnostics.png',dpi=160); plt.close(fig)
 
 

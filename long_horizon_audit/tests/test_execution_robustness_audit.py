@@ -78,6 +78,6 @@ def test_holdout_manifest_rejects_missing_grid_and_wrong_diagnostic_seed():
     spec=audit.build_scenarios()[0]
     diagnostics=audit.diagnose(spec,audit.prepare(spec),64)
     compare.validate_diagnostics(diagnostics,[spec],64)
-    for bad in (diagnostics.iloc[:-1],diagnostics.assign(diagnostic_seed=1),
+    for bad in (diagnostics.iloc[:-1],diagnostics.assign(diagnostic_seed=1),diagnostics.assign(region='interior'),
                 diagnostics.assign(wasserstein1=float('nan'))):
         with pytest.raises(ValueError): compare.validate_diagnostics(bad,[spec],64)

@@ -139,6 +139,7 @@ def main() -> int:
                 sim.Config(
                     surrogate_kind=args.surrogate,
                     execution_belief=args.execution_belief,
+                    process_rng_mode='legacy',
                     execution_noise=noise,
                     scenario_name=f"multiseed_{noise}_{repeat + 1}",
                     seed=seed,
@@ -155,7 +156,7 @@ def main() -> int:
     ]
     for index, overrides in enumerate(sensitivity_specs):
         configs.append(sim.Config(seed=20269000 + index, surrogate_kind=args.surrogate,
-                                  execution_belief=args.execution_belief, **overrides))
+                                  execution_belief=args.execution_belief,process_rng_mode='legacy', **overrides))
 
     rows = []
     for index, config in enumerate(configs, start=1):

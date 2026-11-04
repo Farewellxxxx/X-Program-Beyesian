@@ -28,7 +28,7 @@ def main() -> None:
     parser.add_argument("--output-dir", type=Path)
     add_execution_cli_arguments(parser)
     args = parser.parse_args()
-    output_dir = args.output_dir or default_output_dir(args.surrogate,args.execution_belief,poc=True)
+    output_dir = args.output_dir or default_output_dir(args.surrogate,args.execution_belief,poc=True,rng_mode=args.process_rng_mode)
     scenario = Config(
         surrogate_kind=args.surrogate,
         n_participants=18,

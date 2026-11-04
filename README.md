@@ -6,7 +6,7 @@
 
 当前接受模型使用单调 Bernoulli–logistic 后验，输出 B_tau 中位数和可信区间。执行生成器与算法持有的分布现在是独立对象：默认算法仅由 40 条额外合成执行记录拟合偏差和噪声；`oracle` 明确表示已知真实参数的对照，`nominal` 表示固定假设。策略只能看到可观测历史，不能读取乘客真值或生成参数。
 
-人群、过程、执行校准分别使用显式种子。新实验包含五批独立人群、每批两个过程种子，以及同过程的固定人群对照；按人群批次汇总区间，不把重复试验当成独立人群。另有未知执行偏差/低估噪声场景和上一版完整复现检查。
+人群、过程、执行校准分别使用显式种子。过程子流由种子、用途、参与者和策略标识共同派生，避免旧加法偏移的种子碰撞。新实验包含五批独立人群、每批两个过程种子，以及同过程的固定人群对照；按人群批次汇总区间，不把重复试验当成独立人群。另有未知执行偏差/低估噪声场景和上一版完整复现检查。
 
 - [本次前后比较、解释与限制](docs/2026-11-04-execution-population-results.md)
 - [本次验证记录](docs/2026-11-04-execution-population-verification.md)
@@ -31,7 +31,7 @@ python long_horizon_audit/scripts/compare_execution_population.py
 
 前两个入口默认写入 `outputs_execution_separated/` 和 `outputs_execution_separated_poc/`；同一固定人群用于单次运行示例，可用 `--population-seed` 指定另一个种子。人群审计默认运行 85 个场景；可分别用 `--suite historical|fixed_control|population|stress` 运行，四组完成后再执行比较。每组保存参数清单、个体/策略汇总、人群参数和校准观测。校准的 40 次额外合成执行不含乘客反馈，与每人 12 次反馈预算分开计算。
 
-旧结果保留。历史 kernel 重跑须显式使用 `--surrogate legacy_kernel --execution-belief oracle`；上一版 Bayesian 重跑使用 `--surrogate monotone_bayes --execution-belief oracle`。历史审计入口 `run_multiseed_simulation_audit.py` 默认仍为 oracle/固定人群。旧比较脚本继续读取旧快照：
+旧结果保留。历史 kernel 重跑须使用 `--surrogate legacy_kernel --execution-belief oracle --process-rng-mode legacy`；上一版 Bayesian 重跑使用 `--surrogate monotone_bayes --execution-belief oracle --process-rng-mode legacy`。历史审计入口 `run_multiseed_simulation_audit.py` 默认仍为 oracle/固定人群/legacy 子流。旧比较脚本继续读取旧快照：
 
 ```bash
 python comfort_boundary_bo_research_package/simulation/compare_boundary_results.py --baseline-root results/baseline_before_boundary_fix

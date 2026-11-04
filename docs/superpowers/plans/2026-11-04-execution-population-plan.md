@@ -10,7 +10,7 @@
 ## Constraints and review focus
 
 - No hidden generator/passenger fields in calibrated policies or their history; oracle is explicit.
-- Preserve physical RNG/generator and default historical population for exact replay.
+- Preserve the physical generator, explicit legacy RNG mode and default historical population for exact replay; use independent leaf streams for new experiments.
 - Calibration budget is extra, shared, independent of response data and explicitly reported.
 - Independent population clusters, paired seeds and settings must remain distinguishable in every table.
 - Missing/duplicate/unbalanced comparisons must fail; no pseudoreplication or silent mixing.
@@ -34,3 +34,7 @@
 
 - Task 3 complete: all 85 scenarios exited successfully; 425 policy and 10,200 participant summaries. Comparison exit 0; all 50 historical rows match exactly; 75 fixed-policy cells invariant. Full suite 48 passed. Main estimates and unfavorable/error-exposure tradeoffs documented.
 - Decision: restrict population blocks to 2-10 (tested) to use the existing finite-sample t table correctly; default five unchanged. Empty calibration frames are omitted when combining with nonempty data; no numerical changes.
+- Final review: one Important finding, no Critical or Minor findings. Distinct top-level seeds collided under legacy participant/policy additive offsets (258 within-noise cross-batch pairs in population, eight in stress). Initial results were not pushed and are superseded.
+- Final: fixed actual RNG leaf collisions with explicit independent/legacy modes. Domain-separated SeedSequence keys include role, participant and algorithm; two regressions RED to GREEN, including an actual repeated policy/feedback state. Full suite 50 passed in both the publication checkout and scoped original workspace. All 85 scenarios and extended/POC regenerated successfully; comparison exit 0, 7,800 unique leaf streams, 50 exact historical rows and 75 invariant fixed-policy cells. Final reports and figures use these corrected results.
+- Final: Ruling: retain additive RNG only in explicit historical replay. New sampling streams necessarily change; use matched independent-stream controls to distinguish population and belief effects. Historical-to-current totals also reflect the RNG scheme and process sample changes.
+- Final: Ruling: general censored likelihood, arbitrary dynamics misspecification, online learning, execution-parameter posterior propagation, real human/vehicle efficacy, formal safety guarantees and acquisition/response redesign remain outside this requested step; reports must keep these limitations explicit.

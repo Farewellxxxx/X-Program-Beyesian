@@ -88,6 +88,7 @@ class Config:
     include_time_effects: bool = False
     scenario_name: str = "continuous_low_noise"
     seed: int = BASE_SEED
+    process_rng_mode: str = "independent"  # legacy only for historical replay
     population_seed: int = BASE_SEED + 101
     calibration_seed: int = BASE_SEED + 303
     execution_belief: str = "calibrated"  # calibrated, nominal, oracle
@@ -112,6 +113,8 @@ class Config:
             raise ValueError("surrogate_kind must be monotone_bayes or legacy_kernel")
         if self.execution_belief not in ('calibrated','nominal','oracle'):
             raise ValueError('execution_belief must be calibrated, nominal or oracle')
+        if self.process_rng_mode not in ('independent','legacy'):
+            raise ValueError('process_rng_mode must be independent or legacy')
         if self.execution_noise not in ('low','medium','high'):
             raise ValueError('execution_noise must be low, medium or high')
         for name in ('seed','population_seed','calibration_seed'):
@@ -142,7 +145,7 @@ def policy_settings(config: Config) -> PolicySettings:
 
 OBSERVED_HISTORY_FIELDS = ('target_command_x','peak_accel','peak_jerk','duration_s',
                            'realized_intensity','acceptable','discomfort')
-EXECUTION_METADATA = ('population_seed','process_seed','calibration_seed','execution_belief',
+EXECUTION_METADATA = ('population_seed','process_seed','process_rng_mode','calibration_seed','execution_belief',
     'true_execution_bias','true_execution_noise_scale','belief_execution_bias',
     'belief_execution_noise_scale','calibration_n_observations','calibration_n_used','calibration_n_clipped')
 
@@ -388,7 +391,7 @@ def prepare_execution(config: Config, calibration_observations: pd.DataFrame | N
         estimated=fit.parameters; n_used=fit.n_used; n_clipped=fit.n_clipped
         observations=observations[CALIBRATION_FIELDS].copy()
     belief=ContinuousExecutionModel(settings,estimated)
-    metadata=dict(population_seed=config.population_seed,process_seed=config.seed,
+    metadata=dict(population_seed=config.population_seed,process_seed=config.seed,process_rng_mode=config.process_rng_mode,
         calibration_seed=config.calibration_seed,execution_belief=config.execution_belief,
         true_execution_bias=truth_parameters.bias,true_execution_noise_scale=truth_parameters.noise_scale,
         belief_execution_bias=estimated.bias,belief_execution_noise_scale=estimated.noise_scale,
@@ -688,12 +691,14 @@ class Staircase:
 def build_policies(
     config: PolicySettings,
     execution_model: ContinuousExecutionModel,
-    seed_base: int,
+    policy_rngs: list[np.random.Generator],
 ) -> list[Policy]:
+    if len(policy_rngs)!=3:
+        raise ValueError('Provide one explicit RNG for each randomized policy')
     return [
-        UncertainInputBO(config, execution_model, np.random.default_rng(seed_base + 11)),
-        NaiveContinuousBO(config, execution_model, np.random.default_rng(seed_base + 22)),
-        RandomContinuous(config, np.random.default_rng(seed_base + 33)),
+        UncertainInputBO(config, execution_model, policy_rngs[0]),
+        NaiveContinuousBO(config, execution_model, policy_rngs[1]),
+        RandomContinuous(config, policy_rngs[2]),
         GridContinuous(config),
         Staircase(config),
     ]
@@ -777,17 +782,32 @@ def run_algorithm(
     return rows
 
 
+def process_rng(config: Config, role: str, participant_id: int, algorithm_index: int) -> np.random.Generator:
+    roles={'policy':1,'execution':2,'feedback':3}
+    if role not in roles or participant_id<1 or not 0<=algorithm_index<5:
+        raise ValueError('Invalid process stream identity')
+    if config.process_rng_mode=='legacy':
+        if role=='policy':
+            seed=config.seed+participant_id*10000+(algorithm_index+1)*11
+        else:
+            seed=config.seed+participant_id*1009+algorithm_index*9176+(101 if role=='execution' else 202)
+        return np.random.default_rng(seed)
+    # Namespace and logical identities precede the root seed; no additive offsets.
+    seed_sequence=np.random.SeedSequence([0x58505247,roles[role],participant_id,algorithm_index,config.seed])
+    return np.random.default_rng(seed_sequence)
+
+
 def run_scenario(config: Config, passengers: list[Passenger]) -> pd.DataFrame:
     prepared = prepare_execution(config)
     execution_model = prepared.truth
     rows: list[dict[str, float | int | bool | str]] = []
 
     for passenger in passengers:
-        policies = build_policies(policy_settings(config), prepared.belief, config.seed + passenger.participant_id * 10_000)
+        policy_rngs=[process_rng(config,'policy',passenger.participant_id,index) for index in range(3)]
+        policies = build_policies(policy_settings(config), prepared.belief, policy_rngs)
         for algorithm_index, policy in enumerate(policies):
-            seed_base = config.seed + passenger.participant_id * 1009 + algorithm_index * 9176
-            execution_rng = np.random.default_rng(seed_base + 101)
-            feedback_rng = np.random.default_rng(seed_base + 202)
+            execution_rng = process_rng(config,'execution',passenger.participant_id,algorithm_index)
+            feedback_rng = process_rng(config,'feedback',passenger.participant_id,algorithm_index)
             rows.extend(run_algorithm(config, passenger, policy, execution_model, execution_rng, feedback_rng))
     trials = pd.DataFrame(rows)
     for key,value in prepared.metadata.items():
@@ -1147,6 +1167,7 @@ def run_configurations(scenarios: list[Config], output_dir: Path) -> tuple[pd.Da
 
 def add_execution_cli_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument('--execution-belief',choices=['calibrated','nominal','oracle'],default='calibrated')
+    parser.add_argument('--process-rng-mode',choices=['independent','legacy'],default='independent')
     parser.add_argument('--population-seed',type=int,default=BASE_SEED+101)
     parser.add_argument('--calibration-seed',type=int,default=BASE_SEED+303)
     parser.add_argument('--calibration-trials',type=int,default=40)
@@ -1156,15 +1177,15 @@ def add_execution_cli_arguments(parser: argparse.ArgumentParser) -> None:
 
 
 def execution_cli_config(args) -> dict:
-    return dict(execution_belief=args.execution_belief,population_seed=args.population_seed,
+    return dict(execution_belief=args.execution_belief,process_rng_mode=args.process_rng_mode,population_seed=args.population_seed,
         calibration_seed=args.calibration_seed,calibration_trials=args.calibration_trials,
         assumed_execution_bias=args.assumed_execution_bias,assumed_execution_noise_scale=args.assumed_execution_noise_scale,
         calibration_bias=args.true_execution_bias)
 
 
-def default_output_dir(surrogate: str, belief: str, poc: bool = False) -> Path:
+def default_output_dir(surrogate: str, belief: str, poc: bool = False, rng_mode: str = 'independent') -> Path:
     suffix='_poc' if poc else ''
-    if belief=='oracle':
+    if belief=='oracle' and rng_mode=='legacy':
         return ROOT/('outputs_bayesian'+suffix if surrogate=='monotone_bayes' else 'outputs_continuous'+suffix)
     if belief=='calibrated' and surrogate=='monotone_bayes':
         return ROOT/('outputs_execution_separated'+suffix)
@@ -1177,7 +1198,7 @@ def main() -> None:
     parser.add_argument("--output-dir", type=Path)
     add_execution_cli_arguments(parser)
     args = parser.parse_args()
-    output_dir = args.output_dir or default_output_dir(args.surrogate,args.execution_belief)
+    output_dir = args.output_dir or default_output_dir(args.surrogate,args.execution_belief,rng_mode=args.process_rng_mode)
     scenarios = [
         Config(execution_noise="low", scenario_name="continuous_low_noise", seed=BASE_SEED + 1, surrogate_kind=args.surrogate,**execution_cli_config(args)),
         Config(execution_noise="high", scenario_name="continuous_high_noise", seed=BASE_SEED + 2, surrogate_kind=args.surrogate,**execution_cli_config(args)),

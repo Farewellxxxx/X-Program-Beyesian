@@ -68,7 +68,8 @@ class ExecutionSeparationTests(unittest.TestCase):
         self.assertEqual(first.belief.parameters,second.belief.parameters)
         self.assertNotEqual(first.truth.parameters,second.truth.parameters)
         self.assertIsNot(first.belief,first.truth)
-        policies=self.sim.build_policies(self.sim.policy_settings(config),first.belief,100)
+        policies=self.sim.build_policies(self.sim.policy_settings(config),first.belief,
+            [self.sim.process_rng(config,'policy',1,index) for index in range(3)])
         for policy in policies[:2]:
             self.assertFalse(hasattr(policy.config,'calibration_bias'))
             self.assertFalse(hasattr(policy.config,'execution_noise'))
@@ -96,7 +97,7 @@ class ExecutionSeparationTests(unittest.TestCase):
     def test_oracle_replays_old_bayesian_records_and_fixed_policies_ignore_belief(self):
         self.assertIn('execution_belief',self.sim.Config.__dataclass_fields__)
         config=self.sim.Config(n_participants=1,n_trials=4,seed=self.sim.BASE_SEED+1,
-            scenario_name='continuous_low_noise',execution_belief='oracle')
+            scenario_name='continuous_low_noise',execution_belief='oracle',process_rng_mode='legacy')
         old=pd.read_csv(ROOT/'comfort_boundary_bo_research_package/simulation/outputs_bayesian/continuous_trials.csv')
         old=old[(old.scenario==config.scenario_name)&(old.participant_id==1)&(old.trial_id<=4)]
         actual=self.sim.run_scenario(config,self.sim.make_passengers(config))

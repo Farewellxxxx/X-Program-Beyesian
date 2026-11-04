@@ -14,13 +14,13 @@ import pandas as pd
 ROOT=Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path: sys.path.insert(0,str(ROOT))
 from long_horizon_audit.scripts.run_multiseed_simulation_audit import t_interval_95
-from long_horizon_audit.scripts.run_execution_population_audit import OUTPUT, SUITES, build_scenarios, experiment_metadata
+from long_horizon_audit.scripts.run_execution_population_audit import OUTPUT, SUITES, build_scenarios, experiment_metadata, sim
 from comfort_boundary_bo_research_package.simulation.run_uncertain_input_bo_extended import ALGORITHM_ORDER
 
 METRICS=['mean_boundary_error','mean_unacceptable_trials','mean_cumulative_discomfort',
          'mean_predictive_brier_score','mean_boundary_ci95_width','boundary_ci95_coverage']
 KEYS=['population_block','process_repeat','execution_noise','algorithm']
-MATCHED=['process_seed','calibration_seed','generator_fingerprint','policy_fingerprint',
+MATCHED=['process_seed','process_rng_mode','calibration_seed','generator_fingerprint','policy_fingerprint',
          'n_participants','n_trials_per_algorithm_participant','surrogate_kind']
 CONTRASTS={'calibration_vs_oracle':('oracle','calibrated'),
            'population_vs_fixed':('oracle','oracle'),
@@ -34,7 +34,7 @@ def validate_design_rows(frame: pd.DataFrame, specs) -> None:
     for spec in specs:
         c=spec.config
         row=dict(scenario=c.scenario_name,execution_noise=c.execution_noise,population_seed=c.population_seed,
-            process_seed=c.seed,calibration_seed=c.calibration_seed,execution_belief=c.execution_belief,
+            process_seed=c.seed,process_rng_mode=c.process_rng_mode,calibration_seed=c.calibration_seed,execution_belief=c.execution_belief,
             tau=c.tau,feedback_noise=c.feedback_noise,calibration_bias=c.calibration_bias,
             include_time_effects=c.include_time_effects,n_participants=c.n_participants,
             n_trials_per_algorithm_participant=c.n_trials,surrogate_kind=c.surrogate_kind,
@@ -51,6 +51,25 @@ def validate_design_rows(frame: pd.DataFrame, specs) -> None:
             raise ValueError('Result disagrees with experiment manifest: '+column)
     if not set(METRICS).issubset(frame.columns) or not np.isfinite(frame[METRICS].to_numpy()).all():
         raise ValueError('Metrics must be complete and finite')
+
+
+def verify_leaf_streams(specs) -> int:
+    """Check actual initial generator states across independent study cells.
+
+    Oracle represents each intentional paired set; matched controls and other
+    beliefs reuse the same logical streams by design and are not independent units.
+    """
+    states=set()
+    for spec in specs:
+        if spec.suite not in ('population','stress') or spec.config.execution_belief!='oracle': continue
+        if spec.config.process_rng_mode!='independent': raise ValueError('New population studies require independent streams')
+        for pid in range(1,spec.config.n_participants+1):
+            for algorithm in range(5):
+                for role in ['execution','feedback']+(['policy'] if algorithm<3 else []):
+                    state=json.dumps(sim.process_rng(spec.config,role,pid,algorithm).bit_generator.state,sort_keys=True)
+                    if state in states: raise ValueError('Unintentional process leaf-stream collision')
+                    states.add(state)
+    return len(states)
 
 
 def summarize_clusters(frame: pd.DataFrame, metric: str) -> dict:
@@ -160,6 +179,7 @@ def main():
     if len(shapes)!=1: raise ValueError('Suites use different population/process designs')
     n_blocks,n_repeats=shapes.pop()
     specs=build_scenarios(n_blocks,n_repeats)
+    leaf_stream_count=verify_leaf_streams(specs)
     for suite,frame in suites.items():
         selected=[s for s in specs if s.suite==suite]
         expected=[{'population_block':s.population_block,'process_repeat':s.process_repeat,'config':asdict(s.config)} for s in selected]
@@ -212,6 +232,7 @@ def main():
     validation=dict(historical_rows=len(replay),historical_max_metric_delta=max_delta,
         total_scenarios=all_runs.scenario.nunique(),total_policy_summaries=len(all_runs),
         independent_population_batches=population.population_seed.nunique(),
+        unique_process_leaf_streams_verified=leaf_stream_count,
         fixed_policy_cells_verified=invariance_count,
         interval_method=f'Mean over {n_repeats} process seeds per population batch (one in stress), then t interval over {n_blocks} independent batches',
         mean_absolute_bias_estimation_error=float(calibration.bias_error.abs().mean()),

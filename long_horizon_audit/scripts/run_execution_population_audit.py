@@ -38,7 +38,7 @@ def build_scenarios(population_blocks: int=5, process_repeats: int=2) -> list[Sc
     for repeat in range(5):
         for index,noise in enumerate(('low','high')):
             config=sim.Config(seed=20268000+repeat*10+index,execution_noise=noise,
-                execution_belief='oracle',scenario_name=f'multiseed_{noise}_{repeat+1}')
+                execution_belief='oracle',process_rng_mode='legacy',scenario_name=f'multiseed_{noise}_{repeat+1}')
             specs.append(ScenarioSpec('historical',0,repeat+1,config))
     for block in range(1,population_blocks+1):
         population_seed=2026110400+block

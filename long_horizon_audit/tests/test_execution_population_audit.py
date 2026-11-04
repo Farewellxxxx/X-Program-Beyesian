@@ -1,7 +1,9 @@
 import importlib
 from dataclasses import replace
+import json
 from pathlib import Path
 import unittest
+from unittest.mock import patch
 
 import numpy as np
 import pandas as pd
@@ -37,6 +39,43 @@ class PopulationAuditTests(unittest.TestCase):
         for count in (1,11):
             with self.assertRaises(ValueError): audit.build_scenarios(population_blocks=count)
 
+    def test_actual_leaf_streams_are_unique_except_deliberate_paired_reuse(self):
+        audit=self.module('run_execution_population_audit')
+        self.assertTrue(hasattr(audit.sim,'process_rng'),'Actual leaf streams must use domain separation')
+        selected=[s for s in audit.build_scenarios() if s.suite in ('population','stress') and s.config.execution_belief=='oracle']
+        states={}
+        for spec in selected:
+            for pid in range(1,spec.config.n_participants+1):
+                for algorithm in range(5):
+                    roles=['execution','feedback']+(['policy'] if algorithm<3 else [])
+                    for role in roles:
+                        rng=audit.sim.process_rng(spec.config,role,pid,algorithm)
+                        state=json.dumps(rng.bit_generator.state,sort_keys=True)
+                        key=(spec.config.seed,role,pid,algorithm)
+                        self.assertNotIn(state,states,f'Unexpected leaf-stream reuse: {key} and {states.get(state)}')
+                        states[state]=key
+        self.assertEqual(len(states),25*24*13)
+        config=selected[0].config
+        first=audit.sim.process_rng(config,'execution',4,2).random(20)
+        paired=audit.sim.process_rng(replace(config,execution_belief='calibrated'),'execution',4,2).random(20)
+        np.testing.assert_array_equal(first,paired)
+
+    def test_known_cross_batch_policy_feedback_collision_is_removed(self):
+        audit=self.module('run_execution_population_audit'); specs=audit.build_scenarios()
+        names=['population_p1_r2_low_oracle','population_p4_r1_low_oracle']
+        configs=[next(s.config for s in specs if s.config.scenario_name==name) for name in names]
+        captured={}
+        def capture(config,passenger,policy,truth,execution_rng,feedback_rng):
+            if config.scenario_name==names[0] and passenger.participant_id==4 and policy.name=='RandomContinuous':
+                captured['policy']=json.dumps(policy.rng.bit_generator.state,sort_keys=True)
+            if config.scenario_name==names[1] and passenger.participant_id==21 and policy.name=='RandomContinuous':
+                captured['feedback']=json.dumps(feedback_rng.bit_generator.state,sort_keys=True)
+            return []
+        with patch.object(audit.sim,'run_algorithm',side_effect=capture):
+            for config in configs: audit.sim.run_scenario(config,audit.sim.make_passengers(config))
+        self.assertEqual(set(captured),{'policy','feedback'})
+        self.assertNotEqual(captured['policy'],captured['feedback'])
+
     def test_cluster_interval_uses_population_means_not_individual_runs(self):
         compare=self.module('compare_execution_population')
         frame=pd.DataFrame({'population_block':[1,1,2,2],'process_repeat':[1,2,1,2],'value':[0.,2.,2.,4.]})
@@ -64,7 +103,7 @@ class PopulationAuditTests(unittest.TestCase):
         for block in range(1,6):
             for repeat in (1,2):
                 row=dict(population_block=block,process_repeat=repeat,execution_noise='low',algorithm='Example',
-                    population_seed=100+block,process_seed=1000+block*10+repeat,calibration_seed=2000+block*10+repeat,
+                    population_seed=100+block,process_seed=1000+block*10+repeat,process_rng_mode='independent',calibration_seed=2000+block*10+repeat,
                     generator_fingerprint='generator',policy_fingerprint='policy',population_fingerprint=f'pop{block}',
                     n_participants=24,n_trials_per_algorithm_participant=12,execution_belief='oracle',surrogate_kind='monotone_bayes')
                 for metric in self.module('compare_execution_population').METRICS: row[metric]=1.
@@ -81,7 +120,7 @@ class PopulationAuditTests(unittest.TestCase):
         self.assertEqual(row.n_population_blocks,5)
         self.assertEqual(row.n_process_runs,10)
         for column,value in {'population_seed':999,'process_seed':999,'generator_fingerprint':'changed',
-            'policy_fingerprint':'changed','execution_belief':'nominal','n_participants':1}.items():
+            'policy_fingerprint':'changed','process_rng_mode':'legacy','execution_belief':'nominal','n_participants':1}.items():
             with self.subTest(column=column):
                 bad=new.copy(); bad.loc[0,column]=value
                 with self.assertRaises(ValueError): compare.paired_effects(old,bad,'calibration_vs_oracle')

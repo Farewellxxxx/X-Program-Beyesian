@@ -89,6 +89,14 @@ def monotone_probability(mean,scale,df,degree,span):
         return float(student_t.pdf(z,df)*student_t.sf((-.94+span*abs(q)-location)/sd,df+1))
     split=-mean[2]/qsd
     value=sum(quad(integrand,lo,hi,epsabs=1e-9,epsrel=1e-9,limit=200)[0] for lo,hi in [(-np.inf,split),(split,np.inf)])
+    if abs(split)>8:
+        # A cusp far from the t-density mode can make an infinite-interval
+        # integrator miss the central mass. Check a partition at the mode too.
+        # Retain the original estimate when the two agree to the declared
+        # absolute tolerance, preserving existing reproducible predictions.
+        points=[-np.inf,*sorted([split,0.]),np.inf]
+        centered=sum(quad(integrand,lo,hi,epsabs=1e-9,epsrel=1e-9,limit=200)[0] for lo,hi in zip(points[:-1],points[1:]))
+        if not 0<value<=1+1e-9 or abs(centered-value)>1e-9: value=centered
     if not 0<value<=1+1e-9: raise ValueError('Unable to normalize monotone posterior')
     return min(1.,value)
 
@@ -127,10 +135,11 @@ class ExecutionPosterior:
 
     def metadata(self):
         beta,cov=self.moments()
+        positive=self.weights[self.weights>0]
         result=dict(execution_estimator='adaptive_posterior',fit_settings_fingerprint=self.settings.fingerprint(),
             fit_seed_fingerprint=self.seed_fingerprint,fit_draw_fingerprint=self.draw_fingerprint,
             fit_posterior_draws=self.settings.posterior_draws,fit_map_degree=int(np.argmax(self.weights)),
-            fit_expected_degree=float(self.weights@np.arange(3)),fit_model_entropy=float(-np.sum(self.weights*np.log(self.weights))),
+            fit_expected_degree=float(self.weights@np.arange(3)),fit_model_entropy=float(-np.sum(positive*np.log(positive))),
             fit_bias=float(beta[0]),fit_gain=float(beta[1]),fit_quadratic=float(beta[2]),
             fit_design_condition=self.design_condition,calibration_n_observations=self.n_observations,
             calibration_n_used=self.n_used,calibration_n_clipped=self.n_clipped,

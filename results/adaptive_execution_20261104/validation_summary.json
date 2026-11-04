@@ -1,0 +1,41 @@
+{
+  "new_scenarios": 280,
+  "replay_scenarios": 280,
+  "new_policy_rows": 1400,
+  "replay_policy_rows": 1400,
+  "historical_max_metric_delta": 0.0,
+  "historical_max_diagnostic_delta": 0.0,
+  "identical_calibration_sets": 280,
+  "diagnostic_rows": 35280,
+  "diagnostic_variants": [
+    "quadratic_covariance",
+    "quadratic_plugin",
+    "adaptive_plugin",
+    "quadratic_posterior",
+    "adaptive_posterior",
+    "oracle"
+  ],
+  "holdout_namespace": 41244,
+  "sensitivity_cells": 14,
+  "sensitivity_settings": 3,
+  "fixed_policy_cells": 210,
+  "unique_leaf_streams": 9360,
+  "independent_population_batches": 5,
+  "process_repeats": 2,
+  "max_clipped_calibration_observations": 0,
+  "posterior_settings": {
+    "bias_prior_sd": 0.5,
+    "gain_prior_sd": 0.5,
+    "quadratic_prior_sd": 0.75,
+    "conditional_prior_sd": 1.0,
+    "sigma_shape": 2.0,
+    "sigma_rate": 1.0,
+    "lambda_df": 4.0,
+    "lambda_scale": 1.0,
+    "posterior_draws": 2048,
+    "max_design_condition": 100000000.0,
+    "max_proposals": 200000
+  },
+  "posterior_settings_fingerprint": "5d5ca4495fe1875736bba89d48dbb3297b28cba69a6fadd923f137fe9a4a4dcc",
+  "interval_method": "Average two repeats within batch; paired t interval across five independent population batches"
+}

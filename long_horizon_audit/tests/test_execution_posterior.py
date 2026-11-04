@@ -80,3 +80,15 @@ def test_rejects_invalid_data_and_supports_noiseless_data():
     assert p.n_used==12
     for field,value in [('posterior_draws',0),('posterior_draws',True),('sigma_shape',1),('lambda_df',3),('bias_prior_sd',float('nan'))]:
         with pytest.raises(ValueError): m.PosteriorSettings(**{field:value})
+
+
+def test_concentrated_model_probabilities_have_finite_entropy_metadata():
+    import pandas as pd
+    m=module()
+    # Replicated deterministic rows make a concentrated numerical stress fixture;
+    # they are not independent evidence for the scientific study.
+    observations=pd.concat([fixture()]*200,ignore_index=True)
+    p=m.fit_execution_posterior(observations,sim.ExecutionSettings(),m.PosteriorSettings(posterior_draws=32))
+    assert (p.weights==0).any()
+    assert p.components[2].posterior_constraint_mass==pytest.approx(1.,abs=1e-9)
+    assert math.isfinite(p.metadata()['fit_model_entropy'])

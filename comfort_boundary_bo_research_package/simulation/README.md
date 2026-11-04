@@ -1,8 +1,8 @@
 # Continuous-command synthetic simulation
 
-Current revision: **2026-11-04 regularized quadratic execution and full residual covariance**. Synthetic passengers only. The response model remains Bayesian; the acquisition score remains heuristic.
+Current revision: **2026-11-04 Bayesian execution complexity selection and posterior prediction**. Synthetic passengers only. The response model remains Bayesian; the acquisition score remains heuristic.
 
-See the [new estimator results](../../docs/2026-11-04-flexible-execution-results.md), [method and limitations](../../docs/2026-11-04-flexible-execution-method.md), [previous robustness results](../../docs/2026-11-04-execution-robustness-results.md), [execution/population report](../../docs/2026-11-04-execution-population-results.md), [Bayesian model report](../../docs/2026-11-04-monotone-bayes-results.md) and [earlier boundary correction](../../docs/2026-11-04-boundary-correction-results.md).
+See the [adaptive posterior results](../../docs/2026-11-04-adaptive-execution-results.md), [posterior method and limitations](../../docs/2026-11-04-adaptive-execution-method.md), and the [previous estimator results](../../docs/2026-11-04-flexible-execution-results.md), [method and limitations](../../docs/2026-11-04-flexible-execution-method.md), [previous robustness results](../../docs/2026-11-04-execution-robustness-results.md), [execution/population report](../../docs/2026-11-04-execution-population-results.md), [Bayesian model report](../../docs/2026-11-04-monotone-bayes-results.md) and [earlier boundary correction](../../docs/2026-11-04-boundary-correction-results.md).
 
 ## Entry points
 
@@ -14,7 +14,15 @@ See the [new estimator results](../../docs/2026-11-04-flexible-execution-results
 - `compare_surrogates.py`: reads the committed/rebuilt new and legacy audit paths, runs same-history replay, checks grid resolution and prior sensitivity, and writes `../../results/monotone_bayes_20261104/`.
 - `compare_boundary_results.py`: historical metric-correction comparison, still uses the preserved legacy snapshots.
 
-Both entry points accept `--execution-estimator simple|quadratic_covariance`, `--surrogate`, `--execution-belief calibrated|nominal|oracle`, `--process-rng-mode independent|legacy`, `--population-seed`, `--calibration-seed`, `--calibration-trials`, `--true-execution-bias`, `--assumed-execution-bias`, `--assumed-execution-noise-scale` and `--output-dir`. Only `oracle` plus `legacy` RNG selects the old Bayesian/kernel output paths; independent-stream runs use new directories. Keep historical directories for their original settings.
+Both entry points accept `--execution-estimator simple|quadratic_covariance|adaptive_posterior`, `--surrogate`, `--execution-belief calibrated|nominal|oracle`, `--process-rng-mode independent|legacy`, `--population-seed`, `--calibration-seed`, `--calibration-trials`, `--true-execution-bias`, `--assumed-execution-bias`, `--assumed-execution-noise-scale` and `--output-dir`. Only `oracle` plus `legacy` RNG selects the old Bayesian/kernel output paths; independent-stream runs use new directories. Keep historical directories for their original settings.
+
+## Adaptive posterior execution estimator
+
+Use `--execution-estimator adaptive_posterior` with calibrated belief. Three globally monotone mean candidates (bias, bias + gain, bias + gain + quadratic) have proper constrained NIG/IW posteriors and full residual covariance. Normalized marginal likelihoods give model weights; each prediction samples a model, a joint coefficient/covariance draw, then execution noise. Priors and the 2048-draw count are fixed in `execution_posterior.PosteriorSettings`. Fits use only the four calibration observation columns and public settings.
+
+`execution_posterior.py` implements inference; `adaptive_execution.py` supplies the sampler; `execution_predictive_diagnostics.py` adds independent holdout coverage, width and interval score. These are different from boundary credible intervals. `fit_weight_*`, `fit_map_degree`, posterior coefficient summaries and settings/seed/draw fingerprints are exported. `fit_cov_*` describes E Sigma, not total predictive variance; coefficient/model uncertainty is integrated by sampling. NaiveContinuousBO still uses nominal mean-parameter features.
+
+New outputs are `outputs_adaptive_execution/` and `_poc/`; `legacy_kernel` adds its own suffix. Old defaults and output paths are preserved. Run `../../long_horizon_audit/scripts/run_adaptive_execution_audit.py --workers 8` followed by `compare_adaptive_execution.py` for 280 adaptive scenarios, 280 exact quadratic-fit replays, six predictive variants per calibration set, and 14 predeclared draw-count/prior sensitivity cells. These ablations are execution diagnostics; only the new and old complete methods run feedback-policy experiments.
 
 ## Flexible execution estimator
 

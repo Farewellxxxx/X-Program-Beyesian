@@ -119,6 +119,13 @@ class MonotoneBayesTests(unittest.TestCase):
         self.assertLess(high.estimate_boundary(),coarse.estimate_boundary())
         self.assertGreater(low.estimate_boundary(),coarse.estimate_boundary())
 
+    def test_unresolvable_prior_or_likelihood_fails_instead_of_nan_posterior(self):
+        module=self.model_module()
+        with self.assertRaises(ValueError):
+            self.model(grid=module.PriorGrid(midpoint_sd=1e-300))
+        with self.assertRaises(ValueError):
+            self.model(grid=module.PriorGrid(log_slope_min=np.log(10))).fit([1e308,-1e308],[1,0])
+
 
 if __name__ == "__main__":
     unittest.main()

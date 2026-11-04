@@ -9,15 +9,16 @@ Research context:
 
 This script uses a transparent Monte Carlo acquisition approximation:
 for each candidate command x, it samples possible realized z values from P(z | x)
-and scores expected boundary information, uncertainty, discomfort risk, and
-safety risk. This is an uncertain-input BO-inspired approximation, not exact
-uGP-UCB.
+and scores boundary proximity, posterior uncertainty, discomfort risk, and
+safety risk. The default response surrogate is a monotone Bayesian logistic
+model. The acquisition remains heuristic, not expected information gain or
+exact uGP-UCB.
 
 Run:
     python comfort_boundary_bo_research_package/simulation/run_uncertain_input_bo_extended.py
 
 Outputs:
-    comfort_boundary_bo_research_package/simulation/outputs_continuous/
+    comfort_boundary_bo_research_package/simulation/outputs_bayesian/
 """
 
 from __future__ import annotations

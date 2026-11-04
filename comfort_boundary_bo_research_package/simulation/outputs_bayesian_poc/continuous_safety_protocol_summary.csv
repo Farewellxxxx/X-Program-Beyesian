@@ -1,0 +1,6 @@
+﻿scenario,execution_noise,algorithm,protocol_deviation_trials,safety_violation_trials,high_discomfort_trials,total_trials,max_peak_accel,max_peak_jerk,protocol_deviation_rate
+continuous_poc_low_noise,low,GridContinuous,0,0,8,180,1.9917628842445814,4.578404693996561,0.0
+continuous_poc_low_noise,low,NaiveContinuousBO,0,0,0,180,1.851373504938617,3.864532063669153,0.0
+continuous_poc_low_noise,low,RandomContinuous,0,0,5,180,1.9391548582450948,4.471892906199739,0.0
+continuous_poc_low_noise,low,Staircase,0,0,0,180,1.9196133294140323,4.119485947033234,0.0
+continuous_poc_low_noise,low,UncertainInputBO,0,0,1,180,1.6225139585568502,3.9177419958850637,0.0

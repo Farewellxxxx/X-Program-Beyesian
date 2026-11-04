@@ -58,9 +58,12 @@ def _parameter_grid(grid: PriorGrid):
     wb, wk = np.ones(len(b)), np.ones(len(k))
     wb[[0, -1]] = .5
     wk[[0, -1]] = .5
-    log_prior = (-.5 * ((bb-grid.midpoint_mean)/grid.midpoint_sd)**2
-                 -.5 * ((kk-grid.log_slope_mean)/grid.log_slope_sd)**2
-                 + np.log(wb[:, None]) + np.log(wk[None, :])).ravel()
+    with np.errstate(over="ignore", invalid="ignore"):
+        log_prior = (-.5 * ((bb-grid.midpoint_mean)/grid.midpoint_sd)**2
+                     -.5 * ((kk-grid.log_slope_mean)/grid.log_slope_sd)**2
+                     + np.log(wb[:, None]) + np.log(wk[None, :])).ravel()
+    if not np.isfinite(log_prior.max()):
+        raise ValueError("Prior has no numerically resolvable mass on this grid")
     # Constant grid spacings and normal densities cancel on normalization.
     log_prior -= np.max(log_prior)
     weights = np.exp(log_prior)
@@ -105,9 +108,12 @@ class MonotoneBayesianLogistic:
         log_weights = self._log_prior.copy()
         for start in range(0, len(x), 128):
             xx, yy = x[start:start+128], y[start:start+128]
-            z = self.posterior_slopes[:, None] * (self.posterior_midpoints[:, None] - xx[None, :])
-            log_likelihood = np.where(yy[None, :] == 1, -np.logaddexp(0., -z), -np.logaddexp(0., z))
-            log_weights += log_likelihood.sum(axis=1)
+            with np.errstate(over="ignore"):
+                z = self.posterior_slopes[:, None] * (self.posterior_midpoints[:, None] - xx[None, :])
+                log_likelihood = np.where(yy[None, :] == 1, -np.logaddexp(0., -z), -np.logaddexp(0., z))
+                log_weights += log_likelihood.sum(axis=1)
+        if not np.isfinite(log_weights.max()):
+            raise ValueError("Likelihood exceeds the numerical range of the posterior grid")
         log_weights -= log_weights.max()
         weights = np.exp(log_weights)
         self.posterior_weights = _readonly(weights / weights.sum())
@@ -116,7 +122,8 @@ class MonotoneBayesianLogistic:
         return self
 
     def _direct_moments(self, x: np.ndarray):
-        z = self.posterior_slopes[:, None] * (self.posterior_midpoints[:, None] - x[None, :])
+        with np.errstate(over="ignore"):
+            z = self.posterior_slopes[:, None] * (self.posterior_midpoints[:, None] - x[None, :])
         curves = np.exp(-np.logaddexp(0., -z))
         mean = np.einsum("ij,i->j", curves, self.posterior_weights, optimize=False)
         second = np.einsum("ij,i->j", curves**2, self.posterior_weights, optimize=False)

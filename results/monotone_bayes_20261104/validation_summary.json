@@ -1,0 +1,27 @@
+{
+  "synthetic_only": true,
+  "fixed_policy_trajectory_check": {
+    "rows": 1728,
+    "invariant": true
+  },
+  "legacy_audit_rows_reproduced": 80,
+  "same_history_fits": 240,
+  "resolution_checks": 240,
+  "resolution_limits": {
+    "boundary_grid_delta": 0.03,
+    "ci_lower_grid_delta": 0.04,
+    "ci_upper_grid_delta": 0.04,
+    "max_probability_grid_delta": 0.005
+  },
+  "resolution_maxima": {
+    "boundary_grid_delta": 0.005970055727995582,
+    "ci_lower_grid_delta": 0.013290985265870747,
+    "ci_upper_grid_delta": 0.007108820175207864,
+    "max_probability_grid_delta": 4.016092265374249e-05
+  },
+  "resolution_pass": true,
+  "max_posterior_grid_edge_mass": 0.0016231879515805853,
+  "mean_absolute_broad_prior_shift": 0.03149112239358298,
+  "prior_predictive_replicates": 100,
+  "prior_predictive_coverage": 0.91
+}

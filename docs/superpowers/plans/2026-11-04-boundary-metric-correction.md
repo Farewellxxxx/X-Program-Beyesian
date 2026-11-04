@@ -45,7 +45,7 @@
 
 - [x] Obtain one independent review of code, tests and scientific interpretation; address substantive findings.
 - [x] Prepare repository README, pinned environment and explicit publication allowlist, with synthetic-only outputs.
-- [ ] Verify the publication copy, commit, push without force, and confirm remote commit/file state.
+- [x] Verify the publication copy, commit, push without force, and confirm remote commit/file state.
 
 ## Progress
 
@@ -57,3 +57,5 @@
 - Task 2 complete: 3,780 archived trial rows validated, max delta 0.0; 30 extended/POC artifacts regenerated, 80 audit rows, 10 multiseed rows and comparison outputs created.
 - Final review: one independent reviewer; no actionable findings. Broader model validity, empirical superiority and old PPT runtime remain documented limitations; publication/remote checks handled by main executor.
 - Verification: original workspace 20 passed / 1 pre-existing presentation-runtime failure; standalone publication 20 passed. Data temporary-directory permissions resolved through environment configuration.
+
+- Publication complete: initial commit `5b489baff6190b79294feec8a9550a114c6e226d` pushed to `Farewellxxxx/X-Program-Beyesian` main; remote SHA matched, worktree clean, 65 manifest entries verified with 0 mismatches.

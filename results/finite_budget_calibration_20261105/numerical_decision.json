@@ -1,0 +1,14 @@
+{
+  "accepted": true,
+  "reason": "Before outcome development:241x41 vs481x81 and7vs15 passed all30 fixed-history comparisons after initial8 probability-tolerance failures.",
+  "resolution": {
+    "b_nodes": 241,
+    "k_nodes": 41,
+    "quadrature_nodes": 7
+  },
+  "artifact_path": "results/finite_budget_calibration_20261105/numerics/refined_241x41.json",
+  "deviations": [
+    "Initial121x41 grid failed S_delta .02 tolerance; globally refined before population outcome runs."
+  ],
+  "artifact_sha256": "80bc936dee51f3dc453225732388d7b94a86f595fff0536928456d3fe7600636"
+}

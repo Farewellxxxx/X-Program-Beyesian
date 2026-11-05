@@ -1,0 +1,13 @@
+{
+  "observed_at_utc": "2026-11-05T09:54:01.949716+00:00",
+  "heldout_directory_exists": false,
+  "stress_directory_exists": false,
+  "frozen_sha256": {
+    "heldout_freeze.json": "327ad41a6dd724efeeb20a62f92a0f26c2c6828a116164f748cc7b046c9f4cff",
+    "stress_freeze.json": "4f90824bd79abffa6f8c206cc7486dad779dec80541852ec3a9bf457e576c429",
+    "staircase_selection.json": "b00639475b67d7d2acef351627cf3499552db5c499b2f45d3b17d677824e46a3",
+    "numerical_decision.json": "e27748d2328c69a3146f4595463360fd3f29a69bec1535ea131c7c53198bed17",
+    "runtime_decision.json": "6115bae7f81ea1ef9a2a609802fda0441d22b6f275826969849a8476edc7a8d1"
+  },
+  "development_independent_audit_passed": true
+}

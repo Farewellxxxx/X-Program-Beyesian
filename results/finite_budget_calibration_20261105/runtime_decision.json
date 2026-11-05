@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "participant": 0,
+  "identity_exact_files": [
+    "participants",
+    "calibrations",
+    "observations",
+    "checkpoints",
+    "diagnostics",
+    "stops"
+  ],
+  "serial_seconds": 25.59826030000113,
+  "parallel_6_participant_seconds": 38.83033230000001,
+  "runtime_note": "Pilot6 overlapped root full pytest suite; rough extrapolation only.",
+  "decision": "Run full development, heldout and all seven stress scenarios with6workers; no sample-size or design reduction."
+}

@@ -1,0 +1,40 @@
+{
+  "review_date": "2026-11-05",
+  "reviewer": "Astra finite-budget scientific lead",
+  "status": "passed",
+  "publication_status": "pending root commit, push and remote preservation checks",
+  "scope": [
+    "Task 5 actual results and claim review",
+    "Chinese final results report",
+    "reproduction guide and CLI/source path review",
+    "all 14 stress figures visually reviewed"
+  ],
+  "frozen_science_hashes_rechecked": 15,
+  "documents": {
+    "comfort_boundary_bo_research_package/docs/finite_budget_reproducibility.md": "6b766d20434615012e89b10def601541f0a05990b27303d674a34f6ae768da47",
+    "comfort_boundary_bo_research_package/docs/finite_budget_results_zh.md": "722e2afd09ff61cc62b5b3c2764af2ebd5987dea0d4995958a0cc147e75124ed"
+  },
+  "evidence": {
+    "exact_trajectory_replay.json": "20e2ae4f7b75d5e2c1a93a4fc22557ae8c230ed865ca13620c91b4234e1a6dd0",
+    "heldout_numerical_audit.json": "070c6ba8f555c42996ef51f7d8c30aa06a5cc8b7adaff4d9ad0cdc15b6fdf8b4",
+    "heldout_independent_audit.json": "5284879ac1415de9881624d34084d11301f3c94404595ec48032b9bc610525ab",
+    "stress_visual_and_claim_review.json": "a279cb3b611d8941691c50736ff3ec6127b68185e1acd9514816d22ed8b27d13",
+    "freeze_review.json": "7368ac6bd38e0652fc3af5676fb5d1b73f0442d4cabc953db985309ea67288dd",
+    "stress_numerical_audit.json": "58f9e7b34cf692417853b4d7cc783937d0321d53448861637ce27dd3b410e362",
+    "stress_independent_audit.json": "49bf1307e71ae32a18c288dd362393d8fc83c042d2810be6ec038f122ec8a2a3"
+  },
+  "conclusions": [
+    "N30 primary acceptance criterion is not met in any of six main scenarios; insufficient evidence is not proof that true success is below .80.",
+    "N60 passes six separate scenario criteria as a secondary fixed-budget result, not a replacement primary endpoint or simultaneous confidence guarantee.",
+    "All A/B primary success comparisons against staircase include zero after the declared six-scenario correction; local secondary error benefits do not establish general superiority.",
+    "A/B new-precision outputs are identical by design, not independent replications; old-native median remains distinct from old-prior precision-window output.",
+    "Main128independent latents/768condition cases; stress448independent latents with within-condition pairing only; calibration costs reported separately.",
+    "Wide-width stopping accuracy9/17 among17/64stoppers demonstrates no empirical90percent assurance; all-subject capped burden and unsupported records retained.",
+    "No human efficacy, safety, universal UCB, or unmatched Firth stopping-speed claim."
+  ],
+  "limitations": [
+    "Numerical reconstruction reuses the frozen estimator, whereas the separate raw-record/statistical verifier is independent of simulation imports.",
+    "Exact full trajectory replay covers seven selected trajectories/420trials, not every full trajectory.",
+    "No scientific or analysis source edits during final review; publication remains root-owned."
+  ]
+}

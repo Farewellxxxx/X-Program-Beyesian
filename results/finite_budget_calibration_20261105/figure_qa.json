@@ -1,0 +1,15 @@
+{
+  "heldout": {
+    "reviewer": "root",
+    "count": 12,
+    "all_checked": true,
+    "result": "PASS: complete series and readable titles/axes/legends, no clipping"
+  },
+  "stress": {
+    "reviewer": "Astra lead",
+    "count": 14,
+    "all_checked": true,
+    "result": "PASS: complete series and readable titles/axes/legends, no clipping"
+  },
+  "caption_note": "Errors in m/s^2; .80 dashed line is point-rate reference, not Wilson attainment."
+}

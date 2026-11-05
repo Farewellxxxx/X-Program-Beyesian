@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "scope": "All14 stress PNGs visually inspected; stress summary/paired-effect/stop interpretation reviewed",
+  "figures": {
+    "pipeline_boundary_low.png": "b23b37521cb60e04ff33d935b88f8fe713d52a4b8e8ee190502a364ab1648bc0",
+    "pipeline_boundary_high.png": "8d60c71478523ccb97b1c334a6a29b27a8dde46e51625a218337f6f8ced21971",
+    "pipeline_width_narrow.png": "7d52721d85905dc8fbec81b6edd9adeec0e02fe3b647142e3558f2f389d21cda",
+    "pipeline_width_wide.png": "3eb4a58b1d32cfd4fe4f0df17100db46b6e9718acc91e0ec27e3171a3a7ad9cc",
+    "pipeline_lapse_020.png": "d537caf23e5de78a9d2ba7c5055e85c39849fae5bb0cf0a36cb206b48b0845f1",
+    "pipeline_staircase_start_low.png": "b949ef4ec8e9420044213d2aa8bab83ebdc2dddda0a30fc881fcb660cef8885c",
+    "pipeline_staircase_start_high.png": "612fd5b342b97d336311dfd5666a32b08e8e30b9a32c11f994377abb03527d89",
+    "common_boundary_low.png": "a28d6c05fa75021685ce30006423efb6dde4f757b1e04e05b0c0caa107722b5f",
+    "common_boundary_high.png": "2f7d263be21912f2bb6b084c77d5d03f74a9ff4cb520cc15333b20dc7c2604d5",
+    "common_width_narrow.png": "35176a33df178d50b1db8022320da1f37a5250ffa5509eaa2303b01eb80c0d09",
+    "common_width_wide.png": "7a279d8ae5e168e1b255655bb868504a6578ee61d0aadf70e818bad982ddb378",
+    "common_lapse_020.png": "49e61ba3f9de8fed1d08160600122f2a6803a9df3b6d7ba924a6ac932bbd5ed7",
+    "common_staircase_start_low.png": "9cf7cfbe0ab8c0483af58bfa4072fae006c44f34c4b5fef0bba24dc34c68a270",
+    "common_staircase_start_high.png": "b73a1fe0059d11c0290d031b1dfa8ba9691378c063a31dcd96b9e5e119176b9c"
+  },
+  "visual_findings": "Readable titles, axes and legends; all three methods visible; no text overlap or clipping. Point-rate .80 reference is not Wilson-lower acceptance. MAE/P90 units m/s^2 belong in report captions.",
+  "primary_stress_acceptance": "Only width_narrow meets N30 Wilson lower>=.80 for all three tested methods; other stress conditions do not.",
+  "paired_inference": "Only boundary_low pipeline supported-success contrast new_precision minus staircase has per-scenario95% interval strictly above0: .1875[.046875,.328125]. Common-layer interval touches0; no stress familywise claim.",
+  "stop_caution": "width_wide/new_precision:17of64 stop;9of17 correct; capped mean cost54.421875. Model posterior .90 is not empirical90% assurance.",
+  "population_scope": "Seven distinct stress latent groups,64each,448independent latents; no cross-condition paired effect claim."
+}

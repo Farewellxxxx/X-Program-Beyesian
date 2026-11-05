@@ -1,0 +1,14 @@
+{
+  "decision": "new/common B grid241x41; legacy grid81x41; execution quadrature7",
+  "reason": "initial S_delta discretization exceeded .02; refined fixed-history audit passed all30 comparisons",
+  "no_population_outcomes_used": true,
+  "source_sha256": {
+    "comfort_boundary_bo_research_package/simulation/finite_budget/contracts.py": "4cbc0fd57aa77d08f897a56fef965d14d1869cc29c90f464c09ec28f27482d76",
+    "comfort_boundary_bo_research_package/simulation/finite_budget/boundary_model.py": "713fc8ce944b05419a01b2f20b740fc1f0ef72b0d43366138677460aa99f9fba",
+    "comfort_boundary_bo_research_package/simulation/finite_budget/acquisition.py": "bf2956101f6657aba45fbb791c52c3cb7258da9342dbf6996093cd272674a0b6",
+    "comfort_boundary_bo_research_package/simulation/finite_budget/numerical_diagnostics.py": "566d96dd892a8180111265e56f1bf8f9233d7f04a40567d9c4916dea07576a75",
+    "comfort_boundary_bo_research_package/simulation/monotone_bayes.py": "8dcb8f59ae07ca1d9391d941083fd0e8844f320dc95cb4c4bf152e57a59ac6bf",
+    "comfort_boundary_bo_research_package/simulation/decoupled_calibration/execution.py": "990ff7c013d628082e1f1a88073858e2ad86218222a84668d3fbbbc8f22a093d"
+  },
+  "final_recheck": "Repeated both fixed-history audits after the prospective default-grid change; same8 initial failures and30 refined passes."
+}

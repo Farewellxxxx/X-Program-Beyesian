@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "independent_of_simulation_imports": true,
+  "observations": 230400,
+  "checkpoints": 69120,
+  "recomputed_summary_rows": 1620,
+  "condition_cases": 768,
+  "stop_rows": 3840,
+  "stop_scope": "recorded-prefix eligibility/error/cost; package validator reconstructs earliest stop",
+  "independent_latent_draws": 128,
+  "calibration_measurements": 23040,
+  "statuses": {
+    "ok": 69120
+  },
+  "raw_sha256": {
+    "calibrations.jsonl": "b525096fcc1b4027026675707bcee8dcb8330c534da64ca41b855e1ef1c38742",
+    "checkpoints.jsonl": "b9aa0e3972e26246f77228e2df813e02522b62ef7e453461ebdcffee3b3b8fc1",
+    "diagnostics.jsonl": "eb777cf723cd399acb0dd05cfc63b957031d2cc924acc9836c21b89b7cebbf81",
+    "effective_config.json": "5fd0fd1a14071fa998c3446b5526fafd5bfe32caf8f0de2b3175474f92c22795",
+    "freeze.json": "327ad41a6dd724efeeb20a62f92a0f26c2c6828a116164f748cc7b046c9f4cff",
+    "manifest.json": "bf04574e76fe38d584d23d495141a69e1768adca33ed9f8fbcd7dd52329a829b",
+    "observations.jsonl": "586cb1b2e2574e7a088b350837316525b90e9e06c3c0d2791a5e6e80464f8e03",
+    "oracle_numerics.json": "379f440505ee32fcf19e6c449f59a4609768ba0d2a443d71ff11b56be0cda0b3",
+    "participants.jsonl": "d73b0b44fadb35ba55f69a765a2956ca19324a8d82a2a944bf86118a4c68810e",
+    "source_hashes.json": "954afa5b460fa4ad0cabc95c93539717486d2faae26a09371ff160e4f0614717",
+    "stops.jsonl": "5ca48edaa7d58b7b6ce48b5b3b201dfd4b27e83b9eedc5d59f12630214e260be"
+  }
+}

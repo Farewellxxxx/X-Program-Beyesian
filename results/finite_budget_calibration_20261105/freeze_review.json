@@ -1,0 +1,24 @@
+{
+  "selection": [
+    "staircase_i060_f015",
+    0.765625,
+    0.11207542660297821,
+    0.6,
+    0.15
+  ],
+  "all_six_candidate_ranks_verified": true,
+  "heldout": {
+    "config_sha256": "66d5005c1fe46201e8b1f17b7d18146395ac1c282a578b6286d9588fe25fae8a",
+    "source_hashes_match": true,
+    "analysis_hashes_match": true,
+    "feedback": 230400,
+    "calibration": 23040
+  },
+  "stress": {
+    "config_sha256": "52c20889806aceaa0ff07d19908673e483bb1c22743757e51d8b540c875632cd",
+    "source_hashes_match": true,
+    "analysis_hashes_match": true,
+    "feedback": 80640,
+    "calibration": 40320
+  }
+}

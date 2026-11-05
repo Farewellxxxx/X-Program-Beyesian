@@ -1,0 +1,2 @@
+{"belief":{"gain":0.9990929413026235,"intercept":0.00272517936026325,"lower":0.0,"sd":0.029193085478946508,"upper":3.0},"calibration_id":"main:0:precise","execution":{"gain":1.0,"id":"precise","intercept":0.0,"lower":0.0,"sd":0.03,"upper":3.0},"latent_id":"main:0","n":90,"participant":0}
+{"belief":{"gain":0.9303989662632813,"intercept":0.029359070440524198,"lower":0.0,"sd":0.1662028939512873,"upper":3.0},"calibration_id":"main:0:variable","execution":{"gain":0.92,"id":"variable","intercept":0.08,"lower":0.0,"sd":0.18,"upper":3.0},"latent_id":"main:0","n":90,"participant":0}

@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "complete": true,
+  "config_sha256": "29a5aa714f3f926589101c55844d92fb0bf0e2279172e1a3c8ae884b44ace34f",
+  "source_hashes": {
+    "decoupled_calibration/__init__.py": "fbdf0734b3956fef6cf0a07bf5a293cb79a0a42df3682b3e8a911e600fd98105",
+    "decoupled_calibration/execution.py": "990ff7c013d628082e1f1a88073858e2ad86218222a84668d3fbbbc8f22a093d",
+    "decoupled_calibration/passenger.py": "7c2baf11c1f880d3aa45be829a2946ccdc161910cd97e19f5e84384e2e8a438b",
+    "decoupled_calibration/policies.py": "b811d0aaea2751a6cc46335e2b963f3c639df84a4abd808c4a1b29ccdf2fd081",
+    "decoupled_calibration/public.py": "57a3033318924c02b73fb135dd2af7580b5a96aab09e64ceb74b36daff8a0756",
+    "finite_budget/__init__.py": "ae9d99b0cdabd6fd4fdde172022df433168252b474e51d074ba50c80ec284a55",
+    "finite_budget/acquisition.py": "bf2956101f6657aba45fbb791c52c3cb7258da9342dbf6996093cd272674a0b6",
+    "finite_budget/boundary_model.py": "713fc8ce944b05419a01b2f20b740fc1f0ef72b0d43366138677460aa99f9fba",
+    "finite_budget/contracts.py": "4cbc0fd57aa77d08f897a56fef965d14d1869cc29c90f464c09ec28f27482d76",
+    "finite_budget/metrics.py": "35e7a686b1b6ac6653a2e757a07d93c88a1f805ee25644e7399903312bc06bd7",
+    "finite_budget/population.py": "84d013afcf6723252642aba7beb5aadc4a58a2bc02f72cb5f26b7c8a495e258a",
+    "finite_budget/readouts.py": "6b8927bd17ba1990853d9d5e2fc2c8ac1fea2ec0f970e9cc63edc177c090e77f",
+    "finite_budget/samplers.py": "2195881f670dc58ba92ae64f83dcca90fc69e4b4c8d38a4bc514749c5716b0a7",
+    "finite_budget/study.py": "4487b9894325a8edfb50c6fdc0ea8867403d4081fd494857fce4f9721c3b77c3",
+    "monotone_bayes.py": "8dcb8f59ae07ca1d9391d941083fd0e8844f320dc95cb4c4bf152e57a59ac6bf"
+  },
+  "analysis_source_hashes": {
+    "analysis.py": "5893fc16e301b124a54f06380a497b123bb7de9e68b6c6dec96c26b050eb37eb"
+  },
+  "feedback_count": 10800,
+  "calibration_count": 1080,
+  "calibration_reuse_groups": 12,
+  "latent_draws": 6,
+  "elapsed_seconds": 38.83033230000001,
+  "python": "3.12.7",
+  "numpy": "1.26.4",
+  "scipy": "1.13.1",
+  "workers": 6,
+  "workers_effective": 6,
+  "multiprocessing_start_method": "spawn",
+  "worker_temp_root": "E:\\study documents\\X program\\YY Wang\\.worktrees\\finite-budget-v2\\tmp\\root-parallel-pilot-temp\\finite-budget-059py8ff",
+  "expected_feedback_count": 10800
+}

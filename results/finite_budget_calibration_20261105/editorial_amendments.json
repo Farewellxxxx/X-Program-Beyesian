@@ -1,0 +1,8 @@
+[
+  {
+    "artifact": "results\\finite_budget_calibration_20261105\\stress_analysis\\report_zh.md",
+    "before_sha256": "0b0119af42779e7ce199e776d8bca505d9698f2c7e4ed4a84c5f540de3ef38d4",
+    "after_sha256": "5904ddc4bce1c5af4c929e0b18535793aef9f27bc4521f80927b30675e631d8a",
+    "change": "Correct stress-only latent grouping prose and add plot-unit/point-rate captions; no statistical/source change"
+  }
+]

@@ -1,0 +1,457 @@
+{
+  "version": 1,
+  "status": "passed",
+  "input_dir": "E:\\study documents\\X program\\YY Wang\\.worktrees\\observer-validation-v3\\results\\observer_validation_20261107\\exploratory",
+  "workers": 6,
+  "workers_effective": 6,
+  "multiprocessing_start_method": "spawn",
+  "full_validation_gate": true,
+  "scientific_source_match": true,
+  "scientific_source_hashes": {
+    "decoupled_calibration/__init__.py": "fbdf0734b3956fef6cf0a07bf5a293cb79a0a42df3682b3e8a911e600fd98105",
+    "decoupled_calibration/execution.py": "990ff7c013d628082e1f1a88073858e2ad86218222a84668d3fbbbc8f22a093d",
+    "decoupled_calibration/passenger.py": "9dcf7cbf1750b8e6ac6e399d5fc08abd49faddcd7a74aefe9a2725e2ea17d981",
+    "decoupled_calibration/policies.py": "b811d0aaea2751a6cc46335e2b963f3c639df84a4abd808c4a1b29ccdf2fd081",
+    "decoupled_calibration/public.py": "57a3033318924c02b73fb135dd2af7580b5a96aab09e64ceb74b36daff8a0756",
+    "finite_budget/__init__.py": "ae9d99b0cdabd6fd4fdde172022df433168252b474e51d074ba50c80ec284a55",
+    "finite_budget/acquisition.py": "bf2956101f6657aba45fbb791c52c3cb7258da9342dbf6996093cd272674a0b6",
+    "finite_budget/boundary_model.py": "713fc8ce944b05419a01b2f20b740fc1f0ef72b0d43366138677460aa99f9fba",
+    "finite_budget/contracts.py": "4cbc0fd57aa77d08f897a56fef965d14d1869cc29c90f464c09ec28f27482d76",
+    "finite_budget/metrics.py": "35e7a686b1b6ac6653a2e757a07d93c88a1f805ee25644e7399903312bc06bd7",
+    "finite_budget/population.py": "bdcefd38519ac1e0365e08292c13801222530388bdcb33f4678949ac1784d309",
+    "finite_budget/readouts.py": "6b8927bd17ba1990853d9d5e2fc2c8ac1fea2ec0f970e9cc63edc177c090e77f",
+    "finite_budget/samplers.py": "2195881f670dc58ba92ae64f83dcca90fc69e4b4c8d38a4bc514749c5716b0a7",
+    "finite_budget/study.py": "b33cdd998f4f80b1f5d7218d11239dc75e3233c84f417b25f4b59639c2e5c899",
+    "monotone_bayes.py": "8dcb8f59ae07ca1d9391d941083fd0e8844f320dc95cb4c4bf152e57a59ac6bf"
+  },
+  "verifier_source_sha256": "345369cabe7eb4448cb9147e7ef8065ceef3048bc585b8039dbabef339056415",
+  "input_artifact_sha256": {
+    "calibrations.jsonl": "47c1d292825679d4a0d824c26570668f4c177430f1f616ddc9216f7c9377b808",
+    "checkpoints.jsonl": "4ca77671decf479c8295c6dba3f9dfb09fa2fa5bd5974cafe945d857a762ed28",
+    "diagnostics.jsonl": "48226497427007083dfc6aa922ab9e9cc7084a094e6fbea8afd6f87f7b1c14be",
+    "effective_config.json": "8ece5ca9c2920e91754873d4c2c8262096fb2c4cf47aa2b1372b922696ddbc53",
+    "freeze.json": "1bc1b5d6417a9f683e0a3b6a38204ac8fe7e0477439813eb98f46df21849da3b",
+    "manifest.json": "dec015c6be8aa74a2c8d359b292bfc12a1aa7e501bb6b1c99d9bbc678d798958",
+    "observations.jsonl": "1c8f3df92314b53f3dc8eb809777c8ddb3f7cdfd533b8507c5388f1f07c868fd",
+    "oracle_numerics.json": "379f440505ee32fcf19e6c449f59a4609768ba0d2a443d71ff11b56be0cda0b3",
+    "participants.jsonl": "bd0f72e45a473b509c656a157466db89b672327285045844d40a1207819b9158",
+    "source_hashes.json": "b1fa0c3d78c3b9cc0e9ce7a88d98965fd50d992d6b3217c5da78a3c18334a83f",
+    "stops.jsonl": "4c40cac5d46eb6585951c2ea3c3fb0e705af7d5a9231e904b1f71d9be6e3326e"
+  },
+  "config_sha256": "7ce939168ccb709d30f7564993f73fe7164e06a1fbe036d50c5415923d2fcf4e",
+  "checked_participants": 64,
+  "checked_trials": 69120,
+  "checked_checkpoints": 6912,
+  "checked_readouts": 18432,
+  "checked_fields": 129024,
+  "readout_fields": [
+    "boundary",
+    "lower",
+    "upper",
+    "status",
+    "edge_mass",
+    "posterior_success",
+    "active_bounds"
+  ],
+  "comparison_rtol": 1e-10,
+  "comparison_atol": 1e-10,
+  "by_track_estimator": {
+    "common/new_median": 6912,
+    "common/new_precision": 6912,
+    "pipeline/firth": 2304,
+    "pipeline/new_precision": 2304
+  },
+  "per_participant": [
+    {
+      "participant": 0,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 1,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 2,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 3,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 4,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 5,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 6,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 7,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 8,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 9,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 10,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 11,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 12,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 13,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 14,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 15,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 16,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 17,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 18,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 19,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 20,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 21,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 22,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 23,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 24,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 25,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 26,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 27,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 28,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 29,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 30,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 31,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 32,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 33,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 34,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 35,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 36,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 37,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 38,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 39,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 40,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 41,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 42,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 43,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 44,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 45,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 46,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 47,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 48,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 49,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 50,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 51,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 52,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 53,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 54,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 55,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 56,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 57,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 58,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 59,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 60,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 61,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 62,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 63,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    }
+  ],
+  "readout_identity_sha256": "e491c783cca633384ec7842d2edce5890c77660ace1e24f02328cfeef3604551",
+  "reconstructed_fields_sha256": "e8a407e8b8147200174ded7c40a2bda43a96cf5b542149dc9b48816106f442f6",
+  "reuse_label": "Reuses scientific evaluate_prefix; complete numerical reconstruction, not an independent new estimator",
+  "python": "3.12.7",
+  "numpy": "1.26.4",
+  "scipy": "1.13.1",
+  "audit_payload_sha256": "14d2813b3990e817569d19f2547a9c6b9b7ac583ef01d96eff16f08f21bc92d6"
+}

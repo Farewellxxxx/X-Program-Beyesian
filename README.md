@@ -1,22 +1,41 @@
-# 个体加速度可接受上限：有限预算 v2 实验分支
+# 个体加速度可接受上限：静态模拟人验证 v3
 
-> **版本保存点：** 当前完整v1已固定为[baseline-decoupled-v1-20261105](https://github.com/Farewellxxxx/X-Program-Beyesian/tree/baseline-decoupled-v1-20261105)，提交`5556eb4`。本分支`research/finite-budget-v2`用于有限预算新方案；main保留v1。随时取回旧版的方法见[版本保存点与恢复说明](docs/version-checkpoints.md)。
+> **版本保存点：** 完整v2固定为[baseline-finite-budget-v2-20261107](https://github.com/Farewellxxxx/X-Program-Beyesian/tree/baseline-finite-budget-v2-20261107)，提交`4b9e7e3`。本轮位于独立分支`research/observer-validation-v3-study`；v2分支及main保留原版本。取回旧版的方法见[版本保存点与恢复说明](docs/version-checkpoints.md)。
 
-研究问题：在车辆不能精确执行目标加速度时，如何利用“接受／不接受”反馈，以较少个人试次估计可接受上限？本仓库提供可复现的**合成乘客仿真**；尚无真人比较结果。
+研究问题：在车辆不能精确执行目标加速度时，如何利用“接受／不接受”反馈，在有限个人试次内估计可接受边界B_.70？本仓库提供可复现的**合成乘客仿真**；尚无真人比较结果。
 
-本分支已完成 **有限预算 v2** 的开发、独立测试和七项压力批次，共368,640次合成反馈。新精度BO在N30的逐场景支持成功率为76.6%–85.2%，六场景的95% Wilson下限均未达到80%；在预设次要预算N60，六场景分别通过该标准。与阶梯相比，N30主成功率没有六场景校正后仍明确的优势。
+本轮保留原有logistic、probit及偶发随机回答logistic，增加一种预先固定方向的Gumbel非对称曲线，并用独立SciPy分布及200万次生产回答核对实现。BO/UCB/staircase的选点、先验、读出和执行估计保持冻结；原12个受保护科学模块与v2字节一致。新旧点率变化是独立Monte Carlo复现差异，不是算法更新收益。
 
-[中文结果与前后变化](comfort_boundary_bo_research_package/docs/finite_budget_results_zh.md)详细区分完整流程、共同估计器、旧版原生读出与停止规则风险；[v2复现说明](comfort_boundary_bo_research_package/docs/finite_budget_reproducibility.md)提供冻结配置和命令。222项测试通过；主/压力全部93,312个数值读出重建一致，原始记录和统计表另行独立复核。
+正式新批次包含345,600次合成反馈，另有69,120次合成执行校准。原六条件复用256组基础参与者参数，探索批次有192组独立参数；不能把重复条件案例当作独立参与者。N30为主预算，N60为次要预算，误差容限固定为0.15 m/s²。
 
-新版的四项改动是：直接边界先验、面向误差容限的选点、按B/W解耦的模拟乘客、开发选型后冻结的阶梯。新方差采集与旧方法均保留。原代码和历史结果保持原字节，只有本README及发布清单随v2扩展。
+|原六条件等权平均支持成功率|N30|N60|
+|---|---:|---:|
+|BO（冻结v2）|81.90%|91.60%|
+|staircase＋Firth，完整流程比较|75.46%|89.71%|
+|staircase＋共同贝叶斯估计器|78.71%|91.73%|
+|TVCG衍生UCB＋共同估计器，描述性参照|57.49%|71.22%|
 
-批准的[研究设计](docs/superpowers/specs/2026-11-05-finite-budget-calibration-audit-design.md)、[实施计划](docs/superpowers/plans/2026-11-05-finite-budget-calibration-plan.md)和[验证记录](docs/2026-11-05-finite-budget-verification.md)说明具体范围。
+预设次要总体分析按256名基础参与者整组bootstrap：N30的BO成功率差为完整流程+6.45个百分点（95%区间+3.45至+9.38）、共同估计器+3.19个百分点（+0.39至+5.99）；N60两层成功率差区间均包含零。这些是六条件等权平均、未作全局多重校正的次要区间，不能替代逐场景主比较或解释为减少了相同数量的反馈次数。
 
-以下保留的是 **v1 独立乘客与算法比较**的原入口和历史结果；v2原始数据、冻结证据和分层统计位于[独立结果目录](results/finite_budget_calibration_20261105/)。不要把下方v1的事后持续达标指标与v2的固定预算支持成功率混用。
+N30仅`lapse_logistic_precise`的BO成功率Wilson下限达到80%，该条件的两层成功率差也通过各自六场景校正；其余五条件不能据点差宣称优胜。N60原六条件分别通过目标，但staircase两种读出也都分别通过；新增Gumbel和宽过渡条件没有同样保证。因此不能宣称任意静态人群均能30次达标、BO普遍优于staircase，或已证实真人效率。
+
+[本轮中文结果、区间与可支持的claim](comfort_boundary_bo_research_package/docs/observer_validation_results_zh.md)区分场景内主比较、参与者簇bootstrap的预设次要总体比较和探索结果；[复现说明](comfort_boundary_bo_research_package/docs/observer_validation_reproducibility.md)、[完整结果与审计工件](results/observer_validation_20261107/)及[验证记录](docs/2026-11-07-observer-validation-verification.md)提供复核入口。[外部来源和最小真人预试建议](docs/observer-validation-sources-20261107.md)明确哪些是跨任务方法依据，哪些仍是未从乘客数据估计的参数。
+
+本轮251项测试通过，59项确定性观察者检查和20个Monte Carlo条件通过；两批全部92,160个数值读出、645,120个字段重建一致，各一条固定轨迹精确回放通过。独立原始记录核验及最终18组来源指纹检查通过；旧版另外715个已发布文件保持原字节。
+
+## v2历史结果
+
+v2引入直接边界先验、面向误差容限的选点、B/W解耦的人群构造和开发选型后冻结的阶梯。该轮共有368,640次合成反馈，N30六场景BO成功率为76.6%–85.2%，全部Wilson下限未达80%；N60六场景分别通过。N30主成功率没有六场景校正后仍明确的阶梯对比优势。该轮222项测试通过、93,312个数值读出重建一致。
+
+完整的[v2中文报告](comfort_boundary_bo_research_package/docs/finite_budget_results_zh.md)、[复现说明](comfort_boundary_bo_research_package/docs/finite_budget_reproducibility.md)、[原始数据与分层统计](results/finite_budget_calibration_20261105/)及[验证记录](docs/2026-11-05-finite-budget-verification.md)保留。历史数据只用于本轮事前样本规划，未与新数据合并推断。
+
+## v1历史入口
+
+以下为 **v1独立乘客与算法比较**的入口和历史结果。不要把v1事后持续达标指标与v2/v3固定预算支持成功率混用。
 
 v1历史结果：在六个冻结仿真情景中，贝叶斯方法相对 TVCG 衍生 UCB 的平均受限达标成本降低 12.1–18.0 次（未达标按 60 次计，场景内未校正配对 95% 区间均低于零）。与 staircase 的差异、以及积分执行不确定性相对只用均值的增益均没有明确方向证据。不能据此宣称 BO 普遍最优或已证明真人优势；完整失败率和区间见中文报告。
 
-## 阅读入口
+### v1阅读入口
 
 - [研究任务与证据边界](docs/superpowers/specs/2026-11-05-decoupled-calibration-design.md)
 - [模拟乘客与车辆执行](comfort_boundary_bo_research_package/docs/decoupled_simulator.md)
@@ -26,7 +45,7 @@ v1历史结果：在六个冻结仿真情景中，贝叶斯方法相对 TVCG 衍
 - [后续 BO 单臂真人研究衔接](comfort_boundary_bo_research_package/docs/decoupled_human_handoff_zh.md)
 - [验证与发布记录](docs/2026-11-05-decoupled-calibration-verification.md)
 
-## 模块之间的关系
+### v1模块之间的关系
 
 `策略提出目标 → 车辆产生实际加速度 → 模拟乘客返回二元反馈 → 策略更新`
 
@@ -43,7 +62,7 @@ v1历史结果：在六个冻结仿真情景中，贝叶斯方法相对 TVCG 衍
 
 这些文件位于 `comfort_boundary_bo_research_package/simulation/decoupled_calibration/`。
 
-## 比较的含义
+### v1比较的含义
 
 - `bayes_risk`：选择预计减少边界后验方差最多的指令，对可能的实际执行结果求平均。
 - `bayes_point`：相同贝叶斯方法，仅使用执行预测均值，是执行不确定性的消融。
@@ -57,7 +76,7 @@ v1历史结果：在六个冻结仿真情景中，贝叶斯方法相对 TVCG 衍
 
 接受标准 tau=0.70、误差容限 delta=0.15 m/s² 和 [0,3] m/s² 测试域都是仿真操作定义，不是经验证的真人标准或实车操作建议。主要“达标试次”需要事后检查到预算结束持续满足误差要求，不是可部署的在线停止规则。失败样本保留，区间以场景内的乘客为单位。
 
-## 安装、测试与复现
+### v1安装、测试与复现
 
 使用 Python 3.12 与固定依赖：
 
@@ -83,7 +102,7 @@ $env:TEMP=$env:TMP
 python -m pytest -q --basetemp tmp/local-tests/pytest
 ```
 
-## 历史与范围
+### v1历史与范围
 
 [历史仿真入口和完整说明](comfort_boundary_bo_research_package/simulation/README.md)保留原来的边界修正、单调贝叶斯模型、执行估计分离、失配、复杂度选择及参数不确定性实验。新主线没有删除这些代码和结果。
 

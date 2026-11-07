@@ -1,0 +1,1609 @@
+{
+  "version": 1,
+  "status": "passed",
+  "input_dir": "E:\\study documents\\X program\\YY Wang\\.worktrees\\observer-validation-v3\\results\\observer_validation_20261107\\main",
+  "workers": 6,
+  "workers_effective": 6,
+  "multiprocessing_start_method": "spawn",
+  "full_validation_gate": true,
+  "scientific_source_match": true,
+  "scientific_source_hashes": {
+    "decoupled_calibration/__init__.py": "fbdf0734b3956fef6cf0a07bf5a293cb79a0a42df3682b3e8a911e600fd98105",
+    "decoupled_calibration/execution.py": "990ff7c013d628082e1f1a88073858e2ad86218222a84668d3fbbbc8f22a093d",
+    "decoupled_calibration/passenger.py": "9dcf7cbf1750b8e6ac6e399d5fc08abd49faddcd7a74aefe9a2725e2ea17d981",
+    "decoupled_calibration/policies.py": "b811d0aaea2751a6cc46335e2b963f3c639df84a4abd808c4a1b29ccdf2fd081",
+    "decoupled_calibration/public.py": "57a3033318924c02b73fb135dd2af7580b5a96aab09e64ceb74b36daff8a0756",
+    "finite_budget/__init__.py": "ae9d99b0cdabd6fd4fdde172022df433168252b474e51d074ba50c80ec284a55",
+    "finite_budget/acquisition.py": "bf2956101f6657aba45fbb791c52c3cb7258da9342dbf6996093cd272674a0b6",
+    "finite_budget/boundary_model.py": "713fc8ce944b05419a01b2f20b740fc1f0ef72b0d43366138677460aa99f9fba",
+    "finite_budget/contracts.py": "4cbc0fd57aa77d08f897a56fef965d14d1869cc29c90f464c09ec28f27482d76",
+    "finite_budget/metrics.py": "35e7a686b1b6ac6653a2e757a07d93c88a1f805ee25644e7399903312bc06bd7",
+    "finite_budget/population.py": "bdcefd38519ac1e0365e08292c13801222530388bdcb33f4678949ac1784d309",
+    "finite_budget/readouts.py": "6b8927bd17ba1990853d9d5e2fc2c8ac1fea2ec0f970e9cc63edc177c090e77f",
+    "finite_budget/samplers.py": "2195881f670dc58ba92ae64f83dcca90fc69e4b4c8d38a4bc514749c5716b0a7",
+    "finite_budget/study.py": "b33cdd998f4f80b1f5d7218d11239dc75e3233c84f417b25f4b59639c2e5c899",
+    "monotone_bayes.py": "8dcb8f59ae07ca1d9391d941083fd0e8844f320dc95cb4c4bf152e57a59ac6bf"
+  },
+  "verifier_source_sha256": "345369cabe7eb4448cb9147e7ef8065ceef3048bc585b8039dbabef339056415",
+  "input_artifact_sha256": {
+    "calibrations.jsonl": "a257821cf3ab9ffec20c3ac688141b977b9b736da1272a78c3ac3347ee95293b",
+    "checkpoints.jsonl": "8bd8c94ce2875051409d102caa60cae28fc98d0ecf3525342a33bc3d1d9ffb44",
+    "diagnostics.jsonl": "6f5e8a4049d17a902ef5869cad1dd47a977bafc8f85757af1e1c5f8c49c8d9f3",
+    "effective_config.json": "a3a45880482e17858c258f0bc0452bf1970ebb2622f4a351a0d6c9b19a4e0f04",
+    "freeze.json": "af2800e464f4a4959ed2cc224409eef6056f664867a6d3f73bd40b5cbdfa47b6",
+    "manifest.json": "c6d390db6a799129212bc2c17f30031c8637a75f7c41093691170f56ff2fa557",
+    "observations.jsonl": "8e9754fe028af83e8065517d56b6e466fec49fa67e084020f69298aa9972316c",
+    "oracle_numerics.json": "379f440505ee32fcf19e6c449f59a4609768ba0d2a443d71ff11b56be0cda0b3",
+    "participants.jsonl": "694a2527705a34298bb5beaa3209f1b3f89a3290fb11b5d13101399378bbdcc8",
+    "source_hashes.json": "b1fa0c3d78c3b9cc0e9ce7a88d98965fd50d992d6b3217c5da78a3c18334a83f",
+    "stops.jsonl": "bb0a310e14e7c4e3c846acf7c293bf4a083a8c757c5078244a4eec107064a266"
+  },
+  "config_sha256": "0f75be21780d1ea8a638d628e27a64559132b5b699981f858c1df8adc6561bd7",
+  "checked_participants": 256,
+  "checked_trials": 276480,
+  "checked_checkpoints": 27648,
+  "checked_readouts": 73728,
+  "checked_fields": 516096,
+  "readout_fields": [
+    "boundary",
+    "lower",
+    "upper",
+    "status",
+    "edge_mass",
+    "posterior_success",
+    "active_bounds"
+  ],
+  "comparison_rtol": 1e-10,
+  "comparison_atol": 1e-10,
+  "by_track_estimator": {
+    "common/new_median": 27648,
+    "common/new_precision": 27648,
+    "pipeline/firth": 9216,
+    "pipeline/new_precision": 9216
+  },
+  "per_participant": [
+    {
+      "participant": 0,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 1,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 2,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 3,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 4,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 5,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 6,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 7,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 8,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 9,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 10,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 11,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 12,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 13,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 14,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 15,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 16,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 17,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 18,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 19,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 20,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 21,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 22,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 23,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 24,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 25,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 26,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 27,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 28,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 29,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 30,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 31,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 32,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 33,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 34,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 35,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 36,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 37,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 38,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 39,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 40,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 41,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 42,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 43,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 44,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 45,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 46,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 47,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 48,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 49,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 50,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 51,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 52,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 53,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 54,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 55,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 56,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 57,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 58,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 59,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 60,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 61,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 62,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 63,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 64,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 65,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 66,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 67,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 68,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 69,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 70,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 71,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 72,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 73,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 74,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 75,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 76,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 77,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 78,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 79,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 80,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 81,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 82,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 83,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 84,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 85,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 86,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 87,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 88,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 89,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 90,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 91,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 92,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 93,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 94,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 95,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 96,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 97,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 98,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 99,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 100,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 101,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 102,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 103,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 104,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 105,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 106,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 107,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 108,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 109,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 110,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 111,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 112,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 113,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 114,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 115,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 116,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 117,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 118,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 119,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 120,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 121,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 122,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 123,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 124,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 125,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 126,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 127,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 128,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 129,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 130,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 131,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 132,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 133,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 134,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 135,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 136,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 137,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 138,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 139,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 140,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 141,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 142,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 143,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 144,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 145,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 146,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 147,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 148,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 149,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 150,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 151,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 152,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 153,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 154,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 155,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 156,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 157,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 158,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 159,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 160,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 161,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 162,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 163,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 164,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 165,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 166,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 167,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 168,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 169,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 170,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 171,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 172,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 173,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 174,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 175,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 176,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 177,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 178,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 179,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 180,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 181,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 182,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 183,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 184,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 185,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 186,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 187,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 188,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 189,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 190,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 191,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 192,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 193,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 194,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 195,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 196,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 197,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 198,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 199,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 200,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 201,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 202,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 203,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 204,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 205,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 206,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 207,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 208,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 209,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 210,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 211,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 212,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 213,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 214,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 215,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 216,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 217,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 218,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 219,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 220,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 221,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 222,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 223,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 224,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 225,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 226,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 227,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 228,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 229,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 230,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 231,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 232,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 233,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 234,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 235,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 236,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 237,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 238,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 239,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 240,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 241,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 242,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 243,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 244,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 245,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 246,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 247,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 248,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 249,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 250,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 251,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 252,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 253,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 254,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    },
+    {
+      "participant": 255,
+      "trials": 1080,
+      "checkpoints": 108,
+      "readouts": 288
+    }
+  ],
+  "readout_identity_sha256": "a7bc36c6686635db3a9cb210bdef304049ac18bff03a9ee2d830cbcdd00632b9",
+  "reconstructed_fields_sha256": "355f8559ca57f55941de08219827ff000aa20e128979a72d6bf19542f4d49fea",
+  "reuse_label": "Reuses scientific evaluate_prefix; complete numerical reconstruction, not an independent new estimator",
+  "python": "3.12.7",
+  "numpy": "1.26.4",
+  "scipy": "1.13.1",
+  "audit_payload_sha256": "314ffa68b1f8938e7626dd606c3be70c6917ea39bc15f49e6a33c74a97bf867e"
+}

@@ -1,0 +1,27 @@
+{
+  "generator": "scripts/plot_stationary_observers.py",
+  "source_sha256": {
+    "scripts/plot_stationary_observers.py": "223aa03f20d670c35ee778f5c8ffb96489efe8c937fa5d9fe8aa6bfbd56961bb",
+    "comfort_boundary_bo_research_package/simulation/decoupled_calibration/passenger.py": "9dcf7cbf1750b8e6ac6e399d5fc08abd49faddcd7a74aefe9a2725e2ea17d981",
+    "comfort_boundary_bo_research_package/simulation/finite_budget/population.py": "bdcefd38519ac1e0365e08292c13801222530388bdcb33f4678949ac1784d309"
+  },
+  "output_name": "observer_curves.png",
+  "output_sha256": "f28ea4d4181298b740dc1e41f3a024c79d9e053273238bca3d518903e0202cc6",
+  "matplotlib": "3.9.2",
+  "numpy": "1.26.4",
+  "B": 1.5,
+  "W": 0.7,
+  "tau": 0.7,
+  "lapse_logistic_random_answer_probability": 0.1,
+  "x_range": [
+    0,
+    3
+  ],
+  "x_points": 601,
+  "derivative_at_B": {
+    "logistic": -0.8317766166719346,
+    "probit": -0.8360728196207358,
+    "lapse_logistic": -0.8302655897477504,
+    "gumbel": -0.7047272647184945
+  }
+}

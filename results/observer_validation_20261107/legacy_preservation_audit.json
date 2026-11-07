@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "baseline_commit": "4b9e7e3f93c2f0e98f1a42c5ab0cd7b363aa5bf3",
+  "legacy_manifest_entries_verified_unchanged": 715,
+  "explicit_existing_file_exceptions": [
+    "README.md",
+    "comfort_boundary_bo_research_package/simulation/decoupled_calibration/passenger.py",
+    "comfort_boundary_bo_research_package/simulation/finite_budget/population.py",
+    "comfort_boundary_bo_research_package/simulation/finite_budget/study.py",
+    "docs/version-checkpoints.md"
+  ],
+  "manifest_source": "git show 4b9e7e3:publication_manifest_sha256.csv",
+  "scope": "Old published file bytes and sizes, excluding the five authorized existing file edits; new files are covered by the final publication manifest."
+}

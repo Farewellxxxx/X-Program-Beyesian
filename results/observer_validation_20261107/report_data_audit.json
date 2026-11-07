@@ -1,0 +1,37 @@
+{
+  "status": "passed",
+  "official_cluster_rows_matched": 8,
+  "official_main_paired_rows_matched": 24,
+  "official_fixed_budget_rows_matched": 96,
+  "official_unsupported_rows_matched": 96,
+  "matched_interval_fields": [
+    "difference",
+    "lower_95",
+    "upper_95",
+    "lower_bonferroni",
+    "upper_bonferroni (where applicable)"
+  ],
+  "notes": "Exact agreement of report draft calculations with final official planned outputs; no additional inferential contrasts.",
+  "batches": [
+    {
+      "batch": "main",
+      "independent_passed": true,
+      "readouts": 73728,
+      "fields": 516096,
+      "exact_replay_trajectories": 1
+    },
+    {
+      "batch": "exploratory",
+      "independent_passed": true,
+      "readouts": 18432,
+      "fields": 129024,
+      "exact_replay_trajectories": 1
+    }
+  ],
+  "input_sha256": {
+    "results\\observer_validation_20261107\\cluster_analysis\\clustered_effects.jsonl": "df0a66137d509dac8521a643de169519dd7eb1b8592c0431fdb2fbd26e9b30b0",
+    "results\\observer_validation_20261107\\main_analysis\\paired_effects.jsonl": "6bb673d96b2ebd1d1ac7c59fcadb1b030719fb3f4069d2ede4a1ee0a546ef7ce",
+    "results\\observer_validation_20261107\\main_analysis\\fixed_budget.jsonl": "49603bb84759b62c9cf73482a31a6797bfe59fc61a521d80420984ca0119fe9e",
+    "results\\observer_validation_20261107\\exploratory_analysis\\fixed_budget.jsonl": "51ce545b8428e827a0447787e2807648f57cbf29c70c0af4c12619ad591817e6"
+  }
+}

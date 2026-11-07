@@ -1,0 +1,563 @@
+{
+  "version": 2,
+  "effective_config": {
+    "version": 2,
+    "study": {
+      "tau": 0.7,
+      "delta": 0.15,
+      "primary_budget": 30,
+      "max_budget": 60,
+      "checkpoints": [
+        10,
+        15,
+        20,
+        30,
+        40,
+        60
+      ],
+      "success_target": 0.8,
+      "calibration_n": 90,
+      "seed": 202611071,
+      "split": "heldout"
+    },
+    "participants": 256,
+    "population": {
+      "boundary_low": 0.5,
+      "boundary_high": 2.5,
+      "width_median": 0.7,
+      "width_log_sd": 0.35,
+      "lapse": 0.1
+    },
+    "sampler": {
+      "tau": 0.7,
+      "delta": 0.15,
+      "lower": 0.0,
+      "upper": 3.0,
+      "targets": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0,
+        1.1,
+        1.2,
+        1.3,
+        1.4,
+        1.5,
+        1.6,
+        1.7,
+        1.8,
+        1.9,
+        2.0,
+        2.1,
+        2.2,
+        2.3,
+        2.4,
+        2.5,
+        2.6,
+        2.7,
+        2.8,
+        2.9,
+        3.0
+      ],
+      "prior": {
+        "kind": "normal",
+        "center": 1.5,
+        "sd": 1.0,
+        "b_min": -1.5,
+        "b_max": 4.5,
+        "b_nodes": 241,
+        "k_min": 0.25,
+        "k_max": 40.0,
+        "k_nodes": 41,
+        "log_k_mean": 1.3862943611198906,
+        "log_k_sd": 0.7
+      },
+      "midpoint_nodes": 81,
+      "slope_nodes": 41,
+      "quadrature_nodes": 7,
+      "staircase": {
+        "initial": 0.6,
+        "floor": 0.15,
+        "start": 1.5,
+        "reversals_per_halving": 2
+      }
+    },
+    "methods": [
+      {
+        "id": "new_precision",
+        "sampler": "new_precision"
+      },
+      {
+        "id": "staircase",
+        "sampler": "staircase",
+        "staircase": {
+          "initial": 0.6,
+          "floor": 0.15,
+          "start": 1.5,
+          "reversals_per_halving": 2
+        }
+      },
+      {
+        "id": "ucb_tvcg",
+        "sampler": "ucb_tvcg"
+      }
+    ],
+    "scenarios": [
+      {
+        "id": "logistic_precise",
+        "family": "logistic",
+        "execution": {
+          "id": "precise",
+          "intercept": 0.0,
+          "gain": 1.0,
+          "sd": 0.03,
+          "lower": 0.0,
+          "upper": 3.0
+        },
+        "population": {
+          "boundary_low": 0.5,
+          "boundary_high": 2.5,
+          "width_median": 0.7,
+          "width_log_sd": 0.35,
+          "lapse": 0.1
+        },
+        "latent_group": "main",
+        "staircase_start": 1.5
+      },
+      {
+        "id": "logistic_variable",
+        "family": "logistic",
+        "execution": {
+          "id": "variable",
+          "intercept": 0.08,
+          "gain": 0.92,
+          "sd": 0.18,
+          "lower": 0.0,
+          "upper": 3.0
+        },
+        "population": {
+          "boundary_low": 0.5,
+          "boundary_high": 2.5,
+          "width_median": 0.7,
+          "width_log_sd": 0.35,
+          "lapse": 0.1
+        },
+        "latent_group": "main",
+        "staircase_start": 1.5
+      },
+      {
+        "id": "probit_precise",
+        "family": "probit",
+        "execution": {
+          "id": "precise",
+          "intercept": 0.0,
+          "gain": 1.0,
+          "sd": 0.03,
+          "lower": 0.0,
+          "upper": 3.0
+        },
+        "population": {
+          "boundary_low": 0.5,
+          "boundary_high": 2.5,
+          "width_median": 0.7,
+          "width_log_sd": 0.35,
+          "lapse": 0.1
+        },
+        "latent_group": "main",
+        "staircase_start": 1.5
+      },
+      {
+        "id": "probit_variable",
+        "family": "probit",
+        "execution": {
+          "id": "variable",
+          "intercept": 0.08,
+          "gain": 0.92,
+          "sd": 0.18,
+          "lower": 0.0,
+          "upper": 3.0
+        },
+        "population": {
+          "boundary_low": 0.5,
+          "boundary_high": 2.5,
+          "width_median": 0.7,
+          "width_log_sd": 0.35,
+          "lapse": 0.1
+        },
+        "latent_group": "main",
+        "staircase_start": 1.5
+      },
+      {
+        "id": "lapse_logistic_precise",
+        "family": "lapse_logistic",
+        "execution": {
+          "id": "precise",
+          "intercept": 0.0,
+          "gain": 1.0,
+          "sd": 0.03,
+          "lower": 0.0,
+          "upper": 3.0
+        },
+        "population": {
+          "boundary_low": 0.5,
+          "boundary_high": 2.5,
+          "width_median": 0.7,
+          "width_log_sd": 0.35,
+          "lapse": 0.1
+        },
+        "latent_group": "main",
+        "staircase_start": 1.5
+      },
+      {
+        "id": "lapse_logistic_variable",
+        "family": "lapse_logistic",
+        "execution": {
+          "id": "variable",
+          "intercept": 0.08,
+          "gain": 0.92,
+          "sd": 0.18,
+          "lower": 0.0,
+          "upper": 3.0
+        },
+        "population": {
+          "boundary_low": 0.5,
+          "boundary_high": 2.5,
+          "width_median": 0.7,
+          "width_log_sd": 0.35,
+          "lapse": 0.1
+        },
+        "latent_group": "main",
+        "staircase_start": 1.5
+      }
+    ],
+    "readouts": {
+      "factorial": false,
+      "stop_replay": true,
+      "ucb_oracle": true
+    },
+    "analysis": {
+      "bootstrap_draws": 20000,
+      "seed": 202611074,
+      "confidence": 0.95,
+      "bonferroni_scenarios": 6,
+      "sensitivity_deltas": [
+        0.1,
+        0.2
+      ]
+    }
+  },
+  "config_sha256": "0f75be21780d1ea8a638d628e27a64559132b5b699981f858c1df8adc6561bd7",
+  "source_hashes": {
+    "decoupled_calibration/__init__.py": "fbdf0734b3956fef6cf0a07bf5a293cb79a0a42df3682b3e8a911e600fd98105",
+    "decoupled_calibration/execution.py": "990ff7c013d628082e1f1a88073858e2ad86218222a84668d3fbbbc8f22a093d",
+    "decoupled_calibration/passenger.py": "9dcf7cbf1750b8e6ac6e399d5fc08abd49faddcd7a74aefe9a2725e2ea17d981",
+    "decoupled_calibration/policies.py": "b811d0aaea2751a6cc46335e2b963f3c639df84a4abd808c4a1b29ccdf2fd081",
+    "decoupled_calibration/public.py": "57a3033318924c02b73fb135dd2af7580b5a96aab09e64ceb74b36daff8a0756",
+    "finite_budget/__init__.py": "ae9d99b0cdabd6fd4fdde172022df433168252b474e51d074ba50c80ec284a55",
+    "finite_budget/acquisition.py": "bf2956101f6657aba45fbb791c52c3cb7258da9342dbf6996093cd272674a0b6",
+    "finite_budget/boundary_model.py": "713fc8ce944b05419a01b2f20b740fc1f0ef72b0d43366138677460aa99f9fba",
+    "finite_budget/contracts.py": "4cbc0fd57aa77d08f897a56fef965d14d1869cc29c90f464c09ec28f27482d76",
+    "finite_budget/metrics.py": "35e7a686b1b6ac6653a2e757a07d93c88a1f805ee25644e7399903312bc06bd7",
+    "finite_budget/population.py": "bdcefd38519ac1e0365e08292c13801222530388bdcb33f4678949ac1784d309",
+    "finite_budget/readouts.py": "6b8927bd17ba1990853d9d5e2fc2c8ac1fea2ec0f970e9cc63edc177c090e77f",
+    "finite_budget/samplers.py": "2195881f670dc58ba92ae64f83dcca90fc69e4b4c8d38a4bc514749c5716b0a7",
+    "finite_budget/study.py": "b33cdd998f4f80b1f5d7218d11239dc75e3233c84f417b25f4b59639c2e5c899",
+    "monotone_bayes.py": "8dcb8f59ae07ca1d9391d941083fd0e8844f320dc95cb4c4bf152e57a59ac6bf"
+  },
+  "analysis_source_hashes": {
+    "analysis.py": "5893fc16e301b124a54f06380a497b123bb7de9e68b6c6dec96c26b050eb37eb"
+  },
+  "selection": {
+    "selected": {
+      "initial": 0.6,
+      "floor": 0.15,
+      "start": 1.5,
+      "reversals_per_halving": 2
+    },
+    "selected_method": "staircase_i060_f015",
+    "candidates": [
+      {
+        "method": "staircase_i060_f015",
+        "staircase": {
+          "initial": 0.6,
+          "floor": 0.15,
+          "start": 1.5,
+          "reversals_per_halving": 2
+        },
+        "scenarios": [
+          {
+            "scenario": "logistic_precise",
+            "supported_success_rate": 0.8125,
+            "capped_mae": 0.09444746605701063
+          },
+          {
+            "scenario": "logistic_variable",
+            "supported_success_rate": 0.6875,
+            "capped_mae": 0.14797287351439892
+          },
+          {
+            "scenario": "probit_precise",
+            "supported_success_rate": 0.78125,
+            "capped_mae": 0.10654448405155575
+          },
+          {
+            "scenario": "probit_variable",
+            "supported_success_rate": 0.8125,
+            "capped_mae": 0.11691501635050794
+          },
+          {
+            "scenario": "lapse_logistic_precise",
+            "supported_success_rate": 0.71875,
+            "capped_mae": 0.10892988500716047
+          },
+          {
+            "scenario": "lapse_logistic_variable",
+            "supported_success_rate": 0.78125,
+            "capped_mae": 0.09764283463723557
+          }
+        ],
+        "supported_success_rate": 0.765625,
+        "capped_mae": 0.11207542660297821
+      },
+      {
+        "method": "staircase_i090_f010",
+        "staircase": {
+          "initial": 0.9,
+          "floor": 0.1,
+          "start": 1.5,
+          "reversals_per_halving": 2
+        },
+        "scenarios": [
+          {
+            "scenario": "logistic_precise",
+            "supported_success_rate": 0.84375,
+            "capped_mae": 0.10480961578966341
+          },
+          {
+            "scenario": "logistic_variable",
+            "supported_success_rate": 0.71875,
+            "capped_mae": 0.13761321830331594
+          },
+          {
+            "scenario": "probit_precise",
+            "supported_success_rate": 0.71875,
+            "capped_mae": 0.11892374069819152
+          },
+          {
+            "scenario": "probit_variable",
+            "supported_success_rate": 0.6875,
+            "capped_mae": 0.11880257781529516
+          },
+          {
+            "scenario": "lapse_logistic_precise",
+            "supported_success_rate": 0.75,
+            "capped_mae": 0.10723660547487478
+          },
+          {
+            "scenario": "lapse_logistic_variable",
+            "supported_success_rate": 0.625,
+            "capped_mae": 0.137992646202984
+          }
+        ],
+        "supported_success_rate": 0.7239583333333334,
+        "capped_mae": 0.12089640071405415
+      },
+      {
+        "method": "staircase_i090_f015",
+        "staircase": {
+          "initial": 0.9,
+          "floor": 0.15,
+          "start": 1.5,
+          "reversals_per_halving": 2
+        },
+        "scenarios": [
+          {
+            "scenario": "logistic_precise",
+            "supported_success_rate": 0.75,
+            "capped_mae": 0.1498755156134734
+          },
+          {
+            "scenario": "logistic_variable",
+            "supported_success_rate": 0.75,
+            "capped_mae": 0.10733969448720942
+          },
+          {
+            "scenario": "probit_precise",
+            "supported_success_rate": 0.78125,
+            "capped_mae": 0.1253994757793107
+          },
+          {
+            "scenario": "probit_variable",
+            "supported_success_rate": 0.75,
+            "capped_mae": 0.10936101191446002
+          },
+          {
+            "scenario": "lapse_logistic_precise",
+            "supported_success_rate": 0.625,
+            "capped_mae": 0.21071564802410334
+          },
+          {
+            "scenario": "lapse_logistic_variable",
+            "supported_success_rate": 0.65625,
+            "capped_mae": 0.1328880264053025
+          }
+        ],
+        "supported_success_rate": 0.71875,
+        "capped_mae": 0.13926322870397656
+      },
+      {
+        "method": "staircase_i030_f015",
+        "staircase": {
+          "initial": 0.3,
+          "floor": 0.15,
+          "start": 1.5,
+          "reversals_per_halving": 2
+        },
+        "scenarios": [
+          {
+            "scenario": "logistic_precise",
+            "supported_success_rate": 0.71875,
+            "capped_mae": 0.16341463365097597
+          },
+          {
+            "scenario": "logistic_variable",
+            "supported_success_rate": 0.71875,
+            "capped_mae": 0.104519187199068
+          },
+          {
+            "scenario": "probit_precise",
+            "supported_success_rate": 0.6875,
+            "capped_mae": 0.16273969915693326
+          },
+          {
+            "scenario": "probit_variable",
+            "supported_success_rate": 0.59375,
+            "capped_mae": 0.17109105317814838
+          },
+          {
+            "scenario": "lapse_logistic_precise",
+            "supported_success_rate": 0.84375,
+            "capped_mae": 0.16462903584865382
+          },
+          {
+            "scenario": "lapse_logistic_variable",
+            "supported_success_rate": 0.71875,
+            "capped_mae": 0.1676307450282309
+          }
+        ],
+        "supported_success_rate": 0.7135416666666666,
+        "capped_mae": 0.15567072567700171
+      },
+      {
+        "method": "staircase_i030_f010",
+        "staircase": {
+          "initial": 0.3,
+          "floor": 0.1,
+          "start": 1.5,
+          "reversals_per_halving": 2
+        },
+        "scenarios": [
+          {
+            "scenario": "logistic_precise",
+            "supported_success_rate": 0.625,
+            "capped_mae": 0.18807499642310058
+          },
+          {
+            "scenario": "logistic_variable",
+            "supported_success_rate": 0.875,
+            "capped_mae": 0.08143974472390764
+          },
+          {
+            "scenario": "probit_precise",
+            "supported_success_rate": 0.71875,
+            "capped_mae": 0.1604785776528222
+          },
+          {
+            "scenario": "probit_variable",
+            "supported_success_rate": 0.78125,
+            "capped_mae": 0.10507967761731585
+          },
+          {
+            "scenario": "lapse_logistic_precise",
+            "supported_success_rate": 0.59375,
+            "capped_mae": 0.16755824260343666
+          },
+          {
+            "scenario": "lapse_logistic_variable",
+            "supported_success_rate": 0.59375,
+            "capped_mae": 0.26422395297322765
+          }
+        ],
+        "supported_success_rate": 0.6979166666666666,
+        "capped_mae": 0.16114253199896844
+      },
+      {
+        "method": "staircase_i060_f010",
+        "staircase": {
+          "initial": 0.6,
+          "floor": 0.1,
+          "start": 1.5,
+          "reversals_per_halving": 2
+        },
+        "scenarios": [
+          {
+            "scenario": "logistic_precise",
+            "supported_success_rate": 0.71875,
+            "capped_mae": 0.14871415082209935
+          },
+          {
+            "scenario": "logistic_variable",
+            "supported_success_rate": 0.65625,
+            "capped_mae": 0.11133662050885751
+          },
+          {
+            "scenario": "probit_precise",
+            "supported_success_rate": 0.78125,
+            "capped_mae": 0.0964743410052979
+          },
+          {
+            "scenario": "probit_variable",
+            "supported_success_rate": 0.59375,
+            "capped_mae": 0.13018765397973667
+          },
+          {
+            "scenario": "lapse_logistic_precise",
+            "supported_success_rate": 0.59375,
+            "capped_mae": 0.15048558539262413
+          },
+          {
+            "scenario": "lapse_logistic_variable",
+            "supported_success_rate": 0.6875,
+            "capped_mae": 0.11440732953482251
+          }
+        ],
+        "supported_success_rate": 0.671875,
+        "capped_mae": 0.125267613540573
+      }
+    ],
+    "development_manifest_sha256": "d2604b742ca7f72d1dcf6e8b7a5d56a3482df6d0b0369d33c9e06f9eda7f63a5",
+    "development_config_sha256": "c482cb731f53cb3c8a6c9c96a299f04ede2676d53f59e1b8d0e8e351637a0bc3",
+    "rule": "A/Firth primary-budget scenario-equal supported success, capped MAE, smaller initial, smaller floor"
+  },
+  "diagnostics": {
+    "accepted": true,
+    "reason": "Before outcome development:241x41 vs481x81 and7vs15 passed all30 fixed-history comparisons after initial8 probability-tolerance failures.",
+    "resolution": {
+      "b_nodes": 241,
+      "k_nodes": 41,
+      "quadrature_nodes": 7
+    },
+    "artifact_path": "results/finite_budget_calibration_20261105/numerics/refined_241x41.json",
+    "deviations": [
+      "Initial121x41 grid failed S_delta .02 tolerance; globally refined before population outcome runs."
+    ],
+    "artifact_sha256": "80bc936dee51f3dc453225732388d7b94a86f595fff0536928456d3fe7600636"
+  }
+}

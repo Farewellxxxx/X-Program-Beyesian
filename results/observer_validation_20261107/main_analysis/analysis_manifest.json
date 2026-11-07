@@ -1,0 +1,58 @@
+{
+  "version": 2,
+  "input_dir": "E:\\study documents\\X program\\YY Wang\\.worktrees\\observer-validation-v3\\results\\observer_validation_20261107\\main",
+  "input_config_sha256": "0f75be21780d1ea8a638d628e27a64559132b5b699981f858c1df8adc6561bd7",
+  "input_source_hashes": {
+    "decoupled_calibration/__init__.py": "fbdf0734b3956fef6cf0a07bf5a293cb79a0a42df3682b3e8a911e600fd98105",
+    "decoupled_calibration/execution.py": "990ff7c013d628082e1f1a88073858e2ad86218222a84668d3fbbbc8f22a093d",
+    "decoupled_calibration/passenger.py": "9dcf7cbf1750b8e6ac6e399d5fc08abd49faddcd7a74aefe9a2725e2ea17d981",
+    "decoupled_calibration/policies.py": "b811d0aaea2751a6cc46335e2b963f3c639df84a4abd808c4a1b29ccdf2fd081",
+    "decoupled_calibration/public.py": "57a3033318924c02b73fb135dd2af7580b5a96aab09e64ceb74b36daff8a0756",
+    "finite_budget/__init__.py": "ae9d99b0cdabd6fd4fdde172022df433168252b474e51d074ba50c80ec284a55",
+    "finite_budget/acquisition.py": "bf2956101f6657aba45fbb791c52c3cb7258da9342dbf6996093cd272674a0b6",
+    "finite_budget/boundary_model.py": "713fc8ce944b05419a01b2f20b740fc1f0ef72b0d43366138677460aa99f9fba",
+    "finite_budget/contracts.py": "4cbc0fd57aa77d08f897a56fef965d14d1869cc29c90f464c09ec28f27482d76",
+    "finite_budget/metrics.py": "35e7a686b1b6ac6653a2e757a07d93c88a1f805ee25644e7399903312bc06bd7",
+    "finite_budget/population.py": "bdcefd38519ac1e0365e08292c13801222530388bdcb33f4678949ac1784d309",
+    "finite_budget/readouts.py": "6b8927bd17ba1990853d9d5e2fc2c8ac1fea2ec0f970e9cc63edc177c090e77f",
+    "finite_budget/samplers.py": "2195881f670dc58ba92ae64f83dcca90fc69e4b4c8d38a4bc514749c5716b0a7",
+    "finite_budget/study.py": "b33cdd998f4f80b1f5d7218d11239dc75e3233c84f417b25f4b59639c2e5c899",
+    "monotone_bayes.py": "8dcb8f59ae07ca1d9391d941083fd0e8844f320dc95cb4c4bf152e57a59ac6bf"
+  },
+  "actual_analysis_source_hashes": {
+    "analysis.py": "5893fc16e301b124a54f06380a497b123bb7de9e68b6c6dec96c26b050eb37eb"
+  },
+  "frozen_analysis_source_hashes": {
+    "analysis.py": "5893fc16e301b124a54f06380a497b123bb7de9e68b6c6dec96c26b050eb37eb"
+  },
+  "input_artifact_sha256": {
+    "calibrations.jsonl": "a257821cf3ab9ffec20c3ac688141b977b9b736da1272a78c3ac3347ee95293b",
+    "checkpoints.jsonl": "8bd8c94ce2875051409d102caa60cae28fc98d0ecf3525342a33bc3d1d9ffb44",
+    "diagnostics.jsonl": "6f5e8a4049d17a902ef5869cad1dd47a977bafc8f85757af1e1c5f8c49c8d9f3",
+    "effective_config.json": "a3a45880482e17858c258f0bc0452bf1970ebb2622f4a351a0d6c9b19a4e0f04",
+    "freeze.json": "af2800e464f4a4959ed2cc224409eef6056f664867a6d3f73bd40b5cbdfa47b6",
+    "manifest.json": "c6d390db6a799129212bc2c17f30031c8637a75f7c41093691170f56ff2fa557",
+    "observations.jsonl": "8e9754fe028af83e8065517d56b6e466fec49fa67e084020f69298aa9972316c",
+    "oracle_numerics.json": "379f440505ee32fcf19e6c449f59a4609768ba0d2a443d71ff11b56be0cda0b3",
+    "participants.jsonl": "694a2527705a34298bb5beaa3209f1b3f89a3290fb11b5d13101399378bbdcc8",
+    "source_hashes.json": "b1fa0c3d78c3b9cc0e9ce7a88d98965fd50d992d6b3217c5da78a3c18334a83f",
+    "stops.jsonl": "bb0a310e14e7c4e3c846acf7c293bf4a083a8c757c5078244a4eec107064a266"
+  },
+  "primary_budget": 30,
+  "delta": 0.15,
+  "success_target": 0.8,
+  "participants_per_scenario": 256,
+  "condition_cases": 1536,
+  "independent_latent_draws": 256,
+  "feedback_count": 276480,
+  "separate_calibration_count": 46080,
+  "bootstrap_draws": 20000,
+  "confidence": 0.95,
+  "bonferroni_confidence": 0.9916666666666667,
+  "evidence_scope": "heldout_confirmatory",
+  "adjustment_scope": "six main scenarios only",
+  "independent_readouts_reconstructed": false,
+  "all_outcome_classifications_recomputed": true,
+  "sensitivity": "same frozen trajectory and fixed point estimate; precision readers retain primary z_.15; tolerance only",
+  "plots": []
+}

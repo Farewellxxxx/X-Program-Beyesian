@@ -1,0 +1,91 @@
+{
+  "status": "passed",
+  "utc_timestamp": "2026-11-07T10:59:39.181214+00:00",
+  "scope": "Final provenance and completed-audit checks; no simulation rerun or new statistical test.",
+  "checks": [
+    {
+      "check": "pre-sampling artifacts unchanged",
+      "entries": 11
+    },
+    {
+      "check": "protected scientific sources unchanged",
+      "entries": 12
+    },
+    {
+      "check": "pre-outcome design and configs unchanged",
+      "entries": 3
+    },
+    {
+      "check": "observer audit source provenance",
+      "entries": 3
+    },
+    {
+      "check": "curve generator provenance",
+      "entries": 3
+    },
+    {
+      "check": "main frozen scientific source provenance",
+      "entries": 15
+    },
+    {
+      "check": "main frozen analysis source provenance",
+      "entries": 1
+    },
+    {
+      "check": "main analysis input provenance",
+      "entries": 11
+    },
+    {
+      "check": "main independent audit input provenance",
+      "entries": 11
+    },
+    {
+      "check": "main numerical audit input provenance",
+      "entries": 11
+    },
+    {
+      "check": "exploratory frozen scientific source provenance",
+      "entries": 15
+    },
+    {
+      "check": "exploratory frozen analysis source provenance",
+      "entries": 1
+    },
+    {
+      "check": "exploratory analysis input provenance",
+      "entries": 11
+    },
+    {
+      "check": "exploratory independent audit input provenance",
+      "entries": 11
+    },
+    {
+      "check": "exploratory numerical audit input provenance",
+      "entries": 11
+    },
+    {
+      "check": "cluster analysis input provenance",
+      "entries": 11
+    },
+    {
+      "check": "cluster analysis source provenance",
+      "entries": 4
+    },
+    {
+      "check": "cluster analysis output provenance",
+      "entries": 1
+    }
+  ],
+  "totals": {
+    "feedback": 345600,
+    "calibration": 69120,
+    "readouts_reconstructed": 92160,
+    "fields_reconstructed": 645120
+  },
+  "cluster_count": 256,
+  "legacy_entries_unchanged": 715,
+  "bounded_replays": {
+    "main": 1,
+    "exploratory": 1
+  }
+}

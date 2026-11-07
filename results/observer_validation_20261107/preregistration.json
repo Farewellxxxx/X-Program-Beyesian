@@ -1,0 +1,113 @@
+{
+  "status": "predeclared_before_fresh_outcomes",
+  "base_commit": "4b9e7e3",
+  "planning_input_sha256": "b9aa0e3972e26246f77228e2df813e02522b62ef7e453461ebdcffee3b3b8fc1",
+  "planning": [
+    {
+      "track": "pipeline",
+      "scenarios": [
+        {
+          "scenario": "lapse_logistic_precise",
+          "sd": 0.5413511093754655,
+          "discordance": 0.296875
+        },
+        {
+          "scenario": "lapse_logistic_variable",
+          "sd": 0.6421371030045827,
+          "discordance": 0.4140625
+        },
+        {
+          "scenario": "logistic_precise",
+          "sd": 0.561597044291973,
+          "discordance": 0.3203125
+        },
+        {
+          "scenario": "logistic_variable",
+          "sd": 0.5461028716795884,
+          "discordance": 0.296875
+        },
+        {
+          "scenario": "probit_precise",
+          "sd": 0.5096871628136301,
+          "discordance": 0.2578125
+        },
+        {
+          "scenario": "probit_variable",
+          "sd": 0.460015405425021,
+          "discordance": 0.21875
+        }
+      ],
+      "cluster_sd": 0.20976786293683042,
+      "planned_n": 256,
+      "approximate_95_halfwidth": 0.025696563209761727
+    },
+    {
+      "track": "common",
+      "scenarios": [
+        {
+          "scenario": "lapse_logistic_precise",
+          "sd": 0.4934985779682581,
+          "discordance": 0.2421875
+        },
+        {
+          "scenario": "lapse_logistic_variable",
+          "sd": 0.6199103789684085,
+          "discordance": 0.3828125
+        },
+        {
+          "scenario": "logistic_precise",
+          "sd": 0.5496397352654528,
+          "discordance": 0.3046875
+        },
+        {
+          "scenario": "logistic_variable",
+          "sd": 0.5392447875917595,
+          "discordance": 0.2890625
+        },
+        {
+          "scenario": "probit_precise",
+          "sd": 0.49975387643106284,
+          "discordance": 0.25
+        },
+        {
+          "scenario": "probit_variable",
+          "sd": 0.44809307244678886,
+          "discordance": 0.203125
+        }
+      ],
+      "cluster_sd": 0.2071653611891728,
+      "planned_n": 256,
+      "approximate_95_halfwidth": 0.02537775674567367
+    }
+  ],
+  "main_seed": 202611071,
+  "exploratory_seed": 202611072,
+  "observer_mc_seed": 202611073,
+  "cluster_bootstrap_seed": 202611075,
+  "main_participants": 256,
+  "exploratory_participants": 64,
+  "main_feedback": 276480,
+  "exploratory_feedback": 69120,
+  "expected_main_calibration": 46080,
+  "expected_exploratory_calibration": 23040,
+  "protected_source_hashes": {
+    "decoupled_calibration/__init__.py": "fbdf0734b3956fef6cf0a07bf5a293cb79a0a42df3682b3e8a911e600fd98105",
+    "decoupled_calibration/execution.py": "990ff7c013d628082e1f1a88073858e2ad86218222a84668d3fbbbc8f22a093d",
+    "decoupled_calibration/policies.py": "b811d0aaea2751a6cc46335e2b963f3c639df84a4abd808c4a1b29ccdf2fd081",
+    "decoupled_calibration/public.py": "57a3033318924c02b73fb135dd2af7580b5a96aab09e64ceb74b36daff8a0756",
+    "finite_budget/__init__.py": "ae9d99b0cdabd6fd4fdde172022df433168252b474e51d074ba50c80ec284a55",
+    "finite_budget/acquisition.py": "bf2956101f6657aba45fbb791c52c3cb7258da9342dbf6996093cd272674a0b6",
+    "finite_budget/boundary_model.py": "713fc8ce944b05419a01b2f20b740fc1f0ef72b0d43366138677460aa99f9fba",
+    "finite_budget/contracts.py": "4cbc0fd57aa77d08f897a56fef965d14d1869cc29c90f464c09ec28f27482d76",
+    "finite_budget/metrics.py": "35e7a686b1b6ac6653a2e757a07d93c88a1f805ee25644e7399903312bc06bd7",
+    "finite_budget/readouts.py": "6b8927bd17ba1990853d9d5e2fc2c8ac1fea2ec0f970e9cc63edc177c090e77f",
+    "finite_budget/samplers.py": "2195881f670dc58ba92ae64f83dcca90fc69e4b4c8d38a4bc514749c5716b0a7",
+    "monotone_bayes.py": "8dcb8f59ae07ca1d9391d941083fd0e8844f320dc95cb4c4bf152e57a59ac6bf"
+  },
+  "files": {
+    "docs\\superpowers\\specs\\2026-11-07-observer-validation-design.md": "65e077e9e6771d1cbbcadacb354bebe7ed455f792d8abb1af70647a9222c979b",
+    "configs\\observer_validation_main.json": "a3a45880482e17858c258f0bc0452bf1970ebb2622f4a351a0d6c9b19a4e0f04",
+    "configs\\observer_validation_exploratory.json": "8ece5ca9c2920e91754873d4c2c8262096fb2c4cf47aa2b1372b922696ddbc53"
+  },
+  "pre_outcome_amendment": "Replace fresh lapse.20 pair with matched logistic baseline pair; all four shape scenarios share B/W and execution calibration. Same6scenarios,n64,seed,feedbackbudget; no new outcome inspected."
+}

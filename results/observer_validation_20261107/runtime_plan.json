@@ -1,0 +1,14 @@
+{
+  "purpose": "runtime only; never confirmatory or used to extend samples",
+  "seed": 202611079,
+  "participants": 6,
+  "scenarios": 6,
+  "methods": 3,
+  "max_budget": 60,
+  "feedback": 6480,
+  "calibration": 1080,
+  "workers": 6,
+  "blas_threads": 1,
+  "source": "same new frozen implementation; main/exploratory sample counts immutable",
+  "timing_use": "schedule and worker count only; no scientific config changes"
+}

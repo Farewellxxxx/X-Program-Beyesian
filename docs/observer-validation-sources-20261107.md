@@ -10,13 +10,15 @@
 |python-psignifit|[d244370bac3081acdbb53e291942f433093eac40](https://github.com/wichmann-lab/python-psignifit/tree/d244370bac3081acdbb53e291942f433093eac40)|`psignifit/sigmoids.py` 的 Gaussian、Logistic、Gumbel 分别对应 SciPy norm、logistic、gumbel_l|默认正确率阈值、猜测率或宽度定义可以原样搬到接受度任务|
 |psignifit MATLAB 研究代码|[5f7241f6288c7dd3e1b34353118ca919ad28e51b](https://github.com/wichmann-lab/psignifit/tree/5f7241f6288c7dd3e1b34353118ca919ad28e51b)|`simulate_data.m` 区分静态、学习、波动、顺序依赖等观察者；提醒我们识别静态模型的局限|这些动态效应已经在本项目乘客中测得；本轮不引入这些机制|
 |Schütt 等，2016，Vision Research|[原论文 DOI](https://doi.org/10.1016/j.visres.2016.02.002)|讨论心理测量曲线及超二项变异下的不确定性估计|仅增加独立逐次噪声即可代表所有跨试次状态变化|
+|Wichmann 与 Hill，2001，Perception & Psychophysics|[原论文：The psychometric function I](https://courses.washington.edu/matlab1/pdf/Wichmann_Hill_2001a.pdf)|将阈值、斜率、刺激无关的偶发错误与拟合优度分开考虑；忽略偶发错误可能影响估计|论文中的观察者 lapse 数值适用于乘客；少量回答足以准确识别个人 lapse|
+|Owen 等，2021，Adaptive Nonparametric Psychophysics|[作者论文](https://arxiv.org/abs/2104.09549)|AEPsych 的自适应心理物理建模与针对阈值的主动采样背景|其多维感知任务结果已经证明本项目的一维接受度算法优胜|
 |PsychoPy QUEST|[官方接口](https://psychopy.org/api/data.html#psychopy.data.QuestHandler)|提供模拟回答接口；明确 Weibull、猜测率和目标概率的任务含义|二选一任务的 50% 猜测下限适用于“能否接受”|
 
 AEPsych 的部分听觉测试函数用真实听力数据构造阈值，见该固定版本的 `benchmark/test_functions.py`。本项目借鉴“用实测约束模拟”的原则，不移植听力参数。AEPsych 是实验设计与建模框架；psignifit 的 Python 包主要是拟合工具，都不是经过乘车接受度验证的预训练模拟人。
 
 ## 本轮独立参照的含义
 
-生产代码保留已有 NumPy／标准库概率公式，参考核验由 SciPy 1.13.1 的独立分布实现及解析反算组成。参考脚本必须自行构造位置、尺度与反射，不能调用生产概率函数来构造预期值。应记录实际库版本与所用模块哈希；通过该核验意味着数值和参数定义一致，不等于获得人体效度。
+生产代码保留已有 NumPy／标准库概率公式，参考核验由 SciPy 1.13.1 的独立分布实现及解析反算组成。参考脚本必须自行构造位置、尺度与反射，不能调用生产概率函数来构造预期值。应记录实际库版本与所用模块哈希；通过该核验意味着数值和参数定义一致，不等于获得人体效度。版本明确的接口说明见 [Gumbel](https://docs.scipy.org/doc/scipy-1.13.1/reference/generated/scipy.stats.gumbel_l.html) 与 [Bernoulli](https://docs.scipy.org/doc/scipy-1.13.1/reference/generated/scipy.stats.bernoulli.html)。
 
 不复制 psignifit 源码到运行模块。该包代码为 GPL-3.0-or-later；本轮借鉴已公开的数学定义、引用原始来源，并使用项目已有 SciPy 做独立参照，不新增完整 AEPsych／psignifit 运行依赖。
 

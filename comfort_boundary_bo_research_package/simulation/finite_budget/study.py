@@ -108,7 +108,7 @@ def effective_config(config):
     for r in config.get('scenarios',default_scenarios):
         _strict(r,('id','family','execution','population','latent_group','staircase_start'),'scenario')
         sid=r.get('id'); family=r.get('family'); ex=r.get('execution'); group=r.get('latent_group','main')
-        if not isinstance(sid,str) or not re.fullmatch('[a-z0-9_]+',sid) or family not in ('logistic','probit','lapse_logistic'): raise ValueError('invalid scenario')
+        if not isinstance(sid,str) or not re.fullmatch('[a-z0-9_]+',sid) or family not in ('logistic','probit','lapse_logistic','gumbel'): raise ValueError('invalid scenario')
         if not isinstance(group,str) or not re.fullmatch('[a-z0-9_]+',group): raise ValueError('invalid latent group')
         if isinstance(ex,str):
             if ex not in EXECUTIONS: raise ValueError('unknown execution condition')

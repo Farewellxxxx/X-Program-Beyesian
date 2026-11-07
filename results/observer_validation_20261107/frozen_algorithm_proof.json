@@ -1,0 +1,84 @@
+{
+  "status": "passed",
+  "baseline_commit": "4b9e7e3",
+  "protected_files": 12,
+  "allowed_existing_source_changes": [
+    "decoupled_calibration/passenger.py",
+    "finite_budget/population.py",
+    "finite_budget/study.py (family allowlist only)"
+  ],
+  "files": [
+    {
+      "path": "decoupled_calibration/__init__.py",
+      "baseline_sha256": "fbdf0734b3956fef6cf0a07bf5a293cb79a0a42df3682b3e8a911e600fd98105",
+      "current_sha256": "fbdf0734b3956fef6cf0a07bf5a293cb79a0a42df3682b3e8a911e600fd98105",
+      "unchanged": true
+    },
+    {
+      "path": "decoupled_calibration/execution.py",
+      "baseline_sha256": "990ff7c013d628082e1f1a88073858e2ad86218222a84668d3fbbbc8f22a093d",
+      "current_sha256": "990ff7c013d628082e1f1a88073858e2ad86218222a84668d3fbbbc8f22a093d",
+      "unchanged": true
+    },
+    {
+      "path": "decoupled_calibration/policies.py",
+      "baseline_sha256": "b811d0aaea2751a6cc46335e2b963f3c639df84a4abd808c4a1b29ccdf2fd081",
+      "current_sha256": "b811d0aaea2751a6cc46335e2b963f3c639df84a4abd808c4a1b29ccdf2fd081",
+      "unchanged": true
+    },
+    {
+      "path": "decoupled_calibration/public.py",
+      "baseline_sha256": "57a3033318924c02b73fb135dd2af7580b5a96aab09e64ceb74b36daff8a0756",
+      "current_sha256": "57a3033318924c02b73fb135dd2af7580b5a96aab09e64ceb74b36daff8a0756",
+      "unchanged": true
+    },
+    {
+      "path": "finite_budget/__init__.py",
+      "baseline_sha256": "ae9d99b0cdabd6fd4fdde172022df433168252b474e51d074ba50c80ec284a55",
+      "current_sha256": "ae9d99b0cdabd6fd4fdde172022df433168252b474e51d074ba50c80ec284a55",
+      "unchanged": true
+    },
+    {
+      "path": "finite_budget/acquisition.py",
+      "baseline_sha256": "bf2956101f6657aba45fbb791c52c3cb7258da9342dbf6996093cd272674a0b6",
+      "current_sha256": "bf2956101f6657aba45fbb791c52c3cb7258da9342dbf6996093cd272674a0b6",
+      "unchanged": true
+    },
+    {
+      "path": "finite_budget/boundary_model.py",
+      "baseline_sha256": "713fc8ce944b05419a01b2f20b740fc1f0ef72b0d43366138677460aa99f9fba",
+      "current_sha256": "713fc8ce944b05419a01b2f20b740fc1f0ef72b0d43366138677460aa99f9fba",
+      "unchanged": true
+    },
+    {
+      "path": "finite_budget/contracts.py",
+      "baseline_sha256": "4cbc0fd57aa77d08f897a56fef965d14d1869cc29c90f464c09ec28f27482d76",
+      "current_sha256": "4cbc0fd57aa77d08f897a56fef965d14d1869cc29c90f464c09ec28f27482d76",
+      "unchanged": true
+    },
+    {
+      "path": "finite_budget/metrics.py",
+      "baseline_sha256": "35e7a686b1b6ac6653a2e757a07d93c88a1f805ee25644e7399903312bc06bd7",
+      "current_sha256": "35e7a686b1b6ac6653a2e757a07d93c88a1f805ee25644e7399903312bc06bd7",
+      "unchanged": true
+    },
+    {
+      "path": "finite_budget/readouts.py",
+      "baseline_sha256": "6b8927bd17ba1990853d9d5e2fc2c8ac1fea2ec0f970e9cc63edc177c090e77f",
+      "current_sha256": "6b8927bd17ba1990853d9d5e2fc2c8ac1fea2ec0f970e9cc63edc177c090e77f",
+      "unchanged": true
+    },
+    {
+      "path": "finite_budget/samplers.py",
+      "baseline_sha256": "2195881f670dc58ba92ae64f83dcca90fc69e4b4c8d38a4bc514749c5716b0a7",
+      "current_sha256": "2195881f670dc58ba92ae64f83dcca90fc69e4b4c8d38a4bc514749c5716b0a7",
+      "unchanged": true
+    },
+    {
+      "path": "monotone_bayes.py",
+      "baseline_sha256": "8dcb8f59ae07ca1d9391d941083fd0e8844f320dc95cb4c4bf152e57a59ac6bf",
+      "current_sha256": "8dcb8f59ae07ca1d9391d941083fd0e8844f320dc95cb4c4bf152e57a59ac6bf",
+      "unchanged": true
+    }
+  ]
+}

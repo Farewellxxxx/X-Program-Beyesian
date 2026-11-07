@@ -33,10 +33,13 @@ def draw_latents(n,spec,rng):
 def passenger_from_latent(B,W,family,tau=.70,lapse=.10):
     if not math.isfinite(B) or not math.isfinite(W) or W<=0:
         raise ValueError('finite B and positive W required')
-    if family not in ('logistic','probit','lapse_logistic'):
+    if family not in ('logistic','probit','lapse_logistic','gumbel'):
         raise ValueError('unknown passenger family')
     if not math.isfinite(lapse) or not 0<=lapse<.4:
         raise ValueError('lapse must permit both .2 and .8 crossings')
+    if family == 'gumbel':
+        span = math.log(-math.log(.2)) - math.log(-math.log(.8))
+        return Passenger(float(B), family, span / float(W), 0., tau)
     lam=lapse if family=='lapse_logistic' else 0.
     inv=NormalDist().inv_cdf if family=='probit' else lambda q:math.log(q/(1-q))
     q2=(.2-lam/2)/(1-lam); q8=(.8-lam/2)/(1-lam)
@@ -45,6 +48,8 @@ def passenger_from_latent(B,W,family,tau=.70,lapse=.10):
 
 
 def local_derivative(passenger):
+    if passenger.family == 'gumbel':
+        return passenger.slope * (passenger.tau * math.log(passenger.tau))
     q=(passenger.tau-passenger.lapse/2)/(1-passenger.lapse)
     density=(math.exp(-.5*NormalDist().inv_cdf(q)**2)/math.sqrt(2*math.pi)
              if passenger.family=='probit' else q*(1-q))

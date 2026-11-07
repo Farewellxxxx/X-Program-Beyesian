@@ -1,5 +1,22 @@
 # 版本保存点与恢复方法
 
+## 2026-11-07：模拟人外部验证前的完整 v2
+
+- 固定附注标签：`baseline-finite-budget-v2-20261107`。
+- 提交：`4b9e7e3f93c2f0e98f1a42c5ab0cd7b363aa5bf3`。
+- [查看完整 v2 保存点](https://github.com/Farewellxxxx/X-Program-Beyesian/tree/baseline-finite-budget-v2-20261107)。标签已于本轮正式实验前推送；GitHub API 核对标签对象 `1ec7ea2e883c68678bc44150eeca89382099d125` 指向上述提交，远端 main 与 v2 分支均保持原提交。
+- v2 分支 `research/finite-budget-v2` 与本机 `.worktrees/finite-budget-v2` 保持原提交；代码、配置、原结果均保留。
+- 本轮工作分支为 `research/observer-validation-v3-study`，可写工作目录为 `E:/study documents/X program/YY Wang/.worktrees/observer-validation-v3`。`main` 保持 v1。
+
+要恢复 v2，请新建副本，不需要重置当前工作。下列目标目录须尚未存在：
+
+```powershell
+git -C 'E:/study documents/X program/YY Wang/.publish/X-Program-Beyesian' fetch origin --tags
+git -C 'E:/study documents/X program/YY Wang/.publish/X-Program-Beyesian' worktree add --detach 'E:/study documents/X program/YY Wang/.worktrees/restored-v2' baseline-finite-budget-v2-20261107
+```
+
+若需继续修改恢复后的版本，可在新目录执行 `git switch -c research/from-preserved-v2`。本轮不移动或覆盖 v1、v2 保存标签。Git 只能恢复已跟踪文件；本地未纳入仓库的个人材料不属于这些保存点。
+
 ## 已保存的完整 v1
 
 用户要求在尝试有限预算新方案前保留的版本是：
